@@ -9,7 +9,11 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginHeaderComponent } from './login-header/login-header.component';
-
+import { PlayerComponent } from './components/player/player.component';
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
 
 @NgModule({
   declarations: [
@@ -18,11 +22,16 @@ import { LoginHeaderComponent } from './login-header/login-header.component';
     HomeComponent,
     MenuComponent,
     FooterComponent,
-    LoginHeaderComponent
+    LoginHeaderComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
