@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginHeaderComponent } from './login-header/login-header.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,11 +19,12 @@ import { LoginHeaderComponent } from './login-header/login-header.component';
     HomeComponent,
     MenuComponent,
     FooterComponent,
-    LoginHeaderComponent
+    LoginHeaderComponent    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
