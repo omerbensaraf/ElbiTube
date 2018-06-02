@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-
+import {VgAPI} from 'videogular2/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +14,9 @@ import {VgCoreModule} from 'videogular2/core';
 import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
+import { MediaApiService } from './services/media-api.services';
+import { ImageComponent } from './components/image/image.component';
+import { LikeComponent } from './components/like/like.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,9 @@ import {VgBufferingModule} from 'videogular2/buffering';
     MenuComponent,
     FooterComponent,
     LoginHeaderComponent,
-    PlayerComponent
+    PlayerComponent,
+    ImageComponent,
+    LikeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ import {VgBufferingModule} from 'videogular2/buffering';
     VgOverlayPlayModule,
     VgBufferingModule
   ],
-  providers: [],
+  providers: [VgAPI,MediaApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

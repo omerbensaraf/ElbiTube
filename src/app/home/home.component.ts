@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { IMedia } from '../models/imadia.model';
+import {MediaApiService} from '../services/media-api.services';
 
-export interface IMedia {
-  title: string;
-  src: string;
-  type: string;
-  imageSrc : String;
-  
-}
+
 
 @Component({
   selector: 'app-home',
@@ -22,32 +18,22 @@ export interface IMedia {
     '../css/style.mincbed.css'
   ]
 })
-export class HomeComponent implements OnInit {
-  playlist: Array<IMedia> = [
-    {
-        title: 'Pale Blue Dot',
-        src: 'http://static.videogular.com/assets/videos/videogular.mp4',
-        type: 'video/mp4',
-        imageSrc : "./assets/images/banner-1.jpg"
-    },
-    {
-        title: 'Big Buck Bunny',
-        src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
-        type: 'video/mp4',
-        imageSrc : "./assets/images/banner-2.jpg"
-    },
-    {
-        title: 'Elephants Dream',
-        src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
-        type: 'video/mp4',
-        imageSrc : "./assets/images/banner-3.jpg"
-    }
-];
 
-  currentIndex = 0;
-  currentItem: IMedia = this.playlist[ this.currentIndex ];
-  
-  constructor() { }
+export class HomeComponent implements OnInit {
+  playlist: Array<IMedia> = []
+    
+  currentIndex : number;
+  currentItem : IMedia;
+
+  ngOnInit() {
+    debugger;
+    //this.mediaService.httpGetMedia().subscribe((data) => { debugger; this.playlist = data});  
+    this.playlist = this.mediaService.httpGetMedia();
+    this.currentIndex = 0;
+    this.currentItem = this.playlist[ this.currentIndex ];  
+    }
+      
+  constructor(private mediaService : MediaApiService) { }
 
   onVideoEnded(){
     debugger;
@@ -57,9 +43,7 @@ export class HomeComponent implements OnInit {
     }
     this.currentItem = this.playlist[ this.currentIndex ];
   }
-  ngOnInit() {
-  }
-
+  
   onClickPlaylistItem(item: IMedia, index : number) {
     debugger;
     this.currentIndex = index;
