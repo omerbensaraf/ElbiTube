@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const User = require('./models/users');
 const Video = require('./models/videos');
 const cors = require('cors');
-
 // Set The Storage Engine
 const storage = multer.diskStorage({
     destination: './public/uploads/',
