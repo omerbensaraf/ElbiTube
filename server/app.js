@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const User = require('./models/users');
 const Video = require('./models/videos');
+const cors = require('cors');
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
@@ -36,6 +37,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Public Folder
 app.use(express.static('./public'));
+
+// Use Cross Origin Resource Sharing
+app.use(cors());
 
 // Connect to DB
 mongoose.connect('mongodb://localhost/db');
