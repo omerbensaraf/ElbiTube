@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UsersService} from '../services/users.service';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string = '';
   isShowModalClass: boolean = true;
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit() {
   }
@@ -70,9 +72,10 @@ export class LoginComponent implements OnInit {
       isFormValid = false;
     }
     if (isFormValid) {
-      //1. Perfrom rest call to login
-      //2. close modal
-      this.hideShowSignInModal(false);
+      this.usersService.login(this.email, this.password).subscribe(
+        (data) => { this.hideShowSignInModal(false); },
+        (error) => {console.log(error)}        
+      )      
     }
   }
 }
