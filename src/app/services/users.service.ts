@@ -11,12 +11,19 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string) {
+  signIn(email: string, password: string) {
     const request = {
       email: email,
       password: password
     };
-    return this.http.post('/login', request);
+    return this.http.post('/signIn', request);
   }
 
+  signUp(email: string, password: string) {
+    const request = {
+      email: email,
+      password: password
+    };
+    return this.http.post('/signUp', request);
+  }
 }

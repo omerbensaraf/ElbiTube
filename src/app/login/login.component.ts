@@ -11,10 +11,16 @@ export class LoginComponent implements OnInit {
 
   email: string = '';
   password: string = '';
+  repeatPassord = '';
   errorMessage: string = '';
   isShowModalClass: boolean = true;
+  pageMode: string = ''; // Page modes can be: signIn and SignUp
+  pageTitle: string = '';
+  mainButtonText: string = '';
 
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) { 
+    this.setPageMode('signIn');
+  }
 
   ngOnInit() {
   }
@@ -39,6 +45,18 @@ export class LoginComponent implements OnInit {
     return myStyles;
   }  
 
+  getPasswordInputStyle() {
+    let myStyles: Object = {};
+    if (this.pageMode === 'signIn') {
+      myStyles['margin-bottom'] = '';
+      myStyles['border-bottom-width'] = '';
+    } else {
+      myStyles['margin-bottom'] = '0px';
+      myStyles['border-bottom-width'] = '0px';      
+    }
+    return myStyles;    
+  }
+  
   isEmailNameValid(): boolean {
     const isValid: boolean = false;
     if (this.email.length > 0) {
@@ -61,21 +79,72 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSignIn() {
+  setPageMode(pageMode: string): void {
+    this.errorMessage = '';
+    if (pageMode === 'signIn') {
+      this.pageMode = 'signIn';
+      this.pageTitle = 'Please sign in';
+      this.mainButtonText = 'Sign in';
+    } else {
+      this.pageMode = 'signUp';
+      this.pageTitle = 'Sign up';
+      this.mainButtonText = 'Sign up';
+    }
+  }
+  onMainButtonClicked(): void {
+    if (this.pageMode === 'signIn') {
+      this.onSignIn();
+    } else {
+      this.onSignUp();
+    }
+  }
+
+  onSignIn(): void {
     this.errorMessage = '';
     let isFormValid: boolean = true;
     if (!this.isEmailNameValid()) {
-      this.errorMessage = 'Please enter a valid email';
+      this.errorMessage = 'Please enter a valid elbit email';
       isFormValid = false;
     } else if (!this.isPasswordValid()) {
       this.errorMessage = 'Please enter a valid password';
       isFormValid = false;
     }
     if (isFormValid) {
-      this.usersService.login(this.email, this.password).subscribe(
+      this.usersService.signIn(this.email, this.password).subscribe(
         (data) => { this.hideShowSignInModal(false); },
-        (error) => {console.log(error)}        
+        (error) => {
+          this.errorMessage = 'Authentication failed';
+          this.password = '';
+          this.email = '';
+        }
       )      
     }
   }
+
+  onSignUp(): void {
+    this.errorMessage = '';
+    let isFormValid: boolean = true;
+    if (!this.isEmailNameValid()) {
+      this.errorMessage = 'Please enter a valid elbit email';
+      isFormValid = false;
+    } else if (!this.isPasswordValid()) {
+      this.errorMessage = 'Please enter a valid password';
+      isFormValid = false;
+    } else if (this.repeatPassord === '' || this.repeatPassord !== this.password) {
+      this.errorMessage = 'Passwords are not match';
+      isFormValid = false;        
+    }
+
+    if (isFormValid) {
+      this.usersService.signUp(this.email, this.password).subscribe(
+        (data) => { this.hideShowSignInModal(false); },
+        (error) => {
+          this.errorMessage = 'Authentication failed';
+          this.password = '';
+          this.email = '';
+          this.repeatPassord = '';
+        }
+      )      
+    }
+  }    
 }
