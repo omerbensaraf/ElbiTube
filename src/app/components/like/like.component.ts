@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IMedia, Updates } from '../../models/imadia.model';
-import {MediaApiService} from '../../services/media-api.services';
+import {MediaService} from '../../services/media.service';
 
 @Component({
   selector: 'app-like',
@@ -21,7 +21,7 @@ export class LikeComponent implements OnInit {
   updates : Updates;
 
 
-  constructor(private mediaService : MediaApiService) { 
+  constructor(private mediaService : MediaService) { 
     this.likeSelected = false;
     this.likeImg = "./assets/images/like.png";
     this.likeCounter = 0;

@@ -10,11 +10,11 @@ import {EventEmitter} from '@angular/core';
 export class PlayerComponent {
 
   preload: string = 'auto';
-  //api:VgAPI;
+  api:VgAPI;
   @Input() videoUrl :String;
   @Output() onEnded:EventEmitter<any> = new EventEmitter();
 
-    constructor(private api:VgAPI) {}
+    constructor() {}
     onPlayerReady(api:VgAPI) {
       debugger;
       this.api = api;

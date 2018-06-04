@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaService } from '../services/media.service';
 import { IMedia } from '../models/imadia.model';
-import {MediaApiService} from '../services/media-api.services';
-
-
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,36 +16,38 @@ import {MediaApiService} from '../services/media-api.services';
     '../css/style.mincbed.css'
   ]
 })
-
 export class HomeComponent implements OnInit {
-  playlist: Array<IMedia> = []
-    
-  currentIndex : number;
-  currentItem : IMedia;
+  playList: Array<IMedia>;
+  currentIndex: number;
+  currentItem: IMedia;
+  constructor(private mediaService: MediaService, private http: HttpClient) {
+  }
 
-  ngOnInit() {
-    debugger;
-    //this.mediaService.httpGetMedia().subscribe((data) => { debugger; this.playlist = data});  
-    this.playlist = this.mediaService.httpGetMedia();
-    this.currentIndex = 0;
-    this.currentItem = this.playlist[ this.currentIndex ];  
-    }
-      
-  constructor(private mediaService : MediaApiService) { }
-
-  onVideoEnded(){
+  onVideoEnded() {
     debugger;
     this.currentIndex++;
-    if (this.currentIndex === this.playlist.length) {
-        this.currentIndex = 0;
+    if (this.currentIndex === this.playList.length) {
+      this.currentIndex = 0;
     }
-    this.currentItem = this.playlist[ this.currentIndex ];
+    this.currentItem = this.playList[this.currentIndex];
   }
-  
-  onClickPlaylistItem(item: IMedia, index : number) {
+  ngOnInit() {
+    /*this.playList = this.mediaService.httpGetMedia();
+    this.currentIndex = 0;
+    this.currentItem = this.playList[ this.currentIndex];*/
+    this.mediaService.httpGetMedia().subscribe(data => { 
+      debugger;
+      console.log(data);
+       this.playList = data;
+       this.currentIndex = 0;
+       this.currentItem = this.playList[ this.currentIndex ];
+      });
+  }
+
+  onClickPlaylistItem(item: IMedia, index: number) {
     debugger;
     this.currentIndex = index;
     this.currentItem = item;
-}
+  }
 
 }
