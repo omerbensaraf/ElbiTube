@@ -5,6 +5,16 @@ const bodyParser = require('body-parser');
 const User = require('./models/users');
 const Video = require('./models/videos');
 const cors = require('cors');
+
+// Get and Set ffmpeg library for frame generation
+const path = require('path');
+const ffprobePath = require('@ffprobe-installer/ffprobe').path;
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath);
+ffmpeg.setFfprobePath(ffprobePath);
+
+
 // Set The Storage Engine
 const storage = multer.diskStorage({
     destination: './public/uploads/',
@@ -16,12 +26,8 @@ const storage = multer.diskStorage({
 
 // Init Upload
 const upload = multer({
-    storage: storage,
-    limits:{fileSize: 1000000},
-    // fileFilter: function(req, file, cb){
-    //     checkFileType(file, cb);
-    // }
-}).array('myFiles');
+    storage: storage
+}).single('myFiles');
 
 // Init app
 const app = express();
@@ -73,28 +79,28 @@ app.get('/users', function (req,res) {
 
 app.post('/upload', (req, res) => {
     upload(req, res, (err) => {
-        if(err){
-            res.render('index', {
-                msg: err
-            });
+        if(req.file === undefined){
+            console.log(">>> undefined! ");
         } else {
-
-            if(req.files === undefined){
-                console.log(">>> undefined! ");
-                res.render('index', {
-                    msg: 'Error: No File Selected!'
-                });
-            } else {
-                console.log(">>> log files: ");
-                console.log(req.files);
-                var video = new Video({ title: req.files[0].originalname, src: req.files[0].path, imageSrc: req.files[0].path, type: req.files[0].mimetype});
-                console.log(">>>  req.files.originalname: " +  req.files[0].originalname);
-                video.save();
-                res.render('index', {
-                    msg: 'File Uploaded!',
-                    file: 'uploads/${req.file.filename}'
-                });
-            }
+            // define the destination folder which the frame will be saved
+            var frameDestinationPath = 'public\\uploads\\frames\\';
+            var videoName = path.parse(req.file.originalname).name;
+            // define the name of the frame / image
+            var frameName = videoName+'_frame.jpg';
+            var frame = ffmpeg(req.file.path);
+            console.log(">>>  frame: " +  JSON.stringify(frame));   
+            // generate the frame from the video
+            frame.screenshots({
+                timestamps: ['1'],
+                count: 1,
+                filename: frameName,
+                folder: frameDestinationPath,
+                size: '320x240'
+            });
+            // gerenate schema object and save in DB
+            var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
+            console.log(">>>  req.files.originalname: " +  req.file.originalname);
+            video.save();
         }
     });
 });
@@ -102,5 +108,3 @@ app.post('/upload', (req, res) => {
 const port = 3000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
-
-
