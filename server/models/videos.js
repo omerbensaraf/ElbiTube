@@ -6,7 +6,9 @@ var videoSchema = new Schema({
     title: String,
     src: String,
     imageSrc: String,
-    type: String
+    type: String,
+    watchedBy = String[],
+    likedBy = String[]
 });
 
 // Create a model to compile the schema
