@@ -111,7 +111,10 @@ export class LoginComponent implements OnInit {
     }
     if (isFormValid) {
       this.usersService.signIn(this.email, this.password).subscribe(
-        (data) => { this.hideShowSignInModal(false); },
+        (data) => {
+          this.hideShowSignInModal(false);
+          this.usersService.changeloggedInUser(data['email']);
+        },
         (error) => {
           this.errorMessage = 'Authentication failed';
           this.password = '';
@@ -137,7 +140,10 @@ export class LoginComponent implements OnInit {
 
     if (isFormValid) {
       this.usersService.signUp(this.email, this.password).subscribe(
-        (data) => { this.hideShowSignInModal(false); },
+        (data) => {
+           this.hideShowSignInModal(false);
+           this.usersService.changeloggedInUser(data['email']);
+        },
         (error) => {
           this.errorMessage = 'Authentication failed';
           this.password = '';
