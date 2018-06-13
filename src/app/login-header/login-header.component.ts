@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-login-header',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginHeaderComponent implements OnInit {
 
-  constructor() { }
+  email: string = '';
+  
+  constructor(private usersService: UsersService) { }
 
   ngOnInit() {
+    this.usersService.loggedInUser.subscribe(email => this.email = email);
   }
 
+  logout(): void {
+    this.usersService.logout().subscribe(
+      (data) => {
+        this.usersService.changeloggedInUser('');
+      },
+      (error) => {
+      }
+    )   
+  }
 }
