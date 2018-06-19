@@ -17,6 +17,9 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LikeComponent } from './components/like/like.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { LikeComponent } from './components/like/like.component';
     FooterComponent,
     LoginHeaderComponent,
     PlayerComponent,
-    LikeComponent
+    LikeComponent,
+    LoginHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,11 @@ import { LikeComponent } from './components/like/like.component';
     VgBufferingModule,
     HttpClientModule
   ],
-  providers: [MediaService],
+  providers: [MediaService,
+    FormsModule,
+    HttpClientModule,
+    UsersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
