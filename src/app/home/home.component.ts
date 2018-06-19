@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MediaService } from '../services/media.service';
+import { IMedia } from '../models/imadia.model';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,10 +17,37 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class HomeComponent implements OnInit {
+  playList: Array<IMedia>;
+  currentIndex: number;
+  currentItem: IMedia;
+  constructor(private mediaService: MediaService, private http: HttpClient) {
+  }
 
-  constructor() { }
-
+  onVideoEnded() {
+    debugger;
+    this.currentIndex++;
+    if (this.currentIndex === this.playList.length) {
+      this.currentIndex = 0;
+    }
+    this.currentItem = this.playList[this.currentIndex];
+  }
   ngOnInit() {
+    /*this.playList = this.mediaService.httpGetMedia();
+    this.currentIndex = 0;
+    this.currentItem = this.playList[ this.currentIndex];*/
+    this.mediaService.httpGetMedia().subscribe(data => { 
+      debugger;
+      console.log(data);
+       this.playList = data;
+       this.currentIndex = 0;
+       this.currentItem = this.playList[ this.currentIndex ];
+      });
+  }
+
+  onClickPlaylistItem(item: IMedia, index: number) {
+    debugger;
+    this.currentIndex = index;
+    this.currentItem = item;
   }
 
 }
