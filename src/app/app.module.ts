@@ -18,6 +18,7 @@ import {MediaService} from './services/media.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { UsersService } from './services/users.service';
     FooterComponent,
     LoginHeaderComponent,
     PlayerComponent,
-    LikeComponent
+    LikeComponent,
+    LoginHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +40,7 @@ import { UsersService } from './services/users.service';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    HttpClientModule,
-    FormsModule
+    HttpClientModule
   ],
   providers: [MediaService,
     FormsModule,
