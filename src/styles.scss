@@ -864,6 +864,10 @@ width:100%
     padding: 2px
 }
 
+.video-viewers {
+    color: #767676
+}
+
 .video-counter-plan .video-feedback {
     display: inline-block;
     float: left
@@ -2326,4 +2330,11 @@ header.stickey a.logo.image-logo img {
 
 .hidden {
     display: none;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }

@@ -17,6 +17,7 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LikeComponent } from './components/like/like.component';
+import { DisplayedVideoPropertiesComponent } from './components/displayed-video-properties/displayed-video-properties.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LikeComponent } from './components/like/like.component';
     FooterComponent,
     LoginHeaderComponent,
     PlayerComponent,
-    LikeComponent
+    LikeComponent,
+    DisplayedVideoPropertiesComponent
   ],
   imports: [
     BrowserModule,

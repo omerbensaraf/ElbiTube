@@ -12,31 +12,41 @@ export class MediaService {
         src: 'http://static.videogular.com/assets/videos/videogular.mp4',
         type: 'video/mp4',
         imageSrc : "./assets/images/banner-1.jpg",
-        likeCouner : 0,
-        unLikeCouner : 0,
+        likeCounter : 0,
+        unLikeCounter : 0,
         likeUsers : [],
-        unLikeUsers : []
-
+        unLikeUsers : [],
+        uploadedBy : 'Alon Yeshurun',
+        viewedUsers : [],
+        viewedUsersCounter : 0
     },
     {
         title: 'Big Buck Bunny',
         src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
         type: 'video/mp4',
         imageSrc : "./assets/images/banner-2.jpg",
-        likeCouner : 0,
-        unLikeCouner : 0,
+        likeCounter : 0,
+        unLikeCounter : 0,
         likeUsers : [],
-        unLikeUsers : []
+        unLikeUsers : [],
+        uploadedBy : 'Alon Yeshurun',
+        // likeUsers : [],
+        // unLikeUsers : [],
+        viewedUsers : [],
+        viewedUsersCounter : 0
     },
     {
         title: 'Elephants Dream',
         src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
         type: 'video/mp4',
         imageSrc : "./assets/images/banner-3.jpg",
-        likeCouner : 0,
-        unLikeCouner : 0,
+        likeCounter : 0,
+        unLikeCounter : 0,
         likeUsers : [],
-        unLikeUsers : []
+        unLikeUsers : [],
+        uploadedBy : 'Alon Yeshurun',
+        viewedUsers : [],
+        viewedUsersCounter : 0
     }
 ];
 constructor(private http : HttpClient) {   

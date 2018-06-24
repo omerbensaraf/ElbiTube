@@ -1,0 +1,21 @@
+<!-- <p>
+<span class="ps-caption" style="display: inline; margin-bottom: -50px; width: 72%; margin-left: 15px">Take Your Selfie</span>
+</p>
+<img [src]= "likeImg" style="width:25px" (click) = "onLike()">
+<label>{{likeCounter}}</label> 
+<img [src]= "unLikeImg" style="width:25px" (click) = "onUnLike()">
+<label>{{unLikeCounter}}</label>  -->
+<div style="width: 100%">
+    <div style="margin-left: 50%; text-align: right">
+        <div class="video-uploadedby" title="uploaded by">
+            <div class="video-viewers" title="number of views"><span class="fa fa-eye view-icon" style="font-size:3em;"></span> <span style="font-size:1.5em">{{viewedUsersCounter}} </span></div>
+            <span style="margin-right: 10px"></span>
+            <span class="fa fa-user" style="font-size:3em"></span> <span style="font-size:1em">{{uploadedBy}} </span>
+        </div>
+    </div>
+    <div style="text-align: left; width: 70%; margin-top: -2.5em">
+        <div class="video-like-counter" title="number of likes"><span class="fa fa-thumbs-o-up like-icon" style="color:#3694f4; font-size:3em"></span> <span style="font-size:1.5em">{{likeCounter}}</span></div>
+        <div class="video-like-counter" title="number of dislikes"> <span class="fa fa-thumbs-o-down dislike-icon" style="font-size:3em"></span> <span style="font-size:1.5em">{{unLikeCounter}}</span></div>
+        <!-- <div class="video-viewers" title="number of views"><span class="fa fa-eye view-icon" style="font-size:3em"></span> <span style="font-size:1.5em">{{viewedUsersCounter}} </span></div> -->
+    </div>
+</div>

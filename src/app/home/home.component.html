@@ -7,24 +7,25 @@
                       <div class="ps-current" style="height: 500px;">
                           <ul>
                               <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
-                                <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)"></app-player>
+                                <!-- <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)"></app-player> -->
+                                <app-player></app-player>
                               </li>
                           </ul>
-                          <!-- <span class="ps-caption" style="display: inline;"><a href="/take-your-selfie/"><b> </b></a><b><a href="/take-your-selfie/">Take Your Selfie</a></b></span> -->
+                          <!-- <app-displayed-video-properties></app-displayed-video-properties> -->
                      </div>
-
-                        <ul class="slider ps-list">
-                                <li *ngFor="let item of playList; let $index = index"
-                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 150px;">
-                                <img [src]="item.imageSrc" alt="Take Your Selfie"
-                                 (click)="onClickPlaylistItem(item, $index)"
-                                 [class.selected]="item === currentItem">
-                                <span> 
-                                    <a href="/take-your-selfie/">{{item.title}}</a>
-                                    <app-like [item] = "item"  [userId] = "1" ></app-like>   
-                                </span>
-                            </li>
-                      </ul>
+                    <!-- <span class="ps-caption" style="display: inline; margin-bottom: -50px; width: 72%; margin-left: 15px">Take Your Selfie</span> -->
+                    <ul class="slider ps-list">
+                        <li *ngFor="let item of playList; let $index = index"
+                        class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 150px;">
+                            <img [src]="item.imageSrc" alt="Take Your Selfie"
+                                (click)="onClickPlaylistItem(item, $index)"
+                                [class.selected]="item === currentItem">
+                            <span> 
+                                <a href="/take-your-selfie/">{{item.title}}</a>
+                                <app-like [item] = "item"  [userId] = "1" ></app-like>   
+                            </span>
+                        </li>
+                    </ul>
                   </div>
               </div>
           </div>
@@ -32,6 +33,13 @@
   </div>
 </div>
 <!-- End Slider Area -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <app-displayed-video-properties></app-displayed-video-properties>
+        </div>
+    </div>
+</div>
 <!-- Start Video Carousel -->
 <div class="video-carousel-area themeix-ptb">
   <div class="container">
