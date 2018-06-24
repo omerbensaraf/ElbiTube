@@ -15,9 +15,10 @@ import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
-import { HttpClientModule } from '@angular/common/http';
 import { LikeComponent } from './components/like/like.component';
-import { DisplayedVideoPropertiesComponent } from './components/displayed-video-properties/displayed-video-properties.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersService } from './services/users.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { DisplayedVideoPropertiesComponent } from './components/displayed-video-
     LoginHeaderComponent,
     PlayerComponent,
     LikeComponent,
-    DisplayedVideoPropertiesComponent
+    LoginHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +41,11 @@ import { DisplayedVideoPropertiesComponent } from './components/displayed-video-
     VgBufferingModule,
     HttpClientModule
   ],
-  providers: [MediaService],
+  providers: [MediaService,
+    FormsModule,
+    HttpClientModule,
+    UsersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
