@@ -1,15 +1,13 @@
 export interface IMedia {
+  _id: number;
   title: string;
   src: string;
   type: string;
   imageSrc : String;
-  uploadedBy : String;
-  likeCounter : number;
-  unLikeCounter : number;
+  likeCouner : number;
+  unLikeCouner : number;
   likeUsers : String[];
   unLikeUsers : String[];
-  viewedUsers : String[];
-  viewedUsersCounter : number;
 }
 
 
