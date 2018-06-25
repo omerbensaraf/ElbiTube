@@ -17,7 +17,7 @@ ffmpeg.setFfprobePath(ffprobePath);
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
-    destination: './public/uploads/',
+    destination: './videos/uploads/',
     filename: function(req, file, cb){
         //console.log(file);
         cb(null,file.fieldname + '-' + file.originalname);
@@ -40,8 +40,8 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Public Folder
-app.use(express.static('./public'));
+// Videos Public Folder
+app.use(express.static('./videos'));
 
 // Use Cross Origin Resource Sharing
 app.use(cors());
