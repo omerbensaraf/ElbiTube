@@ -48,7 +48,7 @@ constructor(private http : HttpClient) {
 
 //httpGetMedia(): Observable<Array<IMedia>>{
   httpGetMedia():  Array<IMedia>{
-    const requestUrl = 'http://10.0.211.2:3000/videos';
+    const requestUrl = 'http://11.0.73.2:3000/videos';
     //debugger;   
     //return this.http.get<Array<any>>(requestUrl);
    // return this.http.get<Array<IMedia>>(requestUrl);
