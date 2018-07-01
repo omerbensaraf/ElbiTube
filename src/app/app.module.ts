@@ -15,7 +15,6 @@ import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
-import { HttpClientModule } from '@angular/common/http';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +27,6 @@ import { UsersService } from './services/users.service';
     HomeComponent,
     MenuComponent,
     FooterComponent,
-    LoginHeaderComponent,
     PlayerComponent,
     LikeComponent,
     LoginHeaderComponent
@@ -40,10 +38,11 @@ import { UsersService } from './services/users.service';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [MediaService,
-    FormsModule,
+  providers: [    
+    MediaService,
     HttpClientModule,
     UsersService
   ],
