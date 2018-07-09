@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.mediaService.httpGetMedia().subscribe(data => { 
       debugger;
       console.log(data);
-       this.playList = data;
+       this.playList = data.filter(item => item.likeCouner > 0);
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
       });

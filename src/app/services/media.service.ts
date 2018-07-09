@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import { IMedia } from '../models/imadia.model';
 
 @Injectable()
 export class MediaService {
+    //playList: Array<IMedia> = [];
   playList: Array<IMedia> = [
     {
+        _id : "",
         title: 'Pale Blue Dot',
         src: 'http://static.videogular.com/assets/videos/videogular.mp4',
         type: 'video/mp4',
@@ -19,6 +21,7 @@ export class MediaService {
 
     },
     {
+        _id : "",
         title: 'Big Buck Bunny',
         src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
         type: 'video/mp4',
@@ -29,6 +32,7 @@ export class MediaService {
         unLikeUsers : []
     },
     {
+        _id : "",
         title: 'Elephants Dream',
         src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
         type: 'video/mp4',
@@ -45,8 +49,8 @@ constructor(private http : HttpClient) {
 
 httpGetMedia(): Observable<Array<IMedia>>{
  // httpGetMedia():  Array<IMedia>{
-    const requestUrl = 'http://10.0.211.2:3000/videos';
-    //debugger;   
+    const requestUrl = 'http://11.0.73.2:3000/videos';
+    debugger;   
     //return this.http.get<Array<any>>(requestUrl);
     return this.http.get<Array<IMedia>>(requestUrl);
    // return this.playList;
