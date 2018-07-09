@@ -64,13 +64,14 @@ app.get("/", function (req,res) {
 
 
 // Get videos page - display videos from db
-app.get('/videos', function (req,res) {
+app.get('/videos/:videoId', function (req,res) {
     mongoose.model('Video').find(function (err,videos) {
-        let video_title = videos.substr(videos.indexOf("/videos/uploads/"),videos.length);
-        console.log(">>> video_title", video_title);
-        let video_src = __dirname+"/"+video_title;
-        console.log(">>> video_src", video_src);
-        res.sendFile(video_src);
+        var videoSrc = '';
+        videoSrc = videos.src;
+        var position = videoSrc.indexOf("videos\\uploads");
+        if(position != -1)
+        var filePath = videoSrc.substr(position,videoSrc.length);
+        res.sendFile(filePath);
     })
 });
 
@@ -87,7 +88,7 @@ app.post('/upload', (req, res) => {
             console.log(">>> undefined! ");
         } else {
             // define the destination folder which the frame will be saved
-            var frameDestinationPath = 'public\\uploads\\frames\\';
+            var frameDestinationPath = 'videos\\uploads\\frames\\';
             var videoName = path.parse(req.file.originalname).name;
             // define the name of the frame / image
             var frameName = videoName+'_frame.jpg';
@@ -102,12 +103,46 @@ app.post('/upload', (req, res) => {
                 size: '320x240'
             });
             // gerenate schema object and save in DB
-            var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
+            var video1 = new Video({
+                title: 'Pale Blue Dot',
+                src: 'http://static.videogular.com/assets/videos/videogular.mp4',
+                type: 'video/mp4',
+                imageSrc : "./assets/images/banner-1.jpg",
+                likeCouner : 0,
+                unLikeCouner : 0,
+                likeUsers : [],
+                unLikeUsers : []
+            
+            });
+            var video2 = new Video({
+                title: 'Big Buck Bunny',
+                src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
+                type: 'video/mp4',
+                imageSrc : "./assets/images/banner-2.jpg",
+                likeCouner : 0,
+                unLikeCouner : 0,
+                likeUsers : [],
+                unLikeUsers : []
+            });
+            var video3 = new Video({
+                title: 'Elephants Dream',
+                src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
+                type: 'video/mp4',
+                imageSrc : "./assets/images/banner-3.jpg",
+                likeCouner : 0,
+                unLikeCouner : 0,
+                likeUsers : [],
+                unLikeUsers : []
+            });
+            //var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
             console.log(">>>  req.files.originalname: " +  req.file.originalname);
-            video.save();
+            video1.save();
+            video2.save();
+            video3.save();
         }
     });
 });
+
 
 const port = 3000;
 
