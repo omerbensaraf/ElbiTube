@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import {BehaviorSubject} from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,12 +13,7 @@ export class UsersService {
   private userSource = new BehaviorSubject<string>('');
   loggedInUser = this.userSource.asObservable();
 
-
   constructor(private http: HttpClient) { }
-
-  getUserEmail(){
-    return this.userSource.getValue();
-  }
 
   signIn(email: string, password: string) {
     const request = {
@@ -44,3 +39,4 @@ export class UsersService {
     this.userSource.next(email);
   }
 }
+
