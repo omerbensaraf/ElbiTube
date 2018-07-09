@@ -66,7 +66,11 @@ app.get("/", function (req,res) {
 // Get videos page - display videos from db
 app.get('/videos', function (req,res) {
     mongoose.model('Video').find(function (err,videos) {
-        res.send(videos);
+        let video_title = videos.substr(videos.indexOf("/videos/uploads/"),videos.length);
+        console.log(">>> video_title", video_title);
+        let video_src = __dirname+"/"+video_title;
+        console.log(">>> video_src", video_src);
+        res.sendFile(video_src);
     })
 });
 

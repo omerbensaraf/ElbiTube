@@ -28,7 +28,6 @@ import { VideoPropertiesComponent } from './components/video-properties/video-pr
     HomeComponent,
     MenuComponent,
     FooterComponent,
-    LoginHeaderComponent,
     PlayerComponent,
     LikeComponent,
     LoginHeaderComponent,
@@ -44,8 +43,8 @@ import { VideoPropertiesComponent } from './components/video-properties/video-pr
     HttpClientModule,
     FormsModule
   ],
-  providers: [MediaService,
-    FormsModule,
+  providers: [    
+    MediaService,
     HttpClientModule,
     UsersService
   ],
