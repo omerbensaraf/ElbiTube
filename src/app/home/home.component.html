@@ -8,6 +8,7 @@
                             <ul>
                                 <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
                                   <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)"></app-player>
+                                  
                                 </li>
                             </ul>
                             <!-- <span class="ps-caption" style="display: inline;"><a href="/take-your-selfie/"><b> </b></a><b><a href="/take-your-selfie/">Take Your Selfie</a></b></span> -->
@@ -32,6 +33,17 @@
     </div>
   </div>
   <!-- End Slider Area -->
+  
+  <!-- Start Video Properties Area -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <app-video-properties></app-video-properties>            
+            </div>
+        </div>
+    </div>
+  <!-- End Video Properties Area -->
+
   <!-- Start Video Carousel -->
   <div class="video-carousel-area themeix-ptb">
     <div class="container">

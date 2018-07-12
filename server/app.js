@@ -17,7 +17,7 @@ ffmpeg.setFfprobePath(ffprobePath);
 
 // Set The Storage Engine
 const storage = multer.diskStorage({
-    destination: './videos/uploads/',
+    destination: './videos/',
     filename: function(req, file, cb){
         //console.log(file);
         cb(null,file.fieldname + '-' + file.originalname);
@@ -44,6 +44,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('./videos'));
 
 // Use Cross Origin Resource Sharing
+/*var corsOptions = {
+    origin: 'http://localhost:4200'
+    //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}*/
 app.use(cors());
 
 // Connect to DB
@@ -62,16 +66,31 @@ app.get("/", function (req,res) {
     res.sendFile(__dirname+"/views/index.html");
 })
 
+app.get('/videos', function (req,res) {
+    mongoose.model('Video').find(function (err,videos) {
+        res.send(videos);
+    })
+});
 
 // Get videos page - display videos from db
-app.get('/videos/:videoId', function (req,res) {
-    mongoose.model('Video').find(function (err,videos) {
+app.get('/videos/:videoId',  function (req,res) {
+
+    console.log(req.params.videoId);
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,videos) {
+        let url =  "http:\\\\11.0.73.2:3000";
         var videoSrc = '';
         videoSrc = videos.src;
-        var position = videoSrc.indexOf("videos\\uploads");
+        console.log(">>> url: "+url);
+        console.log(">>> url length: "+ url.length);
+        /*var position = videoSrc.indexOf("videos");
         if(position != -1)
-        var filePath = videoSrc.substr(position,videoSrc.length);
-        res.sendFile(filePath);
+        var filePath = videoSrc.substr(position,videoSrc.length);*/
+        //res.sendFile(__dirname + filePath);
+        let videoPath = videoSrc.substr(url.length,videoSrc.length);
+        console.log(__dirname + videoPath);
+        console.log(videoPath);
+        res.sendFile(__dirname + videoPath + ".mp4");
+        //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
 });
 
@@ -88,7 +107,7 @@ app.post('/upload', (req, res) => {
             console.log(">>> undefined! ");
         } else {
             // define the destination folder which the frame will be saved
-            var frameDestinationPath = 'videos\\uploads\\frames\\';
+            var frameDestinationPath = 'videos\\frames\\';
             var videoName = path.parse(req.file.originalname).name;
             // define the name of the frame / image
             var frameName = videoName+'_frame.jpg';
@@ -104,6 +123,7 @@ app.post('/upload', (req, res) => {
             });
             // gerenate schema object and save in DB
             var video1 = new Video({
+                _id : mongoose.Types.ObjectId(),
                 title: 'Pale Blue Dot',
                 src: 'http://static.videogular.com/assets/videos/videogular.mp4',
                 type: 'video/mp4',
@@ -115,6 +135,7 @@ app.post('/upload', (req, res) => {
             
             });
             var video2 = new Video({
+                _id : mongoose.Types.ObjectId(),
                 title: 'Big Buck Bunny',
                 src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
                 type: 'video/mp4',
@@ -125,8 +146,9 @@ app.post('/upload', (req, res) => {
                 unLikeUsers : []
             });
             var video3 = new Video({
+                _id : mongoose.Types.ObjectId(),
                 title: 'Elephants Dream',
-                src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
+                src: 'http://static.videogular.com/assets/videos/' + _id + ".mp4" ,
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-3.jpg",
                 likeCouner : 0,

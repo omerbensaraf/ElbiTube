@@ -32,7 +32,7 @@ export class VideoPropertiesComponent implements OnInit {
   unLikeUsers : String[];
   viewedUsers : String[] = ['Alon','Yeshurun','The','King'];
   viewedUsersCounter : number = this.viewedUsers.length;
-  uploadedBy = 'Alon Yeshurun';
+  uploadedBy : String = 'Alon Yeshurun';
 
 
   constructor() {
