@@ -7,8 +7,6 @@ var videoSchema = new Schema({
     src: String,
     imageSrc: String,
     type: String,
-    likeCouner : Number,
-    unLikeCouner : Number,
     likeUsers : [String] ,
     unLikeUsers:[String]
     
