@@ -38,16 +38,16 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.userEmail = this.userService.getUserEmail();
     debugger;
-    this.playList = this.mediaService.httpGetMedia();
+   /* this.playList = this.mediaService.httpGetMedia();
     this.currentIndex = 0;
-    this.currentItem = this.playList[ this.currentIndex];
-    /*this.mediaService.httpGetMedia().subscribe(data => { 
+    this.currentItem = this.playList[ this.currentIndex];*/
+    this.mediaService.httpGetMedia().subscribe(data => { 
       debugger;
       console.log(data);
        this.playList = data;
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
-      });*/
+      });
   }
 
   onClickPlaylistItem(item: IMedia, index: number) {
