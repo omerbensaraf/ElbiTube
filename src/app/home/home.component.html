@@ -21,9 +21,11 @@
                                    (click)="onClickPlaylistItem(item, $index)"
                                    [class.selected]="item === currentItem">
                                   <span> 
-                                      <a href="/take-your-selfie/">{{item.title}}</a>
-                                      <app-like [item] = "item"  [userId] = "1" ></app-like>   
+                                      {{item.title}}
                                   </span>
+                                  <div class="like">
+                                      <app-like [item] = "item"  [userId] = "1" ></app-like> 
+                                  </div>
                               </li>
                         </ul>
                     </div>

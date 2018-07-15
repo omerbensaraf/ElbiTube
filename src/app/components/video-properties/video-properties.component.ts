@@ -17,27 +17,31 @@ import { HttpClient } from '@angular/common/http';
             ]
 })
 export class VideoPropertiesComponent implements OnInit {
-  playList: Array<IMedia>;
-  currentIndex: number;
-  currentItem: IMedia;
-
-  title: string;
-  src: string;
-  type: string;
-  imageSrc : String;
-  updatedBy : String;
-  likeCounter : number = 10687;
-  unLikeCounter : number = 168;
-  likeUsers : String[];
-  unLikeUsers : String[];
-  viewedUsers : String[] = ['Alon','Yeshurun','The','King'];
-  viewedUsersCounter : number = this.viewedUsers.length;
-  uploadedBy : String = 'Alon Yeshurun';
+  
+  //@Input() currentVideo: IMedia;
+  private currentVideo: IMedia;
+  private likeCounter : number;
+  private unLikeCounter : number;
+  private viewes : number;
+  private uploadedBy : String;
 
 
-  constructor() {
+  constructor(private mediaService: MediaService){
+  
   }
 
   ngOnInit() {
+    // set the video properties fields for any change of video in player
+    this.mediaService.currentVideoProperty.subscribe( videoItem => {
+      // check if the video object is not null and not undefined
+      if (Object.keys(videoItem).length > 0) {
+        this.currentVideo = videoItem;
+        this.likeCounter = this.currentVideo.likeUsers.length;
+        this.unLikeCounter = this.currentVideo.unLikeUsers.length;
+        this.viewes = this.currentVideo.viewes;
+        this.uploadedBy = this.currentVideo.uploadedBy;
+      }
+    });
+    
   }
 }
