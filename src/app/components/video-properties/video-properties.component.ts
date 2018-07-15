@@ -24,6 +24,7 @@ export class VideoPropertiesComponent implements OnInit {
   private unLikeCounter : number;
   private viewes : number;
   private uploadedBy : String;
+  private videoTitle: String;
 
 
   constructor(private mediaService: MediaService){
@@ -40,6 +41,7 @@ export class VideoPropertiesComponent implements OnInit {
         this.unLikeCounter = this.currentVideo.unLikeUsers.length;
         this.viewes = this.currentVideo.viewes;
         this.uploadedBy = this.currentVideo.uploadedBy;
+        this.videoTitle = this.currentVideo.title;
       }
     });
     
