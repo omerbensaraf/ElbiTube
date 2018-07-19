@@ -7,8 +7,10 @@ var videoSchema = new Schema({
     src: String,
     imageSrc: String,
     type: String,
-    watchedBy = String[],
-    likedBy = String[]
+    likeUsers : [String],
+    unLikeUsers : [String],
+    viewes: Number,
+    uploadedBy: String
 });
 
 // Create a model to compile the schema

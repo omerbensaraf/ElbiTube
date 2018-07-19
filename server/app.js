@@ -40,8 +40,11 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Videos Public Folder
+// Expose Videos Public Folder
 app.use(express.static('./videos'));
+
+// Expose Images Public Folder
+app.use(express.static('./videos/frames'));
 
 // Use Cross Origin Resource Sharing
 /*var corsOptions = {
@@ -66,29 +69,30 @@ app.get("/", function (req,res) {
     res.sendFile(__dirname+"/views/index.html");
 })
 
+// Get videos page - display videos json from db
 app.get('/videos', function (req,res) {
     mongoose.model('Video').find(function (err,videos) {
         res.send(videos);
     })
 });
 
-// Get videos page - display videos from db
+// Play selected video
 app.get('/videos/:videoId',  function (req,res) {
+    var url = '';
+    var videoSrc = '';
 
-    console.log(req.params.videoId);
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,videos) {
-        let url =  "http:\\\\11.0.73.2:3000";
-        var videoSrc = '';
-        videoSrc = videos.src;
-        console.log(">>> url: "+url);
-        console.log(">>> url length: "+ url.length);
-        /*var position = videoSrc.indexOf("videos");
+    console.log(">>> videoId "+ req.params.videoId);
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
+        url =  "http:\\\\11.0.73.2:3000";
+        videoSrc = selectedVideo.src;
+        console.log(">>> videos: "+ JSON.stringify(selectedVideo));
+        /*var position = videoSrc.indexOf("selectedVideo");
         if(position != -1)
         var filePath = videoSrc.substr(position,videoSrc.length);*/
         //res.sendFile(__dirname + filePath);
         let videoPath = videoSrc.substr(url.length,videoSrc.length);
-        console.log(__dirname + videoPath);
-        console.log(videoPath);
+        //videos.viewes+=1;
+        //videos.save();
         res.sendFile(__dirname + videoPath + ".mp4");
         //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
@@ -128,8 +132,6 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/videogular.mp4',
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-1.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
                 likeUsers : [],
                 unLikeUsers : []
             
@@ -140,8 +142,6 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-2.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
                 likeUsers : [],
                 unLikeUsers : []
             });
@@ -151,8 +151,6 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/' + _id + ".mp4" ,
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-3.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
                 likeUsers : [],
                 unLikeUsers : []
             });

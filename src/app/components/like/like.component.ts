@@ -20,7 +20,7 @@ export class LikeComponent implements OnInit {
   @Input() userId : String;
   updates : Updates;
 
-
+  debugger;
   constructor(private mediaService : MediaService) { 
     this.likeSelected = false;
     this.likeImg = "./assets/images/like.png";
@@ -150,3 +150,4 @@ export class LikeComponent implements OnInit {
   } 
 
 }
+
