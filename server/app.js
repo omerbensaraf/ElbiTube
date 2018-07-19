@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const User = require('./models/users');
 const Video = require('./models/videos');
 const cors = require('cors');
-
+const config = require('./config');
 // Get and Set ffmpeg library for frame generation
 const path = require('path');
 const ffprobePath = require('@ffprobe-installer/ffprobe').path;
@@ -78,21 +78,23 @@ app.get('/videos', function (req,res) {
 
 // Play selected video
 app.get('/videos/:videoId',  function (req,res) {
+    
     var url = '';
     var videoSrc = '';
+    console.log(">>> Inside get --------> videoId "+ req.params.videoId);
 
-    console.log(">>> videoId "+ req.params.videoId);
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
-        url =  "http:\\\\11.0.73.2:3000";
+        console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
+        
+        url = config.url;
         videoSrc = selectedVideo.src;
-        console.log(">>> videos: "+ JSON.stringify(selectedVideo));
-        /*var position = videoSrc.indexOf("selectedVideo");
+        /*var position = videoSrc.indexOf("videos");
         if(position != -1)
         var filePath = videoSrc.substr(position,videoSrc.length);*/
         //res.sendFile(__dirname + filePath);
         let videoPath = videoSrc.substr(url.length,videoSrc.length);
-        //videos.viewes+=1;
-        //videos.save();
+        selectedVideo.views+=1;
+        selectedVideo.save();
         res.sendFile(__dirname + videoPath + ".mp4");
         //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
@@ -126,14 +128,29 @@ app.post('/upload', (req, res) => {
                 size: '320x240'
             });
             // gerenate schema object and save in DB
+            var video = new Video({ 
+                title: req.file.originalname, 
+                src: req.file.path,
+                imageSrc: frameDestinationPath+frameName, 
+                type: req.file.mimetype, 
+                views: 0, 
+                uploadedBy: 'Alon Yeshurun'
+            });
+            console.log(">>>  req.files.originalname: " +  req.file.originalname);
+            video.save();
+            /*
             var video1 = new Video({
                 _id : mongoose.Types.ObjectId(),
                 title: 'Pale Blue Dot',
                 src: 'http://static.videogular.com/assets/videos/videogular.mp4',
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-1.jpg",
+                likeCouner : 0,
+                unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                unLikeUsers : [],
+                views: 0,
+                uploadedBy: 'Alon Yeshurun'
             
             });
             var video2 = new Video({
@@ -142,8 +159,12 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-2.jpg",
+                likeCouner : 0,
+                unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                unLikeUsers : [],
+                views: 0,
+                uploadedBy: 'Alon Yeshurun'
             });
             var video3 = new Video({
                 _id : mongoose.Types.ObjectId(),
@@ -151,14 +172,17 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/' + _id + ".mp4" ,
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-3.jpg",
+                likeCouner : 0,
+                unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                unLikeUsers : [],
+                views: 0,
+                uploadedBy: 'Alon Yeshurun'
             });
-            //var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
-            console.log(">>>  req.files.originalname: " +  req.file.originalname);
             video1.save();
             video2.save();
             video3.save();
+            */
         }
     });
 });

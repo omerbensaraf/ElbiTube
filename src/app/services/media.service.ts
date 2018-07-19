@@ -18,7 +18,7 @@ export class MediaService {
             unLikeCouner : 0,
             likeUsers : [],
             unLikeUsers : [],
-            viewes: 0,
+            views: 0,
             uploadedBy: 'Alon Yeshurun'
         },
         {
@@ -31,7 +31,7 @@ export class MediaService {
             unLikeCouner : 0,
             likeUsers : [],
             unLikeUsers : [],
-            viewes: 0,
+            views: 0,
             uploadedBy: 'Alon Yeshurun'
         },
         {
@@ -44,7 +44,7 @@ export class MediaService {
             unLikeCouner : 0,
             likeUsers : [],
             unLikeUsers : [],
-            viewes: 0,
+            views: 0,
             uploadedBy: 'Alon Yeshurun'
         }
     ];

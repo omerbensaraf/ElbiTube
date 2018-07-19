@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   playList: Array<IMedia>;
   currentIndex: number;
   currentItem: IMedia;
-
+  
   constructor(private mediaService: MediaService, private http: HttpClient) {
 
   }
@@ -42,16 +42,17 @@ export class HomeComponent implements OnInit {
     
     this.mediaService.httpGetMedia().subscribe(data => { 
       debugger;
-      console.log(data);
-       this.playList = data.filter(item => item.likeCouner > 0);
-       this.currentIndex = 0;
-       this.currentItem = this.playList[ this.currentIndex ];
-       // Initiate video properties with the selected video
-       this.mediaService.changeVideoProperties(this.currentItem);
+        this.playList = data.filter(item => item.likeCouner > 0);
+        this.currentIndex = 0;
+        this.currentItem = this.playList[ this.currentIndex ];
+
+        // Initiate video properties with the selected video
+        this.mediaService.changeVideoProperties(this.currentItem);
       });
   }
 
   onClickPlaylistItem(item: IMedia, index: number) {
+    
     this.currentIndex = index;
     this.currentItem = item;
     // Raise flag on the subscribed field that video has changed and need to update properties

@@ -8,7 +8,7 @@ export interface IMedia {
   unLikeCouner : number;
   likeUsers : String[];
   unLikeUsers : String[];
-  viewes: number;
+  views: number;
   uploadedBy: string;
 }
 

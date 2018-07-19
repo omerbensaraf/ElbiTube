@@ -15,18 +15,18 @@
                        </div>
   
                           <ul class="slider ps-list">
-                                  <li *ngFor="let item of playList; let $index = index"
-                                  class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 150px;">
-                                  <img [src]="item.imageSrc" alt="Take Your Selfie"
-                                   (click)="onClickPlaylistItem(item, $index)"
-                                   [class.selected]="item === currentItem">
-                                  <span> 
-                                      {{item.title}}
-                                  </span>
-                                  <div class="like">
-                                      <app-like [item] = "item"  [userId] = "1" ></app-like> 
-                                  </div>
-                              </li>
+                            <li *ngFor="let item of playList; let $index = index"
+                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 150px;">
+                                <img [src]="item.imageSrc" alt=""
+                                (click)="onClickPlaylistItem(item, $index)"
+                                [class.selected]="item === currentItem">
+                                <span> 
+                                    {{item.title}}
+                                </span>
+                                <div class="like">
+                                    <app-like [item] = "item"  [userId] = "1" ></app-like> 
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
