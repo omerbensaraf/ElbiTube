@@ -8,7 +8,7 @@ var videoSchema = new Schema({
     imageSrc: String,
     type: String,
     likeUsers : [String] ,
-    unLikeUsers:[String]
+    disLikeUsers:[String]
     
 });
 
@@ -17,3 +17,4 @@ var Video = mongoose.model('Video', videoSchema);
 
 // Make this available to our users in our Node applications
 module.exports = Video;
+

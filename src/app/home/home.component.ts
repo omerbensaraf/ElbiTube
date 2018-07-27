@@ -22,8 +22,10 @@ export class HomeComponent implements OnInit {
   currentIndex: number;
   currentItem: IMedia;
   userEmail : String;
+  homeLoading:boolean=false;
   constructor(private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
-  debugger;
+
+    
     
   }
 
@@ -44,9 +46,10 @@ export class HomeComponent implements OnInit {
     this.mediaService.httpGetMedia().subscribe(data => { 
       debugger;
       console.log(data);
-       this.playList = data;
+      this.playList = this.sort(data).slice(0,3);
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
+       this.homeLoading=true;
       });
   }
 
@@ -54,6 +57,10 @@ export class HomeComponent implements OnInit {
     debugger;
     this.currentIndex = index;
     this.currentItem = item;
+  }
+
+  sort(data : IMedia[]){
+    return data.sort((a, b)=>{return b.likeUsers.length - a.likeUsers.length});
   }
 
 }

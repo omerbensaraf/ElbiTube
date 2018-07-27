@@ -1,4 +1,6 @@
-<img [src]= "likeImg" style="width:25px" (click) = "onLike()">
-<label>{{specificItem.likeUsers.length}}</label> 
-<img [src]= "unLikeImg" style="width:25px" (click) = "onUnLike()">
-<label>{{specificItem.unLikeUsers.length}}</label> 
+ <img [src]= "likeImg" style="width:25px" (click) = "onLike()">
+<!-- <i class="fa fa-cab" style="font-size: 50px;color: red"></i> -->
+<!-- <fa name="cog" animation="spin"></fa> -->
+<label *ngIf="likeExists">{{item.likeUsers.length}}</label> 
+<img [src]= "disLikeImg" style="width:25px" (click) = "onDisLike()">
+<label  *ngIf="likeExists">{{item.disLikeUsers.length}}</label> 

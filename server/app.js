@@ -14,7 +14,6 @@ const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 
-
 // Set The Storage Engine
 const storage = multer.diskStorage({
     destination: './videos/',
@@ -31,6 +30,28 @@ const upload = multer({
 
 // Init app
 const app = express();
+let http = require('http');
+let server = http.Server(app);
+
+
+let socketIO = require('socket.io');
+let io = socketIO(server);
+io.on('connection', (socket) => {
+    console.log('user connected');
+    socket.on('new-like', (item) => {
+        updateRecord(item);
+      });
+});
+/*const connections = [];
+io.sockets.on('connection',(socket) => {
+    connections.push(socket);
+    console.log(' %s sockets is connected', connections.length);
+ 
+    socket.on('disconnect', () => {
+       connections.splice(connections.indexOf(socket), 1);
+    });
+ });*/
+
 
 // Define View Engine
 app.engine('html', require('ejs').renderFile);
@@ -72,28 +93,23 @@ app.get('/videos', function (req,res) {
     })
 });
 
-app.put('/updateRecord/:videoId', function (req,res) {
+/*app.put('/updateRecord/:videoId', function (req,res) {
     var query = {_id: req.body._id};
-    //req.newData = req.body.newRec;
-    console.log("req.body._id-------")
-    console.log(req.body._id);
-    console.log("req.body----------------");
-    console.log(req.body);
     mongoose.model('Video').findOneAndUpdate(query, req.body, function(err, doc){
-    //    mongoose.model('Video').findById( req.body._id, function(err, doc){   
-    //if (err) return res.send(500, { error: err });
-        console.log("doc------------------");
-        console.log(doc);
-      //  doc.likeCouner = 10;
-        //doc.save();
         return res.send("succesfully saved");
-        
     })
-});
+});*/
+
+function updateRecord (item) {
+    var query = {_id: item._id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query,item,options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
 
 
 app.get('/videoRecord/:videoId', function(req,res){
-    console.log(req.params.videoId);
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
         res.send(video);
     })
@@ -102,21 +118,16 @@ app.get('/videoRecord/:videoId', function(req,res){
 // Get videos page - display videos from db
 app.get('/videos/:videoId',  function (req,res) {
 
-    console.log(req.params.videoId);
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,videos) {
         //let url =  "http:\\\\11.0.73.2:3000";  
         let url =  "http:\\\\localhost:3000";
         var videoSrc = '';
         videoSrc = videos.src;
-        console.log(">>> url: "+url);
-        console.log(">>> url length: "+ url.length);
         /*var position = videoSrc.indexOf("videos");
         if(position != -1)
         var filePath = videoSrc.substr(position,videoSrc.length);*/
         //res.sendFile(__dirname + filePath);
         let videoPath = videoSrc.substr(url.length,videoSrc.length);
-        console.log(__dirname + videoPath);
-        console.log(videoPath);
         res.sendFile(__dirname + videoPath + ".AVI");
         //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
@@ -132,7 +143,6 @@ app.get('/users', function (req,res) {
 app.post('/upload', (req, res) => {
     upload(req, res, (err) => {
         if(req.file === undefined){
-            console.log(">>> undefined! ");
         } else {
             // define the destination folder which the frame will be saved
             var frameDestinationPath = 'videos\\frames\\';
@@ -140,7 +150,6 @@ app.post('/upload', (req, res) => {
             // define the name of the frame / image
             var frameName = videoName+'_frame.jpg';
             var frame = ffmpeg(req.file.path);
-            console.log(">>>  frame: " +  JSON.stringify(frame));   
             // generate the frame from the video
             frame.screenshots({
                 timestamps: ['1'],
@@ -156,10 +165,8 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/videogular.mp4',
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-1.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                disLikeUsers : []
             
             });
             var video2 = new Video({
@@ -168,10 +175,8 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-2.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                disLikeUsers : []
             });
             var video3 = new Video({
                 _id : mongoose.Types.ObjectId(),
@@ -179,13 +184,10 @@ app.post('/upload', (req, res) => {
                 src: 'http://static.videogular.com/assets/videos/' + _id + ".mp4" ,
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-3.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                disLikeUsers : []
             });
             //var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
-            console.log(">>>  req.files.originalname: " +  req.file.originalname);
             video1.save();
             video2.save();
             video3.save();
@@ -196,4 +198,4 @@ app.post('/upload', (req, res) => {
 
 const port = 3000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+server.listen(port, () => console.log(`Server started on port ${port}`));

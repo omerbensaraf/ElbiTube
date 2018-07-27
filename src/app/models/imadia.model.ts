@@ -5,15 +5,15 @@ export interface IMedia {
   type: string;
   imageSrc : String;
   likeUsers : String[];
-  unLikeUsers : String[];
+  disLikeUsers : String[];
 }
 
 
 export enum Updates{
   AddLike = 1,
   RemoveLike,
-  AddUnLike,
-  RemoveUnLike,
-  AddLikeRemoveUnLike,
-  AddUnLikeRemoveLike
+  AddDisLike,
+  RemoveDisLike,
+  AddLikeRemoveDisLike,
+  AddDisLikeRemoveLike
 }
