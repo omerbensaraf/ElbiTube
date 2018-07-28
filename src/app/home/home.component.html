@@ -7,22 +7,17 @@
                         <div class="ps-current" style="height: 500px;">
                             <ul>
                                 <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
-                                  <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)"></app-player>
-                                  
+                                  <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)" (onLoad)="onVideoLoaded($event)" ></app-player>
                                 </li>
                             </ul>
-                            <!-- <span class="ps-caption" style="display: inline;"><a href="/take-your-selfie/"><b> </b></a><b><a href="/take-your-selfie/">Take Your Selfie</a></b></span> -->
-                       </div>
-  
-                          <ul class="slider ps-list">
+                        </div>
+                        <ul class="slider ps-list">
                             <li *ngFor="let item of playList; let $index = index"
                                 class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 150px;">
                                 <img [src]="item.imageSrc" alt=""
                                 (click)="onClickPlaylistItem(item, $index)"
                                 [class.selected]="item === currentItem">
-                                <span> 
-                                    {{item.title}}
-                                </span>
+                                <span> {{item.title}} </span>
                                 <div class="like">
                                     <app-like [item] = "item"  [userId] = "1" ></app-like> 
                                 </div>

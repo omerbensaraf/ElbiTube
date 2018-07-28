@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output} from '@angular/core';
+import {Component, OnInit, Input, Output, OnChanges} from '@angular/core';
 import {VgAPI} from 'videogular2/core';
 import {EventEmitter} from '@angular/core';
 
@@ -13,24 +13,30 @@ export class PlayerComponent {
   api:VgAPI;
   @Input() videoUrl :String;
   @Output() onEnded:EventEmitter<any> = new EventEmitter();
+  @Output() onLoad:EventEmitter<any> = new EventEmitter();
 
-    constructor() {}
-    onPlayerReady(api:VgAPI) {
-      debugger;
-      this.api = api;
-      // this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(
-      //    this.playVideo.bind(this)
-      // );
-   this.api.getDefaultMedia().subscriptions.ended.subscribe(
+  constructor() {}
+
+  onPlayerReady(api:VgAPI) {
+    debugger;
+    this.api = api;
+    this.api.getDefaultMedia().subscriptions.loadStart.subscribe(
       () => {
-        this.onEnded.emit();
+        this.onLoad.emit();
       }
     );
-
+    this.api.getDefaultMedia().subscriptions.ended.subscribe(
+        () => {
+          this.onEnded.emit();
+        }
+      );
+      
   }
+
   playVideo() {
+    debugger;
     this.api.play();
- }
+  }
 
 
 }

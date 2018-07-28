@@ -15,7 +15,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 
 
-// Set The Storage Engine
+// Define Storage Engine as Disk Storage
 const storage = multer.diskStorage({
     destination: './videos/',
     filename: function(req, file, cb){
@@ -24,12 +24,12 @@ const storage = multer.diskStorage({
     }
 });
 
-// Init Upload
+// Init Multer and Storage
 const upload = multer({
     storage: storage
 }).single('myFiles');
 
-// Init app
+// Define the app
 const app = express();
 
 // Define View Engine
@@ -46,14 +46,11 @@ app.use(express.static('./videos'));
 // Expose Images Public Folder
 app.use(express.static('./videos/frames'));
 
-// Use Cross Origin Resource Sharing
-/*var corsOptions = {
-    origin: 'http://localhost:4200'
-    //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}*/
+// Define Cross Origin Resource Sharing
+/*var corsOptions = { origin: 'http://localhost:4200' //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}*/
 app.use(cors());
 
-// Connect to DB
+// Define MongoDB
 mongoose.connect('mongodb://localhost/db');
 var db = mongoose.connection;
 // if error occurred
@@ -63,8 +60,7 @@ db.once('open', function() {
 });
 
 
-
-// Gt home page
+// Get home page
 app.get("/", function (req,res) {
     res.sendFile(__dirname+"/views/index.html");
 })
@@ -76,7 +72,15 @@ app.get('/videos', function (req,res) {
     })
 });
 
-// Play selected video
+app.get('/getVideoProperties/:videoId', function(req,res){ 
+    console.log(">>> get video properties: "+ req.params.videoId); 
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) { 
+        res.send(video); 
+    }) 
+}); 
+    
+
+// Get Specific Video - Play selected video
 app.get('/videos/:videoId',  function (req,res) {
     
     var url = '';
@@ -84,18 +88,29 @@ app.get('/videos/:videoId',  function (req,res) {
     console.log(">>> Inside get --------> videoId "+ req.params.videoId);
 
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
-        console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
+        //console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
         
         url = config.url;
         videoSrc = selectedVideo.src;
-        /*var position = videoSrc.indexOf("videos");
-        if(position != -1)
-        var filePath = videoSrc.substr(position,videoSrc.length);*/
+        var position = videoSrc.indexOf("\\videos");
+        if(position !== -1) {
+            let filePath = videoSrc.substr(position,videoSrc.length); 
+            let fileType = getFileExtensionAndValidation(selectedVideo.type);
+            console.log(">>>fileType: "+ fileType);
+            if (fileType !== -1) {   
+                res.sendFile(__dirname + filePath + fileType);
+                selectedVideo.views+=1;
+                selectedVideo.save();
+                console.log(">>> file name: "+ selectedVideo.title);
+            }
+            else {
+                throw ("File type is not compatible");
+            }   
+        }
+        
         //res.sendFile(__dirname + filePath);
-        let videoPath = videoSrc.substr(url.length,videoSrc.length);
-        selectedVideo.views+=1;
-        selectedVideo.save();
-        res.sendFile(__dirname + videoPath + ".mp4");
+        //let videoPath = videoSrc.substr(url.length,videoSrc.length);
+        //console.log(">>>> ---------------> videopath: " + videoPath);
         //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
 });
@@ -107,6 +122,7 @@ app.get('/users', function (req,res) {
     })
 });
 
+// Upload file
 app.post('/upload', (req, res) => {
     upload(req, res, (err) => {
         if(req.file === undefined){
@@ -187,7 +203,15 @@ app.post('/upload', (req, res) => {
     });
 });
 
-
 const port = 3000;
+
+function getFileExtensionAndValidation(filename) {
+    var ext = filename.slice((filename.lastIndexOf("/") - 1 >>> 0) + 2);
+    if (config.videosExt.includes(ext))  {
+        console.log(">>> in config");
+        return "."+ext;
+    }
+    else return -1;
+}
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

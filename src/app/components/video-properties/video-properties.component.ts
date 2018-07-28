@@ -32,7 +32,7 @@ export class VideoPropertiesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // set the video properties fields for any change of video in player
+    // subsribe the changes in video properties
     this.mediaService.currentVideoProperty.subscribe( videoItem => {
       // check if the video object is not null and not undefined
       if (Object.keys(videoItem).length > 0) {
@@ -43,7 +43,8 @@ export class VideoPropertiesComponent implements OnInit {
         this.uploadedBy = this.currentVideo.uploadedBy;
         this.videoTitle = this.currentVideo.title;
       }
-    });
-    
+    }); 
   }
+
+  
 }

@@ -78,6 +78,12 @@ export class MediaService {
             this.playList[index] = item;
         }
 
+    httpGetVideoProperties(video: IMedia) {
+        const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
+        debugger;   
+        return this.http.get<IMedia>(requestUrl);
+    }
+
     changeVideoProperties(item: IMedia) {
         this.mediaSource.next(item);
     }
