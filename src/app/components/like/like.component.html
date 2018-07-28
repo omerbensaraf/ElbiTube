@@ -1,6 +1,4 @@
- <img [src]= "likeImg" style="width:25px" (click) = "onLike()">
-<!-- <i class="fa fa-cab" style="font-size: 50px;color: red"></i> -->
-<!-- <fa name="cog" animation="spin"></fa> -->
+<span [class]="likeClass" style="font-size: 20px;color: blue;background-color: transparent;" (click) = "onLike()"></span>
 <label *ngIf="likeExists">{{item.likeUsers.length}}</label> 
-<img [src]= "disLikeImg" style="width:25px" (click) = "onDisLike()">
+<span [class]="disLikeClass" style="font-size: 20px;color: red;background-color: transparent;" (click) = "onDisLike()"></span>
 <label  *ngIf="likeExists">{{item.disLikeUsers.length}}</label> 

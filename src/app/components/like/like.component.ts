@@ -18,19 +18,21 @@ export class LikeComponent implements OnInit {
   @Input() userEmail : String;
   updates : Updates;
   likeExists:boolean=false;
+  likeClass:string="fa fa-thumbs-o-up";
+  disLikeClass:string="fa fa-thumbs-o-down";
 
   constructor(private mediaService : MediaService, private usersService: UsersService) { }
   
 
   ngOnInit() {
-    this.updateLikeSelected();
+    this.initLikeStatus();
     this.likeExists=true; 
       
     this.mediaService.getLikeUpdates().subscribe((item: IMedia) => {
         if(this.item._id === item._id){
           this.item.likeUsers = item.likeUsers;
           this.item.disLikeUsers = item.disLikeUsers;
-          this.updateLikeSelected();
+          this.initLikeStatus();
         }
       }); 
   
@@ -64,23 +66,23 @@ export class LikeComponent implements OnInit {
     this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
-  updateLikeSelected(){
+  initLikeStatus(){
     if(this.item.likeUsers.includes(this.userEmail)){
       this.likeSelected = true;
-      this.likeImg = "./assets/images/like-selected.png";
+      this.likeClass="fa fa-thumbs-up";
     }
     else{
       this.likeSelected = false;
-      this.likeImg = "./assets/images/like.png";
+      this.likeClass="fa fa-thumbs-o-up";
     }
 
     if(this.item.disLikeUsers.includes(this.userEmail)){
       this.disLikeSelected = true;
-      this.disLikeImg = "./assets/images/unlike-selected.png";
+      this.disLikeClass="fa fa-thumbs-down";
     }
     else{
       this.disLikeSelected = false;
-      this.disLikeImg = "./assets/images/unlike.png";
+      this.disLikeClass="fa fa-thumbs-o-down";
     }
   } 
 
