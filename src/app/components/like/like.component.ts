@@ -14,7 +14,6 @@ export class LikeComponent implements OnInit {
   likeImg : String;
   disLikeSelected : boolean;
   disLikeImg : String;
-  specificItem : IMedia; 
   @Input() item : IMedia;
   @Input() userEmail : String;
   updates : Updates;
@@ -38,79 +37,32 @@ export class LikeComponent implements OnInit {
   }
 
   onLike(){
-      this.specificItem = this.item;
       if(this.likeSelected){
-        this.updates = Updates.RemoveLike;
+        this.updates = Updates.RL;
       }
       else{
-        this.updates = Updates.AddLike;
+        this.updates = Updates.AL;
         if(this.disLikeSelected){
-          this.updates = Updates.AddLikeRemoveDisLike;      
+          this.updates = Updates.ALRDL;      
         }
       }
-      this.updateItem(this.updates);
+      debugger;
+      this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
   
   onDisLike(){
-      this.specificItem = this.item;
   if(this.disLikeSelected){
-      this.updates = Updates.RemoveDisLike;
+      this.updates = Updates.RDL;
     }
     else{
-      this.updates = Updates.AddDisLike;
+      this.updates = Updates.ADL;
       if(this.likeSelected){
-      this.updates = Updates.AddDisLikeRemoveLike;
+      this.updates = Updates.ADLRL;
       }
     }
-    this.updateItem(this.updates);
+    this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
-
-  updateItem(updates : Updates){
-    switch(updates){
-      case Updates.AddLike:{
-        this.specificItem.likeUsers.push(this.userEmail);
-        break;
-      }
-      case Updates.RemoveLike:{
-        var index = this.specificItem.likeUsers.indexOf(this.userEmail, 0);
-        if(index > -1){
-        this.specificItem.likeUsers.splice(index,1);
-        }    
-        break;
-      }
-      case Updates.AddDisLike:{
-        this.specificItem.disLikeUsers.push(this.userEmail);
-        break;
-      }
-      case Updates.RemoveDisLike:{
-        var index = this.specificItem.disLikeUsers.indexOf(this.userEmail, 0);
-        if(index > -1){
-        this.specificItem.disLikeUsers.splice(index,1);  
-        }
-        break;
-      }
-      case Updates.AddLikeRemoveDisLike:{
-        this.specificItem.likeUsers.push(this.userEmail);
-        var index = this.specificItem.disLikeUsers.indexOf(this.userEmail, 0);
-        if(index > -1){
-        this.specificItem.disLikeUsers.splice(index,1);
-        }
-        break;
-      }
-      case Updates.AddDisLikeRemoveLike:{
-        this.specificItem.disLikeUsers.push(this.userEmail);  
-        var index = this.specificItem.likeUsers.indexOf(this.userEmail, 0);
-        if(index > -1){
-        this.specificItem.likeUsers.splice(index,1);
-        }
-        break;    
-      }
-    }
-    debugger;
-    this.mediaService.likeSocket(this.specificItem);
-  }
-
 
   updateLikeSelected(){
     if(this.item.likeUsers.includes(this.userEmail)){

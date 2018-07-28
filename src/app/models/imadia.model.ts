@@ -8,12 +8,11 @@ export interface IMedia {
   disLikeUsers : String[];
 }
 
-
 export enum Updates{
-  AddLike = 1,
-  RemoveLike,
-  AddDisLike,
-  RemoveDisLike,
-  AddLikeRemoveDisLike,
-  AddDisLikeRemoveLike
+  AL = 'AddLike',
+  RL = 'RemoveLike',
+  ADL = 'AddDisLike',
+  RDL = 'RemoveDisLike',
+  ALRDL = 'AddLikeRemoveDisLike',
+  ADLRL = 'AddDisLikeRemoveLike'
 }
