@@ -16,7 +16,6 @@ export class PlayerComponent {
 
     constructor() {}
     onPlayerReady(api:VgAPI) {
-      debugger;
       this.api = api;
       // this.api.getDefaultMedia().subscriptions.loadedMetadata.subscribe(
       //    this.playVideo.bind(this)

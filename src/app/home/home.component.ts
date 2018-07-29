@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   onVideoEnded() {
-    debugger;
     this.currentIndex++;
     if (this.currentIndex === this.playList.length) {
       this.currentIndex = 0;
@@ -41,7 +40,6 @@ export class HomeComponent implements OnInit {
     this.currentItem = this.playList[ this.currentIndex];*/
     
     this.mediaService.httpGetMedia().subscribe(data => { 
-      debugger;
       console.log(data);
        this.playList = data.filter(item => item.likeCouner > 0);
        this.currentIndex = 0;
