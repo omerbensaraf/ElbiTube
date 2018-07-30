@@ -31,8 +31,8 @@ export class LikeComponent implements OnInit {
     this.unLikeCounter = 0;
 
     this.specificItem = this.mediaService.httpGetSpecificItem(1);
-    this.likeCounter = this.specificItem.likeCouner;
-    this.unLikeCounter = this.specificItem.unLikeCouner;
+    //this.likeCounter = this.specificItem.likeCouner;
+    //this.unLikeCounter = this.specificItem.unLikeCouner;
     this.updateLikeSelected();
   }
 
@@ -87,8 +87,8 @@ export class LikeComponent implements OnInit {
   }
 
   updateItem(updates : Updates){
-    this.specificItem.likeCouner = this.likeCounter;
-    this.specificItem.unLikeCouner = this.unLikeCounter;
+    //this.specificItem.likeCouner = this.likeCounter;
+    //this.specificItem.unLikeCouner = this.unLikeCounter;
     switch(updates){
       case Updates.AddLike:{
         this.specificItem.likeUsers.push(this.userId);    

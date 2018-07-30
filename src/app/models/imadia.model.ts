@@ -4,8 +4,6 @@ export interface IMedia {
   src: string;
   type: string;
   imageSrc : string;
-  likeCouner : number;
-  unLikeCouner : number;
   likeUsers : String[];
   unLikeUsers : String[];
   views: number;

@@ -7,47 +7,7 @@ import { IMedia } from '../models/imadia.model';
 @Injectable()
 export class MediaService {
     //playList: Array<IMedia> = [];
-    playList: Array<IMedia> = [
-        {
-            _id : "",
-            title: 'Pale Blue Dot',
-            src: 'http://static.videogular.com/assets/videos/videogular.mp4',
-            type: 'video/mp4',
-            imageSrc : "./assets/images/banner-1.jpg",
-            likeCouner : 0,
-            unLikeCouner : 0,
-            likeUsers : [],
-            unLikeUsers : [],
-            views: 0,
-            uploadedBy: 'Alon Yeshurun'
-        },
-        {
-            _id : "",
-            title: 'Big Buck Bunny',
-            src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
-            type: 'video/mp4',
-            imageSrc : "./assets/images/banner-2.jpg",
-            likeCouner : 0,
-            unLikeCouner : 0,
-            likeUsers : [],
-            unLikeUsers : [],
-            views: 0,
-            uploadedBy: 'Alon Yeshurun'
-        },
-        {
-            _id : "",
-            title: 'Elephants Dream',
-            src: 'http://static.videogular.com/assets/videos/elephants-dream.mp4',
-            type: 'video/mp4',
-            imageSrc : "./assets/images/banner-3.jpg",
-            likeCouner : 0,
-            unLikeCouner : 0,
-            likeUsers : [],
-            unLikeUsers : [],
-            views: 0,
-            uploadedBy: 'Alon Yeshurun'
-        }
-    ];
+    playList: Array<IMedia> = [];
     private mediaSource = new BehaviorSubject<any>({});
     currentVideoProperty = this.mediaSource.asObservable();
 

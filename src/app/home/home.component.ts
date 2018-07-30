@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     this.mediaService.httpGetMedia().subscribe(data => { 
     debugger;
       //data = [data[0]];
-      this.playList = data.filter(item => item.likeCouner > 0);
+      this.playList = data.filter(item => item.likeUsers.length > 0);
       this.currentIndex = 0;
       this.currentItem = this.playList[ this.currentIndex ];
       
@@ -57,11 +57,11 @@ export class HomeComponent implements OnInit {
 
   onVideoEnded() {
     debugger;
-    // this.currentIndex++;
-    // if (this.currentIndex === this.playList.length) {
-    //   this.currentIndex = 0;
-    // }
-    // this.currentItem = this.playList[this.currentIndex];
+    this.currentIndex++;
+    if (this.currentIndex === this.playList.length) {
+      this.currentIndex = 0;
+    }
+    this.currentItem = this.playList[this.currentIndex];
   }
 
   
