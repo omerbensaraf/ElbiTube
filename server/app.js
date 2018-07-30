@@ -127,46 +127,6 @@ app.post('/upload', (req, res) => {
                 size: '320x240'
             });
             // gerenate schema object and save in DB
-            /*var video1 = new Video({
-                _id : mongoose.Types.ObjectId(),
-                title: 'Pale Blue Dot',
-                src: 'http://static.videogular.com/assets/videos/videogular.mp4',
-                type: 'video/mp4',
-                imageSrc : "./assets/images/banner-1.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
-                likeUsers : [],
-                unLikeUsers : [],
-                viewes: 0,
-                uploadedBy: 'Alon Yeshurun'
-            
-            });
-            var video2 = new Video({
-                _id : mongoose.Types.ObjectId(),
-                title: 'Big Buck Bunny',
-                src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
-                type: 'video/mp4',
-                imageSrc : "./assets/images/banner-2.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
-                likeUsers : [],
-                unLikeUsers : [],
-                viewes: 0,
-                uploadedBy: 'Alon Yeshurun'
-            });
-            var video3 = new Video({
-                _id : mongoose.Types.ObjectId(),
-                title: 'Elephants Dream',
-                src: 'http://static.videogular.com/assets/videos/' + _id + ".mp4" ,
-                type: 'video/mp4',
-                imageSrc : "./assets/images/banner-3.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
-                likeUsers : [],
-                unLikeUsers : [],
-                viewes: 0,
-                uploadedBy: 'Alon Yeshurun'
-            });*/
             var video = new Video({ 
                 title: req.file.originalname, 
                 src: req.file.path,
@@ -177,9 +137,6 @@ app.post('/upload', (req, res) => {
             });
             console.log(">>>  req.files.originalname: " +  req.file.originalname);
             video.save();
-            //video1.save();
-            //video2.save();
-            //video3.save();
         }
     });
 });

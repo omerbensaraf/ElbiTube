@@ -40,7 +40,6 @@ export class LikeComponent implements OnInit {
   }
 
   onLike(){
-    debugger;
     this.specificItem = this.mediaService.httpGetSpecificItem(1);
     if(this.likeSelected){
       this.likeImg = "./assets/images/like.png";
@@ -150,3 +149,4 @@ export class LikeComponent implements OnInit {
   } 
 
 }
+

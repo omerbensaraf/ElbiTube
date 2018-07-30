@@ -18,6 +18,8 @@ import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
+import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
+import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { UsersService } from './services/users.service';
     FooterComponent,
     PlayerComponent,
     LikeComponent,
-    LoginHeaderComponent
+    LoginHeaderComponent,
+    VideoPropertiesComponent,
+    AutoCompleteSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -49,3 +53,5 @@ import { UsersService } from './services/users.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

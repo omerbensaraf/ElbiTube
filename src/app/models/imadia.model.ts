@@ -3,11 +3,13 @@ export interface IMedia {
   title: string;
   src: string;
   type: string;
-  imageSrc : String;
+  imageSrc : string;
   likeCouner : number;
   unLikeCouner : number;
   likeUsers : String[];
   unLikeUsers : String[];
+  viewes: number;
+  uploadedBy: string;
 }
 
 
