@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
         });
 
     socket.on('RemoveLike', function(id,userEmail) {
-        addLikeRemoveDisLike(id,userEmail);
+        removeLike(id,userEmail);
         });
 
     socket.on('AddDisLike', function(id,userEmail) {
