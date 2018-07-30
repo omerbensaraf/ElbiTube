@@ -70,4 +70,16 @@ httpUpdateSpecificItem(item : IMedia, index : number){
         this.playList[index] = item;
     }
 
+httpUploadVideo(filePath: string, title: string, description: string) {
+    const requestUrl = 'http://11.0.73.2:3000/upload';
+    const request = {
+        file:{
+            path:filePath,
+            originalname: title,
+            description: description
+        } 
+    };
+    return this.http.post(requestUrl, request);
+  }
+
 }

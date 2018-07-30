@@ -40,8 +40,11 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Videos Public Folder
+// Expose Videos Public Folder
 app.use(express.static('./videos'));
+
+// Expose Images Public Folder
+app.use(express.static('./videos/frames'));
 
 // Use Cross Origin Resource Sharing
 /*var corsOptions = {
@@ -66,29 +69,31 @@ app.get("/", function (req,res) {
     res.sendFile(__dirname+"/views/index.html");
 })
 
+// Get videos page - display videos json from db
 app.get('/videos', function (req,res) {
     mongoose.model('Video').find(function (err,videos) {
         res.send(videos);
     })
 });
 
-// Get videos page - display videos from db
+// Play selected video
 app.get('/videos/:videoId',  function (req,res) {
+    
+    var url = '';
+    var videoSrc = '';
+    console.log(">>> Inside get --------> videoId "+ req.params.videoId);
 
-    console.log(req.params.videoId);
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,videos) {
-        let url =  "http:\\\\11.0.73.2:3000";
-        var videoSrc = '';
-        videoSrc = videos.src;
-        console.log(">>> url: "+url);
-        console.log(">>> url length: "+ url.length);
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
+        console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
+        url =  "http:\\\\11.0.73.2:3000";
+        videoSrc = selectedVideo.src;
         /*var position = videoSrc.indexOf("videos");
         if(position != -1)
         var filePath = videoSrc.substr(position,videoSrc.length);*/
         //res.sendFile(__dirname + filePath);
         let videoPath = videoSrc.substr(url.length,videoSrc.length);
-        console.log(__dirname + videoPath);
-        console.log(videoPath);
+        selectedVideo.viewes+=1;
+        selectedVideo.save();
         res.sendFile(__dirname + videoPath + ".mp4");
         //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
@@ -122,7 +127,7 @@ app.post('/upload', (req, res) => {
                 size: '320x240'
             });
             // gerenate schema object and save in DB
-            var video1 = new Video({
+            /*var video1 = new Video({
                 _id : mongoose.Types.ObjectId(),
                 title: 'Pale Blue Dot',
                 src: 'http://static.videogular.com/assets/videos/videogular.mp4',
@@ -131,7 +136,9 @@ app.post('/upload', (req, res) => {
                 likeCouner : 0,
                 unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                unLikeUsers : [],
+                viewes: 0,
+                uploadedBy: 'Alon Yeshurun'
             
             });
             var video2 = new Video({
@@ -143,7 +150,9 @@ app.post('/upload', (req, res) => {
                 likeCouner : 0,
                 unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                unLikeUsers : [],
+                viewes: 0,
+                uploadedBy: 'Alon Yeshurun'
             });
             var video3 = new Video({
                 _id : mongoose.Types.ObjectId(),
@@ -154,13 +163,23 @@ app.post('/upload', (req, res) => {
                 likeCouner : 0,
                 unLikeCouner : 0,
                 likeUsers : [],
-                unLikeUsers : []
+                unLikeUsers : [],
+                viewes: 0,
+                uploadedBy: 'Alon Yeshurun'
+            });*/
+            var video = new Video({ 
+                title: req.file.originalname, 
+                src: req.file.path,
+                imageSrc: frameDestinationPath+frameName, 
+                type: req.file.mimetype, 
+                viewes: 0, 
+                uploadedBy: 'Alon Yeshurun'
             });
-            //var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
             console.log(">>>  req.files.originalname: " +  req.file.originalname);
-            video1.save();
-            video2.save();
-            video3.save();
+            video.save();
+            //video1.save();
+            //video2.save();
+            //video3.save();
         }
     });
 });
