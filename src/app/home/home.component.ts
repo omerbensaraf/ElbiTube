@@ -50,15 +50,19 @@ export class HomeComponent implements OnInit {
     this.currentIndex = index;
     this.currentItem = item;
     //this.mediaService.changeVideoProperties(this.currentItem);
+    this.mediaService.httpGetVideoProperties(this.currentItem).subscribe( data => {
+      // set new value to the mediaSource observable
+      this.mediaService.changeVideoProperties(data);
+    });
   }
 
   // catch event from app-player and make request for the update current item from db and change properties
   onVideoLoaded() {
     debugger;
-    this.mediaService.httpGetVideoProperties(this.currentItem).subscribe( data => {
-      // set new value to the mediaSource observable
-      this.mediaService.changeVideoProperties(data);
-    })
+    // this.mediaService.httpGetVideoProperties(this.currentItem).subscribe( data => {
+    //   // set new value to the mediaSource observable
+    //   this.mediaService.changeVideoProperties(data);
+    // })
   } 
 
   onVideoEnded() {
