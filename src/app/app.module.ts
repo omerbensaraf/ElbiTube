@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
+import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { VideoPropertiesComponent } from './components/video-properties/video-pr
     PlayerComponent,
     LikeComponent,
     LoginHeaderComponent,
-    VideoPropertiesComponent
+    VideoPropertiesComponent,
+    AutoCompleteSearchComponent
   ],
   imports: [
     BrowserModule,
