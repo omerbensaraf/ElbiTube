@@ -175,13 +175,13 @@ app.get('/videoRecord/:videoId', function(req,res){
 app.get('/videos/:videoId',  function (req,res) {
     
     var url = '';
-    var url =  "http:\\\\localhost:3000";
+    //var url =  "http:\\\\localhost:3000";
     var videoSrc = '';
     console.log(">>> Inside get --------> videoId "+ req.params.videoId);
 
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
         //console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
-        //url = config.url;
+        url = config.url;
         videoSrc = selectedVideo.src;
         var position = videoSrc.indexOf("\\videos");
         if(position !== -1) {

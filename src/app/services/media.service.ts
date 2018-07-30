@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class MediaService {
-    private url = 'http://localhost:3000';
+    private url = 'http://11.0.73.2:3000';
     private socket;
     playList: Array<IMedia> = [];
     private mediaSource = new BehaviorSubject<any>({});
@@ -19,12 +19,12 @@ export class MediaService {
 
 
     httpGetMedia(): Observable<Array<IMedia>>{
-        const requestUrl = 'http://localhost:3000/videos';
+        const requestUrl = 'http://11.0.73.2:3000/videos';
         return this.http.get<Array<IMedia>>(requestUrl);
     }
 
     httpGetSpecificItem(id : String): Observable<IMedia>{
-        const requestUrl = 'http://localhost:3000/videoRecord/' + id;
+        const requestUrl = 'http://11.0.73.2:3000/videoRecord/' + id;
         return this.http.get<IMedia>(requestUrl);
     }
 
