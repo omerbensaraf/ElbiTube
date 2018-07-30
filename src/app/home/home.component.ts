@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaService } from '../services/media.service';
+import { IMedia } from '../models/imadia.model';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +19,42 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class HomeComponent implements OnInit {
+  playList: Array<IMedia>;
+  currentIndex: number;
+  currentItem: IMedia;
 
-  constructor() { }
+  constructor(private mediaService: MediaService, private http: HttpClient) {
 
+  }
+
+  onVideoEnded() {
+    this.currentIndex++;
+    if (this.currentIndex === this.playList.length) {
+      this.currentIndex = 0;
+    }
+    this.currentItem = this.playList[this.currentIndex];
+  }
   ngOnInit() {
+    /*this.playList = this.mediaService.httpGetMedia();
+    this.currentIndex = 0;
+    this.currentItem = this.playList[ this.currentIndex];*/
+    
+    this.mediaService.httpGetMedia().subscribe(data => { 
+      console.log(data);
+       this.playList = data.filter(item => item.likeCouner > 0);
+       this.currentIndex = 0;
+       this.currentItem = this.playList[ this.currentIndex ];
+       // Initiate video properties with the selected video
+       this.mediaService.changeVideoProperties(this.currentItem);
+      });
+  }
+
+  onClickPlaylistItem(item: IMedia, index: number) {
+    this.currentIndex = index;
+    this.currentItem = item;
+    // Raise flag on the subscribed field that video has changed and need to update properties
+    this.mediaService.changeVideoProperties(item);
   }
 
 }
+

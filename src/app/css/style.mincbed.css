@@ -173,7 +173,7 @@ img {
 }
 
 .header-top {
-    background-color: #cc181e;
+    background-color: #ffdc2d;
     overflow: hidden;
     min-height: 40px;
     line-height: 40px
@@ -188,8 +188,8 @@ img {
 .header-top .user-info a,
 .site-info,
 .site-info a {
-    color: #fff;
-    font-weight: 400;
+    color: #101010;
+    font-weight: 600;
     text-transform: capitalize
 }
 
@@ -202,7 +202,9 @@ img {
 }
 
 .header-top .mail-address a {
-    text-transform: lowercase
+    text-transform: lowercase;
+    font-weight: 600;
+    font-size: 15px;
 }
 
 .mega-menu>ul>li>ul>li>a,
@@ -241,7 +243,7 @@ ul.nav>li:hover>a {
     font-weight: 700
 }
 .main-menu .navbar-nav>li>a:hover {
-   color:#CC181E
+   color:#4267b2
 }
 
 .modal-title {
@@ -291,7 +293,7 @@ ul.nav>li:hover>a {
 
 #searchModal .modal-header {
     padding: 10px 15px 5px;
-    background-color: #cc181e
+    background-color: #ffdc2d
 }
 
 #searchModal .modal-title {
@@ -474,8 +476,8 @@ ul.pgwSlider>li span {
 }
 
 .heading-icon {
-    background-color: #cc181e;
-    color: #fff;
+    background-color: #ffdc2d;
+    color: #101010;
     display: inline-block;
     height: 35px;
     line-height: 35px;
@@ -497,7 +499,7 @@ ul.pgwSlider>li span {
 }
 
 .video-title:hover {
-    color: #cc181e
+    color: #4267b2
 }
 
 .video-feedback {
@@ -583,7 +585,7 @@ ul.pgwSlider>li span {
 }
 
 .owl-prev:hover {
-    background-color: #cc181e
+    background-color: #4267b2
 }
 
 .owl-next {
@@ -594,7 +596,7 @@ ul.pgwSlider>li span {
 }
 
 .owl-next:hover {
-    background-color: #cc181e
+    background-color: #4267b2
 }
 
 .single-review .review-img a,
@@ -658,7 +660,7 @@ ul.pgwSlider>li span {
 
 .single-review .review-img a:after,
 .single-video .video-img a:after {
-    color: #cc181e;
+    color: #4267b2;
     content: "\f01d";
     font-family: FontAwesome;
     font-size: 60px;
@@ -1082,7 +1084,7 @@ a.themeix-purchase-btn-3:hover {
 }
 
 .footer-list ul li a:hover {
-    color: #cc181e
+    color: #4267b2    
 }
 
 .social-links ul li.fb-link a:hover {
@@ -1109,7 +1111,7 @@ a.themeix-purchase-btn-3:hover {
 }
 
 .footer-links ul li a:hover {
-    color: #cc181e
+    color: #4267b2
 }
 
 .footer-links ul li:last-child a {
@@ -1678,11 +1680,11 @@ textarea.form-control {
     content: "\f0da";
     font-family: FontAwesome;
     margin-right: 10px;
-    color: #E12866
+    color:darkblue
 }
 
 .categories-list ul li a:hover {
-    color: #E94F5A
+    color: #4267b2
 }
 
 .header-breadcrumb p {
@@ -1845,7 +1847,7 @@ textarea.form-control {
 
 .scroll-top:hover,
 header .modal-header {
-    background-color: #cc181e
+    background-color: #ffdc2d
 }
 
 .scroll-top .scroll-icon {
@@ -1875,7 +1877,7 @@ header .modal-header h3 {
 }
 
 header .modal-header .close-btn {
-    background-color: #d93d3d;
+    background-color: #ffdc2d;
     border: none;
     border-radius: 0;
     color: #fff;
@@ -1887,7 +1889,7 @@ header .modal-header .close-btn {
 }
 
 header .modal-body .btn.btn-primary {
-    background-color: #cc181e;
+    background-color: #ffdc2d;
     border: none;
     border-radius: 4px;
     font-size: 18px;
@@ -2300,7 +2302,7 @@ header.stickey a.logo.image-logo img {
 }
 
 .navbar-brand img {
-    max-height: 45px
+    max-height: 60px
 }
 
 .bg-themeix {
@@ -2326,4 +2328,7 @@ header.stickey a.logo.image-logo img {
 
 .hidden {
     display: none;
+}
+.login-info {
+    color: #101010;
 }
