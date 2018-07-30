@@ -2,10 +2,13 @@ const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const User = require('./models/users');
+const User = require('./models/user');
 const Video = require('./models/videos');
 const cors = require('cors');
 const config = require('./config');
+const port = 3000;
+const socketIO = require('socket.io');
+
 // Get and Set ffmpeg library for frame generation
 const path = require('path');
 const ffprobePath = require('@ffprobe-installer/ffprobe').path;
@@ -31,7 +34,36 @@ const upload = multer({
 
 // Define the app
 const app = express();
+let http = require('http');
+let server = http.Server(app);
+let io = socketIO(server);
+io.on('connection', (socket) => {
 
+    console.log('user connected');
+
+    socket.on('AddLike', function(id,userEmail) {
+        addLike(id,userEmail);
+      });
+
+    socket.on('AddLikeRemoveDisLike', function(id,userEmail) {
+        addLikeRemoveDisLike(id,userEmail);
+        });
+
+    socket.on('RemoveLike', function(id,userEmail) {
+        addLikeRemoveDisLike(id,userEmail);
+        });
+
+    socket.on('AddDisLike', function(id,userEmail) {
+        addDisLike(id,userEmail);
+        });
+    socket.on('RemoveDisLike', function(id,userEmail) {
+        removeDisLike(id,userEmail);
+        });
+    socket.on('AddDisLikeRemoveLike', function(id,userEmail) {
+        addDisLikeRemoveLike(id,userEmail);
+        });
+
+    });
 // Define View Engine
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -72,25 +104,84 @@ app.get('/videos', function (req,res) {
     })
 });
 
-app.get('/getVideoProperties/:videoId', function(req,res){ 
-    console.log(">>> get video properties: "+ req.params.videoId); 
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) { 
-        res.send(video); 
-    }) 
-}); 
-    
+function addLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$push: {likeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function addLikeRemoveDisLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query,{
+        $push: {likeUsers: userEmail},
+        $pull: {disLikeUsers: userEmail}
+        },
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+
+function removeLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$pull: {likeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function addDisLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$push: {disLikeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function removeDisLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$pull: {disLikeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function addDisLikeRemoveLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query,{
+        $push: {disLikeUsers: userEmail},
+        $pull: {likeUsers: userEmail}
+        },
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+app.get('/videoRecord/:videoId', function(req,res){
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
+        res.send(video);
+    })
+});
 
 // Get Specific Video - Play selected video
 app.get('/videos/:videoId',  function (req,res) {
     
     var url = '';
+    var url =  "http:\\\\localhost:3000";
     var videoSrc = '';
     console.log(">>> Inside get --------> videoId "+ req.params.videoId);
 
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
         //console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
-        
-        url = config.url;
+        //url = config.url;
         videoSrc = selectedVideo.src;
         var position = videoSrc.indexOf("\\videos");
         if(position !== -1) {
@@ -107,11 +198,6 @@ app.get('/videos/:videoId',  function (req,res) {
                 throw ("File type is not compatible");
             }   
         }
-        
-        //res.sendFile(__dirname + filePath);
-        //let videoPath = videoSrc.substr(url.length,videoSrc.length);
-        //console.log(">>>> ---------------> videopath: " + videoPath);
-        //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
 });
 
@@ -154,56 +240,11 @@ app.post('/upload', (req, res) => {
             });
             console.log(">>>  req.files.originalname: " +  req.file.originalname);
             video.save();
-            /*
-            var video1 = new Video({
-                _id : mongoose.Types.ObjectId(),
-                title: 'Pale Blue Dot',
-                src: 'http://static.videogular.com/assets/videos/videogular.mp4',
-                type: 'video/mp4',
-                imageSrc : "./assets/images/banner-1.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
-                likeUsers : [],
-                unLikeUsers : [],
-                views: 0,
-                uploadedBy: 'Alon Yeshurun'
             
-            });
-            var video2 = new Video({
-                _id : mongoose.Types.ObjectId(),
-                title: 'Big Buck Bunny',
-                src: 'http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov',
-                type: 'video/mp4',
-                imageSrc : "./assets/images/banner-2.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
-                likeUsers : [],
-                unLikeUsers : [],
-                views: 0,
-                uploadedBy: 'Alon Yeshurun'
-            });
-            var video3 = new Video({
-                _id : mongoose.Types.ObjectId(),
-                title: 'Elephants Dream',
-                src: 'http://static.videogular.com/assets/videos/' + _id + ".mp4" ,
-                type: 'video/mp4',
-                imageSrc : "./assets/images/banner-3.jpg",
-                likeCouner : 0,
-                unLikeCouner : 0,
-                likeUsers : [],
-                unLikeUsers : [],
-                views: 0,
-                uploadedBy: 'Alon Yeshurun'
-            });
-            video1.save();
-            video2.save();
-            video3.save();
-            */
         }
     });
 });
 
-const port = 3000;
 
 function getFileExtensionAndValidation(filename) {
     var ext = filename.slice((filename.lastIndexOf("/") - 1 >>> 0) + 2);

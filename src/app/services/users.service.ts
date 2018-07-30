@@ -13,7 +13,12 @@ export class UsersService {
   private userSource = new BehaviorSubject<string>('');
   loggedInUser = this.userSource.asObservable();
 
+
   constructor(private http: HttpClient) { }
+
+  getUserEmail(){
+    return this.userSource.getValue();
+  }
 
   signIn(email: string, password: string) {
     const request = {
@@ -39,4 +44,3 @@ export class UsersService {
     this.userSource.next(email);
   }
 }
-

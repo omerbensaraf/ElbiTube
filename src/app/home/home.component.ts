@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 import { MediaService } from '../services/media.service';
+import { UsersService } from '../services/users.service';
 import { IMedia } from '../models/imadia.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
@@ -22,19 +23,24 @@ export class HomeComponent implements OnInit {
   playList: Array<IMedia>;
   currentIndex: number;
   currentItem: IMedia;
+  userEmail : String;
+  homeLoading:boolean=false;
+  constructor(private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
 
-  constructor(private mediaService: MediaService, private http: HttpClient) {
-
+    
+    
   }
 
   ngOnInit() {
+    this.userEmail = this.userService.getUserEmail();
+
     this.mediaService.httpGetMedia().subscribe(data => { 
-    debugger;
-      //data = [data[0]];
-      this.playList = data.filter(item => item.likeUsers.length > 0);
-      this.currentIndex = 0;
-      this.currentItem = this.playList[ this.currentIndex ];
-      
+      debugger;
+      console.log(data);
+      this.playList = this.sort(data).slice(0,3);
+       this.currentIndex = 0;
+       this.currentItem = this.playList[ this.currentIndex ];
+       this.homeLoading=true;
       // Initiate video properties with the selected video
       this.mediaService.changeVideoProperties(this.currentItem);
     });
@@ -64,7 +70,9 @@ export class HomeComponent implements OnInit {
     this.currentItem = this.playList[this.currentIndex];
   }
 
-  
+  sort(data : IMedia[]){
+    return data.sort((a, b)=>{return b.likeUsers.length - a.likeUsers.length});
+  }
 
 }
 

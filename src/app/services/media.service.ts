@@ -2,50 +2,50 @@ import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import { IMedia } from '../models/imadia.model';
+import { IMedia, Updates } from '../models/imadia.model';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class MediaService {
-    //playList: Array<IMedia> = [];
+    private url = 'http://localhost:3000';
+    private socket;
     playList: Array<IMedia> = [];
     private mediaSource = new BehaviorSubject<any>({});
     currentVideoProperty = this.mediaSource.asObservable();
 
     constructor(private http : HttpClient) {   
+        this.socket = io(this.url);
     }
 
 
     httpGetMedia(): Observable<Array<IMedia>>{
-    // httpGetMedia():  Array<IMedia>{
-        const requestUrl = 'http://11.0.73.2:3000/videos';
-        debugger;   
-        //return this.http.get<Array<any>>(requestUrl);
+        const requestUrl = 'http://localhost:3000/videos';
         return this.http.get<Array<IMedia>>(requestUrl);
-    // return this.playList;
     }
 
-    httpGetSpecificItem(index : number){
-        //httpGetMedia(): Observable<Array<IMedia>>{
-            const requestUrl = 'https://newsapi.org/v2/top-headlines?sources=ynet&apiKey=82f0da9784344916a6b506196467c87c';
-            //return this.http.get<Array<IMedia>>(requestUrl);
-            return this.playList[index];
-        }
-
-    httpUpdateSpecificItem(item : IMedia, index : number){
-        //httpGetMedia(): Observable<Array<IMedia>>{
-            const requestUrl = 'https://newsapi.org/v2/top-headlines?sources=ynet&apiKey=82f0da9784344916a6b506196467c87c';
-            //return this.http.get<Array<IMedia>>(requestUrl);
-            this.playList[index] = item;
-        }
-
-    httpGetVideoProperties(video: IMedia) {
-        const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
-        debugger;   
+    httpGetSpecificItem(id : String): Observable<IMedia>{
+        const requestUrl = 'http://localhost:3000/videoRecord/' + id;
         return this.http.get<IMedia>(requestUrl);
     }
 
+    httpGetVideoProperties(video: IMedia) {
+        const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
+        return this.http.get<IMedia>(requestUrl);
+    }
+
+    likeSocket(update : Updates, id :String, userEmail :String ){
+        this.socket.emit(update, id, userEmail);
+    }
+    
     changeVideoProperties(item: IMedia) {
         this.mediaSource.next(item);
     }
 
+    public getLikeUpdates = () => {
+        return Observable.create((observer) => {
+            this.socket.on('update-like-counter', (item) => {
+                observer.next(item);
+            });
+        });
+    }
 }

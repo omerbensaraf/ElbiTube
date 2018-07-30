@@ -17,7 +17,6 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
 
@@ -29,9 +28,7 @@ import { VideoPropertiesComponent } from './components/video-properties/video-pr
     MenuComponent,
     FooterComponent,
     PlayerComponent,
-    LikeComponent,
-    LoginHeaderComponent,
-    VideoPropertiesComponent
+    LikeComponent
   ],
   imports: [
     BrowserModule,
@@ -40,12 +37,11 @@ import { VideoPropertiesComponent } from './components/video-properties/video-pr
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    HttpClientModule,
-    FormsModule
+    FormsModule,
+    VideoPropertiesComponent
   ],
   providers: [    
     MediaService,
-    HttpClientModule,
     UsersService
   ],
   bootstrap: [AppComponent]
