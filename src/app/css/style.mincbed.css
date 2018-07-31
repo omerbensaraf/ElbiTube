@@ -486,10 +486,17 @@ ul.pgwSlider>li span {
     width: 35px
 }
 
+.properties {
+    margin-left:1%
+}
 .video-title {
     color: #111;
     line-height: 22px;
     font-weight: 700
+}
+
+.video-title:hover {
+    color: #4267b2
 }
 
 .video-uploadedby-and-viewers {
@@ -509,10 +516,6 @@ ul.pgwSlider>li span {
 .video-viewers {
     display: inline-block;
     font-size: 30px
-}
-
-.video-title:hover {
-    color: #4267b2
 }
 
 .video-feedback {
