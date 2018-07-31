@@ -8,7 +8,7 @@ import { UsersService } from '../services/users.service';
 })
 export class LoginHeaderComponent implements OnInit {
 
-  email: string = '';
+  email: string = 'omerbensaraf@gmail.com';
   
   constructor(private usersService: UsersService) { }
 

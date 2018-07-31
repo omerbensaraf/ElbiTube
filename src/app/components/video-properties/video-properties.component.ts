@@ -25,7 +25,8 @@ export class VideoPropertiesComponent implements OnInit {
   private views : number;
   private uploadedBy : String;
   private videoTitle: String;
-
+  @Input() userEmail : String;
+  
 
   constructor(private mediaService: MediaService){
   

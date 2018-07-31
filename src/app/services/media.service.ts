@@ -20,7 +20,6 @@ export class MediaService {
 
 
     httpGetMedia(): Observable<Array<IMedia>>{
-        debugger;
         const requestUrl = 'http://11.0.73.2:3000/videos';
         return this.http.get<Array<IMedia>>(requestUrl);
     }
@@ -36,7 +35,6 @@ export class MediaService {
     }
 
     httpPutVideoViews(video: IMedia) {
-        debugger;
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews/'+video._id;
         video.views+=1;
         return this.http.put(requestUrl,video);

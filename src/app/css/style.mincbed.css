@@ -492,7 +492,14 @@ ul.pgwSlider>li span {
     font-weight: 700
 }
 
-.video-like-counter,
+.video-like-counter {
+    font-size: 16px;
+    text-align: left;
+    width: 70%;
+    padding: 0 5px;
+    color: #767676;
+    margin-right: 1%
+}
 .video-viewers {
     display: inline-block;
     font-size: 12px
@@ -504,15 +511,6 @@ ul.pgwSlider>li span {
 
 .video-feedback {
     overflow: hidden
-}
-
-.video-like-counter {
-    padding: 0 5px;
-    color: #767676
-}
-
-.video-like-counter:last-child {
-    padding-right: 0
 }
 
 .view-icon {
