@@ -2,7 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
 const User = require('./models/users');
+
 const Video = require('./models/videos');
 const cors = require('cors');
 
@@ -31,6 +33,51 @@ const upload = multer({
 
 // Init app
 const app = express();
+let http = require('http');
+let server = http.Server(app);
+
+
+let socketIO = require('socket.io');
+let io = socketIO(server);
+io.on('connection', (socket) => {
+    console.log('user connected');
+
+
+    socket.on('AddLike', function(id,userEmail) {
+        addLike(id,userEmail);
+      });
+
+    socket.on('AddLikeRemoveDisLike', function(id,userEmail) {
+        addLikeRemoveDisLike(id,userEmail);
+        });
+
+    socket.on('RemoveLike', function(id,userEmail) {
+        removeLike(id,userEmail);
+        });
+
+    socket.on('AddDisLike', function(id,userEmail) {
+        addDisLike(id,userEmail);
+        });
+    socket.on('RemoveDisLike', function(id,userEmail) {
+        removeDisLike(id,userEmail);
+        });
+    socket.on('AddDisLikeRemoveLike', function(id,userEmail) {
+        addDisLikeRemoveLike(id,userEmail);
+        });
+
+
+
+});
+/*const connections = [];
+io.sockets.on('connection',(socket) => {
+    connections.push(socket);
+    console.log(' %s sockets is connected', connections.length);
+ 
+    socket.on('disconnect', () => {
+       connections.splice(connections.indexOf(socket), 1);
+    });
+ });*/
+
 
 // Define View Engine
 app.engine('html', require('ejs').renderFile);
@@ -45,6 +92,7 @@ app.use(express.static('./videos'));
 
 // Expose Images Public Folder
 app.use(express.static('./videos/frames'));
+
 
 // Use Cross Origin Resource Sharing
 /*var corsOptions = {
@@ -69,12 +117,85 @@ app.get("/", function (req,res) {
     res.sendFile(__dirname+"/views/index.html");
 })
 
+
 // Get videos page - display videos json from db
+
 app.get('/videos', function (req,res) {
     mongoose.model('Video').find(function (err,videos) {
         res.send(videos);
     })
 });
+
+
+function addLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$push: {likeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function addLikeRemoveDisLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query,{
+        $push: {likeUsers: userEmail},
+        $pull: {disLikeUsers: userEmail}
+        },
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+
+function removeLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$pull: {likeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function addDisLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$push: {disLikeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function removeDisLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query, {$pull: {disLikeUsers: userEmail}},
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+function addDisLikeRemoveLike (id,userEmail) {
+    var query = {_id: id};
+    var options = { new: true }; 
+    mongoose.model('Video').findOneAndUpdate(query,{
+        $push: {disLikeUsers: userEmail},
+        $pull: {likeUsers: userEmail}
+        },
+        options, function(err, doc){
+        io.emit("update-like-counter",doc);
+    })
+}
+
+app.get('/videoRecord/:videoId', function(req,res){
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
+        res.send(video);
+    })
+});
+
+// Get videos page - display videos from db
+
 
 // Play selected video
 app.get('/videos/:videoId',  function (req,res) {
@@ -91,10 +212,10 @@ app.get('/videos/:videoId',  function (req,res) {
         var filePath = videoSrc.substr(position,videoSrc.length);*/
         //res.sendFile(__dirname + filePath);
         let videoPath = videoSrc.substr(url.length,videoSrc.length);
+
         //videos.viewes+=1;
         //videos.save();
         res.sendFile(__dirname + videoPath + ".mp4");
-        //res.sendFile(__dirname + "\\videos\\20161130_113247_001.mp4");
     })
 });
 
@@ -108,7 +229,9 @@ app.get('/users', function (req,res) {
 app.post('/upload', (req, res) => {
     upload(req, res, (err) => {
         if(req.file === undefined){
+
             console.log(">>> undefined! ");
+
         } else {
             // define the destination folder which the frame will be saved
             var frameDestinationPath = 'videos\\frames\\';
@@ -116,7 +239,6 @@ app.post('/upload', (req, res) => {
             // define the name of the frame / image
             var frameName = videoName+'_frame.jpg';
             var frame = ffmpeg(req.file.path);
-            console.log(">>>  frame: " +  JSON.stringify(frame));   
             // generate the frame from the video
             frame.screenshots({
                 timestamps: ['1'],
@@ -133,7 +255,9 @@ app.post('/upload', (req, res) => {
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-1.jpg",
                 likeUsers : [],
-                unLikeUsers : []
+
+                disLikeUsers : []
+
             
             });
             var video2 = new Video({
@@ -143,7 +267,9 @@ app.post('/upload', (req, res) => {
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-2.jpg",
                 likeUsers : [],
-                unLikeUsers : []
+
+                disLikeUsers : []
+
             });
             var video3 = new Video({
                 _id : mongoose.Types.ObjectId(),
@@ -152,10 +278,14 @@ app.post('/upload', (req, res) => {
                 type: 'video/mp4',
                 imageSrc : "./assets/images/banner-3.jpg",
                 likeUsers : [],
-                unLikeUsers : []
+
+                disLikeUsers : []
+            });
+
             });
             //var video = new Video({ title: req.file.originalname, src: req.file.path, imageSrc: frameDestinationPath+frameName, type: req.file.mimetype});
             console.log(">>>  req.files.originalname: " +  req.file.originalname);
+
             video1.save();
             video2.save();
             video3.save();
@@ -166,4 +296,6 @@ app.post('/upload', (req, res) => {
 
 const port = 3000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+
+server.listen(port, () => console.log(`Server started on port ${port}`));
+

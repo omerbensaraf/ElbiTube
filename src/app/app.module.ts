@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -17,7 +18,6 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
 import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
@@ -30,6 +30,7 @@ import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complet
     MenuComponent,
     FooterComponent,
     PlayerComponent,
+    LikeComponent
     LikeComponent,
     LoginHeaderComponent,
     VideoPropertiesComponent,
@@ -43,6 +44,8 @@ import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complet
     VgOverlayPlayModule,
     VgBufferingModule,
     HttpClientModule,
+    FormsModule,
+    AngularFontAwesomeModule,
     FormsModule
   ],
   providers: [    

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaService } from '../services/media.service';
+import { UsersService } from '../services/users.service';
 import { IMedia } from '../models/imadia.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
@@ -23,8 +24,9 @@ export class HomeComponent implements OnInit {
   currentIndex: number;
   currentItem: IMedia;
 
-  constructor(private mediaService: MediaService, private http: HttpClient) {
-
+  userEmail : String;
+  homeLoading:boolean=false;
+  constructor(private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
 
   onVideoEnded() {
@@ -35,17 +37,20 @@ export class HomeComponent implements OnInit {
     this.currentItem = this.playList[this.currentIndex];
   }
   ngOnInit() {
-    /*this.playList = this.mediaService.httpGetMedia();
+    this.userEmail = this.userService.getUserEmail();
+    debugger;
+   /* this.playList = this.mediaService.httpGetMedia();
     this.currentIndex = 0;
     this.currentItem = this.playList[ this.currentIndex];*/
     
     this.mediaService.httpGetMedia().subscribe(data => { 
       console.log(data);
-       this.playList = data.filter(item => item.likeCouner > 0);
+
+      this.playList = this.sort(data).slice(0,3);
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
-       // Initiate video properties with the selected video
-       this.mediaService.changeVideoProperties(this.currentItem);
+       this.homeLoading=true;
+
       });
   }
 
@@ -54,6 +59,10 @@ export class HomeComponent implements OnInit {
     this.currentItem = item;
     // Raise flag on the subscribed field that video has changed and need to update properties
     this.mediaService.changeVideoProperties(item);
+  }
+
+  sort(data : IMedia[]){
+    return data.sort((a, b)=>{return b.likeUsers.length - a.likeUsers.length});
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IMedia, Updates } from '../../models/imadia.model';
 import {MediaService} from '../../services/media.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-like',
@@ -11,140 +12,78 @@ import {MediaService} from '../../services/media.service';
 export class LikeComponent implements OnInit {
   likeSelected : boolean;
   likeImg : String;
-  likeCounter : number;
-  unLikeSelected : boolean;
-  unLikeImg : String;
-  unLikeCounter : number;
-  specificItem : IMedia; 
+  disLikeSelected : boolean;
+  disLikeImg : String;
   @Input() item : IMedia;
-  @Input() userId : String;
+  @Input() userEmail : String;
   updates : Updates;
+  likeExists:boolean=false;
+  likeClass:string="fa fa-thumbs-o-up";
+  disLikeClass:string="fa fa-thumbs-o-down";
 
-
-  constructor(private mediaService : MediaService) { 
-    this.likeSelected = false;
-    this.likeImg = "./assets/images/like.png";
-    this.likeCounter = 0;
-
-    this.unLikeSelected = false;
-    this.unLikeImg = "./assets/images/unlike.png";
-    this.unLikeCounter = 0;
-
-    this.specificItem = this.mediaService.httpGetSpecificItem(1);
-    this.likeCounter = this.specificItem.likeCouner;
-    this.unLikeCounter = this.specificItem.unLikeCouner;
-    this.updateLikeSelected();
-  }
+  constructor(private mediaService : MediaService, private usersService: UsersService) { }
+  
 
   ngOnInit() {
+    this.initLikeStatus();
+    this.likeExists=true; 
+      
+    this.mediaService.getLikeUpdates().subscribe((item: IMedia) => {
+        if(this.item._id === item._id){
+          this.item.likeUsers = item.likeUsers;
+          this.item.disLikeUsers = item.disLikeUsers;
+          this.initLikeStatus();
+        }
+      }); 
+  
   }
 
   onLike(){
-    this.specificItem = this.mediaService.httpGetSpecificItem(1);
-    if(this.likeSelected){
-      this.likeImg = "./assets/images/like.png";
-      this.likeCounter -=1;
-      this.updates = Updates.RemoveLike;
-    }
-    else{
-      this.likeImg = "./assets/images/like-selected.png";
-      this.likeCounter +=1;
-      this.updates = Updates.AddLike;
-      if(this.unLikeSelected){
-        this.unLikeImg = "./assets/images/unlike.png";
-        this.unLikeCounter -=1;
-        this.unLikeSelected = false; 
-        this.updates = Updates.AddLikeRemoveUnLike;      
+      if(this.likeSelected){
+        this.updates = Updates.RL;
+
       }
-    }
-    this.likeSelected = !this.likeSelected;
-    //this.updateItem("onLike",!this.likeSelected,!this.unLikeSelected);
-    this.updateItem(this.updates)
+      else{
+        this.updates = Updates.AL;
+        if(this.disLikeSelected){
+          this.updates = Updates.ALRDL;      
+        }
+      }
+      debugger;
+      this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
   
-  onUnLike(){
-    if(this.unLikeSelected){
-      this.unLikeImg = "./assets/images/unlike.png";
-      this.unLikeCounter -=1;
-      this.updates = Updates.RemoveUnLike;
+  onDisLike(){
+  if(this.disLikeSelected){
+      this.updates = Updates.RDL;
     }
     else{
-      this.unLikeImg = "./assets/images/unlike-selected.png";
-      this.unLikeCounter +=1;
-      this.updates = Updates.AddUnLike;
+      this.updates = Updates.ADL;
       if(this.likeSelected){
-        this.likeImg = "./assets/images/like.png";
-        this.likeCounter -=1;
-        this.likeSelected = false;
-        this.updates = Updates.AddUnLikeRemoveLike;
+      this.updates = Updates.ADLRL;
       }
     }
-   
-    this.unLikeSelected = !this.unLikeSelected;
-    this.updateItem(this.updates);
+    this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
-  updateItem(updates : Updates){
-    this.specificItem.likeCouner = this.likeCounter;
-    this.specificItem.unLikeCouner = this.unLikeCounter;
-    switch(updates){
-      case Updates.AddLike:{
-        this.specificItem.likeUsers.push(this.userId);    
-        break;
-      }
-      case Updates.RemoveLike:{
-        var index = this.specificItem.likeUsers.indexOf(this.userId, 0);
-        if(index > -1){
-        this.specificItem.likeUsers.splice(index,1);
-        }    
-        break;
-      }
-      case Updates.AddUnLike:{
-        this.specificItem.unLikeUsers.push(this.userId);    
-        break;
-      }
-      case Updates.RemoveUnLike:{
-        var index = this.specificItem.unLikeUsers.indexOf(this.userId, 0);
-        if(index > -1){
-        this.specificItem.unLikeUsers.splice(index,1);    
-        }
-        break;
-      }
-      case Updates.AddLikeRemoveUnLike:{
-        this.specificItem.likeUsers.push(this.userId);
-        var index = this.specificItem.unLikeUsers.indexOf(this.userId, 0);
-        if(index > -1){
-        this.specificItem.unLikeUsers.splice(index,1);
-        }
-        break;
-      }
-      case Updates.AddUnLikeRemoveLike:{
-        this.specificItem.unLikeUsers.push(this.userId);  
-        var index = this.specificItem.likeUsers.indexOf(this.userId, 0);
-        if(index > -1){
-        this.specificItem.likeUsers.splice(index,1);
-        }
-        break;    
-      }
-    }
-    this.mediaService.httpUpdateSpecificItem(this.specificItem,1);
-  }
-
-
-  updateLikeSelected(){
-    if(this.specificItem.likeUsers.includes(this.userId)){
+  initLikeStatus(){
+    if(this.item.likeUsers.includes(this.userEmail)){
       this.likeSelected = true;
+      this.likeClass="fa fa-thumbs-up";
     }
     else{
       this.likeSelected = false;
+      this.likeClass="fa fa-thumbs-o-up";
     }
 
-    if(this.specificItem.unLikeUsers.includes(this.userId)){
-      this.unLikeSelected = true;
+    if(this.item.disLikeUsers.includes(this.userEmail)){
+      this.disLikeSelected = true;
+      this.disLikeClass="fa fa-thumbs-down";
     }
     else{
-      this.unLikeSelected = false;
+      this.disLikeSelected = false;
+      this.disLikeClass="fa fa-thumbs-o-down";
     }
   } 
 
