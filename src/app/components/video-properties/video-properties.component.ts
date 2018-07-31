@@ -26,6 +26,7 @@ export class VideoPropertiesComponent implements OnInit {
   private uploadedBy : String;
   private videoTitle: String;
   @Input() userEmail : String;
+  private userEmailViaProperties : String;
   
 
   constructor(private mediaService: MediaService){
@@ -33,6 +34,7 @@ export class VideoPropertiesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userEmailViaProperties = this.userEmail;
     // subsribe the changes in video properties
     this.mediaService.currentVideoProperty.subscribe( videoItem => {
       // check if the video object is not null and not undefined
@@ -45,7 +47,5 @@ export class VideoPropertiesComponent implements OnInit {
         this.videoTitle = this.currentVideo.title;
       }
     }); 
-  }
-
-  
+  }  
 }
