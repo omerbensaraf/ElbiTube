@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
+
 import { Observable } from 'rxjs';
+
 import {HttpClient} from '@angular/common/http';
 import { IMedia, Updates } from '../models/imadia.model';
 import * as io from 'socket.io-client';
 
 @Injectable()
 export class MediaService {
+
     private url = 'http://localhost:3000';
     private socket;
     playList: Array<IMedia> = [];
@@ -29,6 +32,15 @@ httpGetSpecificItem(id : String): Observable<IMedia>{
 likeSocket(update : Updates, id :String, userEmail :String ){
     this.socket.emit(update, id, userEmail);
 }
+
+    playList: Array<IMedia> = [];
+ 
+    private mediaSource = new BehaviorSubject<any>({});
+    currentVideoProperty = this.mediaSource.asObservable();
+
+    changeVideoProperties(item: IMedia) {
+        this.mediaSource.next(item);
+    }
 
 public getLikeUpdates = () => {
     return Observable.create((observer) => {

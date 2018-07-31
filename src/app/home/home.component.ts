@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MediaService } from '../services/media.service';
 import { UsersService } from '../services/users.service';
 import { IMedia } from '../models/imadia.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -21,16 +23,13 @@ export class HomeComponent implements OnInit {
   playList: Array<IMedia>;
   currentIndex: number;
   currentItem: IMedia;
+
   userEmail : String;
   homeLoading:boolean=false;
   constructor(private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
-
-    
-    
   }
 
   onVideoEnded() {
-    debugger;
     this.currentIndex++;
     if (this.currentIndex === this.playList.length) {
       this.currentIndex = 0;
@@ -43,20 +42,23 @@ export class HomeComponent implements OnInit {
    /* this.playList = this.mediaService.httpGetMedia();
     this.currentIndex = 0;
     this.currentItem = this.playList[ this.currentIndex];*/
+    
     this.mediaService.httpGetMedia().subscribe(data => { 
-      debugger;
       console.log(data);
+
       this.playList = this.sort(data).slice(0,3);
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
        this.homeLoading=true;
+
       });
   }
 
   onClickPlaylistItem(item: IMedia, index: number) {
-    debugger;
     this.currentIndex = index;
     this.currentItem = item;
+    // Raise flag on the subscribed field that video has changed and need to update properties
+    this.mediaService.changeVideoProperties(item);
   }
 
   sort(data : IMedia[]){
@@ -64,3 +66,4 @@ export class HomeComponent implements OnInit {
   }
 
 }
+

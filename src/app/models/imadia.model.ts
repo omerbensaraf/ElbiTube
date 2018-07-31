@@ -1,4 +1,5 @@
 export interface IMedia {
+
   _id: String;
   title: string;
   src: string;
@@ -6,9 +7,11 @@ export interface IMedia {
   imageSrc : String;
   likeUsers : String[];
   disLikeUsers : String[];
+
 }
 
 export enum Updates{
+
   AL = 'AddLike',
   RL = 'RemoveLike',
   ADL = 'AddDisLike',
@@ -16,3 +19,4 @@ export enum Updates{
   ALRDL = 'AddLikeRemoveDisLike',
   ADLRL = 'AddDisLikeRemoveLike'
 }
+

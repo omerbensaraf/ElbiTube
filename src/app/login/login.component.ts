@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   password: string = '';
   repeatPassord = '';
   errorMessage: string = '';
-  isShowModalClass: boolean = true;
+  isShowModalClass: boolean = false;
   pageMode: string = ''; // Page modes can be: signIn and SignUp
   pageTitle: string = '';
   mainButtonText: string = '';
@@ -157,3 +157,4 @@ export class LoginComponent implements OnInit {
     }
   }    
 }
+

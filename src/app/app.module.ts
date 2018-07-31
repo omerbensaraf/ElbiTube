@@ -16,10 +16,11 @@ import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
-import { HttpClientModule } from '@angular/common/http';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from './services/users.service';
+import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
+import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,12 @@ import { UsersService } from './services/users.service';
     HomeComponent,
     MenuComponent,
     FooterComponent,
-    LoginHeaderComponent,
     PlayerComponent,
     LikeComponent
+    LikeComponent,
+    LoginHeaderComponent,
+    VideoPropertiesComponent,
+    AutoCompleteSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -42,12 +46,15 @@ import { UsersService } from './services/users.service';
     HttpClientModule,
     FormsModule,
     AngularFontAwesomeModule,
+    FormsModule
   ],
-  providers: [MediaService,
-    FormsModule,
+  providers: [    
+    MediaService,
     HttpClientModule,
     UsersService
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
