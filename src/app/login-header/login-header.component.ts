@@ -13,7 +13,7 @@ export class LoginHeaderComponent implements OnInit {
   constructor(private usersService: UsersService) { }
 
   ngOnInit() {
-    // this.usersService.loggedInUser.subscribe(email => this.email = email);
+     this.usersService.loggedInUser.subscribe(email => this.email = email);
   }
 
   logout(): void {

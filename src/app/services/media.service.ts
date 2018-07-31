@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import {HttpClient} from '@angular/common/http';
 import { IMedia, Updates } from '../models/imadia.model';
@@ -33,7 +33,6 @@ likeSocket(update : Updates, id :String, userEmail :String ){
     this.socket.emit(update, id, userEmail);
 }
 
-    playList: Array<IMedia> = [];
  
     private mediaSource = new BehaviorSubject<any>({});
     currentVideoProperty = this.mediaSource.asObservable();

@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from './services/users.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
 import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complet
     MenuComponent,
     FooterComponent,
     PlayerComponent,
-    LikeComponent
     LikeComponent,
     LoginHeaderComponent,
     VideoPropertiesComponent,
@@ -46,7 +46,6 @@ import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complet
     HttpClientModule,
     FormsModule,
     AngularFontAwesomeModule,
-    FormsModule
   ],
   providers: [    
     MediaService,

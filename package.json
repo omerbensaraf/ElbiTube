@@ -33,7 +33,6 @@
     "rxjs-compat": "^6.2.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
-
     "videogular2": "^6.1.1",
     "zone.js": "^0.8.19"
   },

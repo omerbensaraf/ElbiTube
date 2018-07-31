@@ -21,7 +21,7 @@ export class VideoPropertiesComponent implements OnInit {
   //@Input() currentVideo: IMedia;
   private currentVideo: IMedia;
   private likeCounter : number;
-  private unLikeCounter : number;
+  private disLikeCounter : number;
   private viewes : number;
   private uploadedBy : String;
   private videoTitle: String;
@@ -38,7 +38,7 @@ export class VideoPropertiesComponent implements OnInit {
       if (Object.keys(videoItem).length > 0) {
         this.currentVideo = videoItem;
         this.likeCounter = this.currentVideo.likeUsers.length;
-        this.unLikeCounter = this.currentVideo.unLikeUsers.length;
+        this.disLikeCounter = this.currentVideo.disLikeUsers.length;
         this.viewes = this.currentVideo.viewes;
         this.uploadedBy = this.currentVideo.uploadedBy;
         this.videoTitle = this.currentVideo.title;

@@ -7,6 +7,8 @@ export interface IMedia {
   imageSrc : String;
   likeUsers : String[];
   disLikeUsers : String[];
+  viewes: number;
+    uploadedBy: String;
 
 }
 
