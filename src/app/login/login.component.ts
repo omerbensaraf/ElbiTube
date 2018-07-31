@@ -121,7 +121,6 @@ export class LoginComponent implements OnInit {
           this.email = '';
         }
       )  */    
-      debugger;
       this.hideShowSignInModal(false);
       this.usersService.changeloggedInUser(this.email);
     }

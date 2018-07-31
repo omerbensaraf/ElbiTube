@@ -18,7 +18,6 @@ export class PlayerComponent {
   constructor() {}
 
   onPlayerReady(api:VgAPI) {
-    debugger;
     this.api = api;
     this.api.getDefaultMedia().subscriptions.loadStart.subscribe(
       () => {
@@ -34,7 +33,6 @@ export class PlayerComponent {
   }
 
   playVideo() {
-    debugger;
     this.api.play();
   }
 

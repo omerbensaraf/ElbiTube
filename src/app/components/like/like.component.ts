@@ -48,7 +48,6 @@ export class LikeComponent implements OnInit {
           this.updates = Updates.ALRDL;      
         }
       }
-      debugger;
       this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 

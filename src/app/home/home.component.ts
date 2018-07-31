@@ -35,8 +35,6 @@ export class HomeComponent implements OnInit {
     this.userEmail = this.userService.getUserEmail();
 
     this.mediaService.httpGetMedia().subscribe(data => { 
-      debugger;
-      console.log(data);
       this.playList = this.sort(data).slice(0,3);
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
@@ -54,7 +52,6 @@ export class HomeComponent implements OnInit {
 
   // catch event from app-player and make request for the update current item from db and change properties
   onVideoLoaded() {
-    debugger;
     this.mediaService.httpGetVideoProperties(this.currentItem).subscribe( data => {
       // set new value to the mediaSource observable
       this.mediaService.changeVideoProperties(data);
@@ -63,7 +60,6 @@ export class HomeComponent implements OnInit {
   } 
 
   onVideoEnded() {
-    debugger;
     this.currentIndex++;
     if (this.currentIndex === this.playList.length) {
       this.currentIndex = 0;
