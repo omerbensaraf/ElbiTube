@@ -22,7 +22,7 @@ export class VideoPropertiesComponent implements OnInit {
   private currentVideo: IMedia;
   private likeCounter : number;
   private disLikeCounter : number;
-  private views : Number;
+  private views : number;
   private uploadedBy : String;
   private videoTitle: String;
 

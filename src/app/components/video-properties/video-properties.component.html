@@ -1,16 +1,39 @@
 <div style="width: 100%">
-    <div style="font-weight: bold">{{ videoTitle }}</div>
+    <div style="font-weight: bold; margin-left: 1%"> {{ videoTitle }} </div>
     <br>
-    <div style="text-align: left; width: 70%;">
-            <div class="video-like-counter" title="number of likes"><span class="fa fa-thumbs-o-up like-icon" style="color:#3694f4; font-size:3em"></span> <span style="font-size:1.5em">{{ likeCounter }}</span></div>
-            <div class="video-like-counter" title="number of dislikes"> <span class="fa fa-thumbs-o-down dislike-icon" style="font-size:3em"></span> <span style="font-size:1.5em">{{ disLikeCounter }}</span></div>
-            <!-- <div class="video-viewers" title="number of views"><span class="fa fa-eye view-icon" style="font-size:3em"></span> <span style="font-size:1.5em">{{viewedUsersCounter}} </span></div> -->
+    <div style="text-align: left; width: 70%; margin-left: 1%">
+        <app-like [item] = "currentVideo" [userEmail] = "userEmail" ></app-like>   
+        <!-- <div class="video-like-counter" title="number of likes"><span class="fa fa-thumbs-o-up like-icon" style="color:#3694f4; font-size:3em"></span> <span style="font-size:1.5em">{{ likeCounter }}</span></div>
+        <div class="video-like-counter" title="number of dislikes"> <span class="fa fa-thumbs-o-down dislike-icon" style="font-size:3em"></span> <span style="font-size:1.5em">{{ disLikeCounter }}</span></div> -->
     </div>
-    <div style="margin-left: 50%; text-align: right; margin-top: -2.5em">
-        <div class="video-uploadedby" title="uploaded by">
-            <div class="video-viewers" title="number of views"><span class="fa fa-eye view-icon" style="font-size:3em;"></span> <span style="font-size:1.5em">{{ views }} </span></div>
+    <div style="margin-left: 50%; text-align: right; margin-top: -3.5em">
+        <div class="video-uploadedby-and-viewers" style="margin-right: 2%">
+            <div class="video-viewers" title="number of views">
+                <span class="fa fa-eye view-icon" style="font-size:3em;"></span> <span style="font-size:1.5em">{{ views }} </span>
+            </div>
             <span style="margin-right: 10px"></span>
-            <span class="fa fa-user" style="font-size:3em"></span> <span style="font-size:1em">{{ uploadedBy }}</span>
+            <span class="fa fa-user" title="uploaded by" style="font-size:3em"></span> <span style="font-size:1em">{{ uploadedBy }}</span>
         </div>
     </div>
+    <!-- <div class="container">
+        <div class="row">
+            <div style="font-weight: bold; margin-left: 1%"> {{ videoTitle }} </div>    
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="like-counters">
+                    <div class="video-like-counter" title="Number of Likes"><span class="fa fa-thumbs-o-up like-icon" style="color:#3694f4; font-size:3em"></span> <span style="font-size:1.5em"> {{ likeCounter }} </span></div>
+                    <div class="video-like-counter" title="Number of Dislikes"> <span class="fa fa-thumbs-o-down dislike-icon" style="font-size:3em"></span> <span style="font-size:1.5em"> {{ disLikeCounter }} </span></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="views-and-uploadby">
+                    <span class="fa fa-eye view-icon" style="font-size:2em;"></span> <span style="font-size:1em"> {{ views }} </span>
+                    <span class="fa fa-user" style="font-size:3em"></span> <span style="font-size:1em"> {{ uploadedBy }}</span>
+                </div>
+            </div>
+        </div>
+    </div> -->
+          
+    
 </div>

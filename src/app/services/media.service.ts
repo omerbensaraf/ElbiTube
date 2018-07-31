@@ -10,6 +10,7 @@ export class MediaService {
     private url = 'http://11.0.73.2:3000';
     private socket;
     playList: Array<IMedia> = [];
+    
     private mediaSource = new BehaviorSubject<any>({});
     currentVideoProperty = this.mediaSource.asObservable();
 
@@ -32,6 +33,13 @@ export class MediaService {
     httpGetVideoProperties(video: IMedia) {
         const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
         return this.http.get<IMedia>(requestUrl);
+    }
+
+    httpPutVideoViews(video: IMedia) {
+        debugger;
+        const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews/'+video._id;
+        video.views+=1;
+        return this.http.put(requestUrl,video);
     }
 
     likeSocket(update : Updates, id :String, userEmail :String ){

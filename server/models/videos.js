@@ -9,7 +9,7 @@ var videoSchema = new Schema({
     type: String,
     likeUsers : [String] ,
     disLikeUsers:[String],
-    views: Number,
+    views: number,
     uploadedBy: String    
 });
 
