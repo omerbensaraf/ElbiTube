@@ -41,6 +41,7 @@ export class LikeComponent implements OnInit {
   onLike(){
       if(this.likeSelected){
         this.updates = Updates.RL;
+
       }
       else{
         this.updates = Updates.AL;

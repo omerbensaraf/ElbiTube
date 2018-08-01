@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
+
 import { Observable, BehaviorSubject } from 'rxjs';
+
 import {HttpClient} from '@angular/common/http';
 import { IMedia, Updates } from '../models/imadia.model';
 import * as io from 'socket.io-client';
@@ -53,6 +55,6 @@ export class MediaService {
             this.socket.on('update-like-counter', (item) => {
                 observer.next(item);
             });
-        });
-    }
+        })
+    };
 }
