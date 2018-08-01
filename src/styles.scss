@@ -466,7 +466,7 @@ ul.pgwSlider>li span {
 
 .heading-icon i,
 .video-title {
-    font-size: 18px
+    font-size: 16px
 }
 
 .pgwSlider a:hover {
@@ -856,7 +856,7 @@ width:100%
 }
 
 .video-viewers {
-    color: #767676
+    color: black
 }
 
 .video-counter-plan .video-feedback {
@@ -1149,9 +1149,9 @@ a.themeix-purchase-btn-3:hover {
 .video-dislike p,
 .video-icons,
 .video-like p,
-.video-post-counter .video-like,
-.video-post-title .video-icons,
-.video-post-title .video-post-info,
+.video-counter .video-like,
+.video-title .video-icons,
+.video-title .video-info,
 .video-text h1 {
     display: inline-block
 }
@@ -1260,12 +1260,12 @@ body.tag-template .category-posts {
     float: left
 }
 
-.video-post-counter .video-dislike,
-.video-posts-data .video-post-counter {
+.video-counter .video-dislike,
+.video-posts-data .video-counter {
     float: right
 }
 
-.video-post-counter .video-like {
+.video-counter .video-like {
     padding-right: 25px
 }
 
@@ -1279,51 +1279,52 @@ body.tag-template .category-posts {
     font-size: 30px
 }
 
-.video-post-title {
+.video-title {
     width: 70%;
     float: left;
 }
 
-.video-post-counter {
+.video-counter {
     width: 30%;
     text-align: right
 }
 
-.video-post-title p {
+.video-title p {
     margin-bottom: 0
 }
 
-.video-post-author p,
-.video-post-date p {
+.video-category p,
+.video-author p,
+.video-date p {
     display: inline-block;
     padding-left: 5px
 }
 
-.video-post-date .video-posts-author {
-    padding-left: 10px
+.video-date .video-author .video-category {
+    padding-left: 5px;
 }
 
-.video-post-info h4 {
+.video-info h4 {
     font-size: 16px;
     font-weight: 500;
     margin-top: 5px;
     margin-bottom: 5px
 }
 
-.video-post-info h4 a {
+.video-info h4 a {
     color: #111;
     font-weight: 700
 }
 
-.video-post-info h4 a:hover {
+.video-info h4 a:hover {
     color: #cc181e
 }
 
-.video-post-info {
+.video-info {
     margin-left: 15px
 }
 
-.video-post-viewers h3 {
+.video-viewers h3 {
     font-size: 22px;
     font-weight: 400;
     margin-top: 0;
@@ -1343,12 +1344,16 @@ body.tag-template .category-posts {
     color: red
 }
 
-.video-posts-author a {
+.video-author a, .video-category a {
     padding-left: 5px
 }
 
-.video-posts-author a:hover {
+.video-author a:hover {
     color: #cc181e
+}
+
+.video-category a:hover {
+    color: #39af1b
 }
 
 .recent-posts-wrapper .single-video {
@@ -2034,10 +2039,10 @@ header .modal-body .btn.btn-primary {
 }
 
 @media only screen and (min-width:576px) and (max-width:991px) {
-    .video-post-title {
+    .video-title {
         width: 65%
     }
-    .video-post-counter {
+    .video-counter {
         width: 35%
     }
 }
@@ -2206,10 +2211,10 @@ header .modal-body .btn.btn-primary {
     .four-zero-page {
         padding: 50px 0
     }
-.video-post-title {
+.video-title {
     width: 100%;
 }	
-.video-post-counter {
+.video-counter {
     width: 100%;
     margin-top: 15px;
     text-align: left;
@@ -2236,7 +2241,7 @@ header .modal-body .btn.btn-primary {
 }
 
 @media only screen and (max-width:469px) {
-    .video-post-counter {
+    .video-counter {
         display: none
     }
     .navbar-brand img {

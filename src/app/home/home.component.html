@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="slider-wrapper">
                     <div class="pgwSlider wide">
-                        <div class="ps-current" style="height: 500px;">
+                        <div class="ps-current" style="height: 486px;">
                             <ul>
                                 <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
                                   <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)" (onLoad)="onVideoLoaded($event)" ></app-player>
@@ -13,7 +13,7 @@
                         </div>
                         <ul class="slider ps-list">
                             <li *ngFor="let item of playList; let $index = index"
-                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 160px;">
+                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 158px;">
                                 <img [src]="item.imageSrc" alt="Take Your Selfie"
                                  (click)="onClickPlaylistItem(item, $index)"
                                  [class.selected]="item === currentItem">
@@ -29,18 +29,23 @@
                 </div>
             </div>
         </div>
+        <!-- Start Video Properties Area -->
+        <div class="col-md-9">
+            <app-video-properties [userEmail]="userEmail"></app-video-properties> 
+        </div>
+        <!-- End Video Properties Area -->
     </div>
   </div>
   <!-- End Slider Area -->
   
   <!-- Start Video Properties Area -->
-    <div class="container">
+    <!-- <div class="container">
         <div class="row">
             <div class="col-md-9">
                 <app-video-properties [userEmail]="userEmail"></app-video-properties>            
             </div>
         </div>
-    </div>
+    </div> -->
   <!-- End Video Properties Area -->
 
   <!-- Start Video Carousel -->
