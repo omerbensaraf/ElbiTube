@@ -49,7 +49,8 @@ export class LikeComponent implements OnInit {
           this.updates = Updates.ALRDL;      
         }
       }
-      this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
+      if (this.userEmailViaProperties) this.mediaService.likeSocket(this.updates,this.item._id,this.userEmailViaProperties);
+      else this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
   
@@ -63,7 +64,8 @@ export class LikeComponent implements OnInit {
       this.updates = Updates.ADLRL;
       }
     }
-    this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
+    if (this.userEmailViaProperties) this.mediaService.likeSocket(this.updates,this.item._id,this.userEmailViaProperties);
+    else this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
   initLikeStatus(){
