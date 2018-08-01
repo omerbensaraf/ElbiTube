@@ -1373,6 +1373,10 @@ body.tag-template .category-posts {
     color: #cc181e
 }
 
+.video-category a:hover {
+    color: #39af1b
+}
+
 .recent-posts-wrapper .single-video {
     padding-bottom: 20px
 }
