@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -27,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     LoginComponent,
+    LoginHeaderComponent,
     HomeComponent,
     MenuComponent,
     FooterComponent,
@@ -44,13 +44,12 @@ import { HttpClientModule } from '@angular/common/http';
     VgOverlayPlayModule,
     VgBufferingModule,
     HttpClientModule,
-    FormsModule,
-    AngularFontAwesomeModule,
+    FormsModule
   ],
   providers: [    
     MediaService,
-    HttpClientModule,
-    UsersService
+    UsersService,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

@@ -16,6 +16,7 @@ export class LikeComponent implements OnInit {
   disLikeImg : String;
   @Input() item : IMedia;
   @Input() userEmail : String;
+  @Input() userEmailViaProperties : String;
   updates : Updates;
   likeExists:boolean=false;
   likeClass:string="fa fa-thumbs-o-up";
@@ -27,7 +28,6 @@ export class LikeComponent implements OnInit {
   ngOnInit() {
     this.initLikeStatus();
     this.likeExists=true; 
-      
     this.mediaService.getLikeUpdates().subscribe((item: IMedia) => {
         if(this.item._id === item._id){
           this.item.likeUsers = item.likeUsers;
@@ -49,8 +49,8 @@ export class LikeComponent implements OnInit {
           this.updates = Updates.ALRDL;      
         }
       }
-      debugger;
-      this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
+      if (this.userEmailViaProperties) this.mediaService.likeSocket(this.updates,this.item._id,this.userEmailViaProperties);
+      else this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
   
@@ -64,11 +64,13 @@ export class LikeComponent implements OnInit {
       this.updates = Updates.ADLRL;
       }
     }
-    this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
+    if (this.userEmailViaProperties) this.mediaService.likeSocket(this.updates,this.item._id,this.userEmailViaProperties);
+    else this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
   }
 
   initLikeStatus(){
-    if(this.item.likeUsers.includes(this.userEmail)){
+    debugger
+    if(this.item.likeUsers.includes(this.userEmail) || this.item.likeUsers.includes(this.userEmailViaProperties)){
       this.likeSelected = true;
       this.likeClass="fa fa-thumbs-up";
     }
@@ -77,7 +79,7 @@ export class LikeComponent implements OnInit {
       this.likeClass="fa fa-thumbs-o-up";
     }
 
-    if(this.item.disLikeUsers.includes(this.userEmail)){
+    if(this.item.disLikeUsers.includes(this.userEmail) || this.item.disLikeUsers.includes(this.userEmailViaProperties)){
       this.disLikeSelected = true;
       this.disLikeClass="fa fa-thumbs-down";
     }

@@ -7,12 +7,10 @@ var videoSchema = new Schema({
     src: String,
     imageSrc: String,
     type: String,
-
     likeUsers : [String] ,
-    disLikeUsers:[String]
-    
-    viewes: Number,
-    uploadedBy: String
+    disLikeUsers:[String],
+    views: number,
+    uploadedBy: String    
 });
 
 // Create a model to compile the schema
@@ -20,5 +18,4 @@ var Video = mongoose.model('Video', videoSchema);
 
 // Make this available to our users in our Node applications
 module.exports = Video;
-
 

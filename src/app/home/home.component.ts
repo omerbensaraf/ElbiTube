@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 import { MediaService } from '../services/media.service';
 import { UsersService } from '../services/users.service';
 import { IMedia } from '../models/imadia.model';
@@ -23,11 +23,41 @@ export class HomeComponent implements OnInit {
   playList: Array<IMedia>;
   currentIndex: number;
   currentItem: IMedia;
-
   userEmail : String;
   homeLoading:boolean=false;
   constructor(private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
+
+    
+    
   }
+
+  ngOnInit() {
+    this.userEmail = this.userService.getUserEmail();
+
+    this.mediaService.httpGetMedia().subscribe(data => { 
+      this.playList = this.sort(data).slice(0,3);
+       this.currentIndex = 0;
+       this.currentItem = this.playList[ this.currentIndex ];
+       this.homeLoading=true;
+      // Initiate video properties with the selected video
+      this.mediaService.changeVideoProperties(this.currentItem);
+    });
+  }
+
+  onClickPlaylistItem(item: IMedia, index: number) {
+    this.currentIndex = index;
+    this.currentItem = item;
+    //this.mediaService.changeVideoProperties(this.currentItem);
+  }
+
+  // catch event from app-player and make request for the update current item from db and change properties
+  onVideoLoaded() {
+    this.mediaService.httpGetVideoProperties(this.currentItem).subscribe( data => {
+      // set new value to the mediaSource observable
+      this.mediaService.changeVideoProperties(data);
+    });
+    this.mediaService.httpPutVideoViews(this.currentItem).subscribe();
+  } 
 
   onVideoEnded() {
     this.currentIndex++;
@@ -35,30 +65,6 @@ export class HomeComponent implements OnInit {
       this.currentIndex = 0;
     }
     this.currentItem = this.playList[this.currentIndex];
-  }
-  ngOnInit() {
-    this.userEmail = this.userService.getUserEmail();
-    debugger;
-   /* this.playList = this.mediaService.httpGetMedia();
-    this.currentIndex = 0;
-    this.currentItem = this.playList[ this.currentIndex];*/
-    
-    this.mediaService.httpGetMedia().subscribe(data => { 
-      console.log(data);
-
-      this.playList = this.sort(data).slice(0,3);
-       this.currentIndex = 0;
-       this.currentItem = this.playList[ this.currentIndex ];
-       this.homeLoading=true;
-
-      });
-  }
-
-  onClickPlaylistItem(item: IMedia, index: number) {
-    this.currentIndex = index;
-    this.currentItem = item;
-    // Raise flag on the subscribed field that video has changed and need to update properties
-    this.mediaService.changeVideoProperties(item);
   }
 
   sort(data : IMedia[]){

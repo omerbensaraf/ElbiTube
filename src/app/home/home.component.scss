@@ -1,1 +1,12 @@
-.empty{}
+.like-icons {
+    display:block;
+    width: auto;
+    position:absolute;
+    text-align: right;
+    bottom:0;
+    padding:5px;
+    background:rgba(0,0,0,0.1);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+    overflow:hidden;
+    text-overflow:ellipsis;
+}

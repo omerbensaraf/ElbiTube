@@ -22,28 +22,30 @@ export class VideoPropertiesComponent implements OnInit {
   private currentVideo: IMedia;
   private likeCounter : number;
   private disLikeCounter : number;
-  private viewes : number;
+  private views : number;
   private uploadedBy : String;
   private videoTitle: String;
-
+  @Input() userEmail : String;
+  private userEmailViaProperties : String;
+  
 
   constructor(private mediaService: MediaService){
   
   }
 
   ngOnInit() {
-    // set the video properties fields for any change of video in player
+    this.userEmailViaProperties = this.userEmail;
+    // subsribe the changes in video properties
     this.mediaService.currentVideoProperty.subscribe( videoItem => {
       // check if the video object is not null and not undefined
       if (Object.keys(videoItem).length > 0) {
         this.currentVideo = videoItem;
         this.likeCounter = this.currentVideo.likeUsers.length;
         this.disLikeCounter = this.currentVideo.disLikeUsers.length;
-        this.viewes = this.currentVideo.viewes;
+        this.views = this.currentVideo.views;
         this.uploadedBy = this.currentVideo.uploadedBy;
         this.videoTitle = this.currentVideo.title;
       }
-    });
-    
-  }
+    }); 
+  }  
 }
