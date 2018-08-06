@@ -20,15 +20,17 @@
     <div class="video-title">
         <span class="video-icons"><i class="fa fa-info-circle"></i></span>
         <div class="video-info">
-                <h4><a href="{{videoTitle}}">{{ videoTitle }}</a></h4>
+                <h4><a href="{{videoTitle}}" title="Title">{{ videoTitle }}</a></h4>
             <div class="video-date">
-                <span><i class="fa fa-calendar"></i></span>
-                <p>21 August, 2017</p>
-                <span class="video-author">
+                <span title="Uploaded Date">
+                    <i class="fa fa-calendar"></i>
+                    <p>21 August, 2017</p>
+                </span>
+                <span class="video-author" title="Author">
                         <i class="fa fa-user-o"></i>
                         <a href="/uploadedBy/">{{uploadedBy}}</a>
                 </span>
-                <span class="video-category">
+                <span class="video-category" title="Category">
                     <i class="fa fa-folder-o"></i>
                     <a href="/categories/">Category</a>
                 </span>
@@ -36,7 +38,7 @@
         </div>
     </div>
     <div class="video-counter">
-        <div class="video-viewers">
+        <div class="video-viewers" title="Number of Views">
             <h3>{{ views }}  views</h3>
         </div>
         <div class="video-like-counter">
