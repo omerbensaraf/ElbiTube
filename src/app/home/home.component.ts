@@ -1,9 +1,10 @@
-import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck, Output, EventEmitter } from '@angular/core';
 import { MediaService } from '../services/media.service';
 import { UsersService } from '../services/users.service';
 import { IMedia } from '../models/imadia.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +21,14 @@ import { VideoPropertiesComponent } from '../components/video-properties/video-p
   ]
 })
 export class HomeComponent implements OnInit {
+  
   playList: Array<IMedia>;
   currentIndex: number;
   currentItem: IMedia;
   userEmail : String;
   homeLoading:boolean=false;
-  constructor(private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
-
-    
-    
+  @Output() clickimg:EventEmitter<string>=new EventEmitter<string>(); 
+  constructor(private router:Router,private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
 
   ngOnInit() {
@@ -42,6 +42,11 @@ export class HomeComponent implements OnInit {
       // Initiate video properties with the selected video
       this.mediaService.changeVideoProperties(this.currentItem);
     });
+  }
+
+  imgClick(item:IMedia){
+this.clickimg.emit('netanel');
+this.router.navigate(['/watch', item._id]);
   }
 
   onClickPlaylistItem(item: IMedia, index: number) {

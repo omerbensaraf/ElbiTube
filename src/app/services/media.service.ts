@@ -9,7 +9,7 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class MediaService {
-    private url = 'http://11.0.73.2:3000';
+    private url = 'http://localhost:3000';
     private socket;
     playList: Array<IMedia> = [];
     
@@ -22,22 +22,22 @@ export class MediaService {
 
 
     httpGetMedia(): Observable<Array<IMedia>>{
-        const requestUrl = 'http://11.0.73.2:3000/videos';
+        const requestUrl = 'http://localhost:3000/videos';
         return this.http.get<Array<IMedia>>(requestUrl);
     }
 
     httpGetSpecificItem(id : String): Observable<IMedia>{
-        const requestUrl = 'http://11.0.73.2:3000/videoRecord/' + id;
+        const requestUrl = 'http://localhost:3000/videoRecord/' + id;
         return this.http.get<IMedia>(requestUrl);
     }
 
     httpGetVideoProperties(video: IMedia) {
-        const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
+        const requestUrl = 'http://localhost:3000/getVideoProperties/'+video._id;
         return this.http.get<IMedia>(requestUrl);
     }
 
     httpPutVideoViews(video: IMedia) {
-        const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews/'+video._id;
+        const requestUrl = 'http://localhost:3000/updateNumberOfViews/'+video._id;
         video.views+=1;
         return this.http.put(requestUrl,video);
     }
