@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IMedia, Updates } from '../../models/imadia.model';
 import { MediaService } from '../../services/media.service';
 import { HttpClient } from '@angular/common/http';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-video-properties',
@@ -18,34 +19,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class VideoPropertiesComponent implements OnInit {
   
-  //@Input() currentVideo: IMedia;
   private currentVideo: IMedia;
-  private likeCounter : number;
-  private disLikeCounter : number;
   private views : number;
   private uploadedBy : String;
   private videoTitle: String;
-  @Input() userEmail : String;
-  private userEmailViaProperties : String;
+  private userEmail : String;
+  @Input() private currentItem : IMedia;
   
 
-  constructor(private mediaService: MediaService){
+  constructor(private mediaService: MediaService, private userService : UsersService){
   
   }
 
   ngOnInit() {
-    this.userEmailViaProperties = this.userEmail;
-    // subsribe the changes in video properties
-    this.mediaService.currentVideoProperty.subscribe( videoItem => {
-      // check if the video object is not null and not undefined
-      if (Object.keys(videoItem).length > 0) {
-        this.currentVideo = videoItem;
-        this.likeCounter = this.currentVideo.likeUsers.length;
-        this.disLikeCounter = this.currentVideo.disLikeUsers.length;
-        this.views = this.currentVideo.views;
-        this.uploadedBy = this.currentVideo.uploadedBy;
-        this.videoTitle = this.currentVideo.title;
-      }
-    }); 
+    debugger;
+    this.userEmail = this.userService.getUserEmail();
+    this.views = this.currentItem.views;
+    this.uploadedBy = this.currentItem.uploadedBy;
+    this.videoTitle = this.currentItem.title;
   }  
 }

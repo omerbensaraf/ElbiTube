@@ -7,7 +7,8 @@
                         <div class="ps-current" style="height: 486px;">
                             <ul>
                                 <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
-                                  <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)" (onLoad)="onVideoLoaded($event)" ></app-player>
+                                    <img [src]="mostPopularVideo.imageSrc"
+                                        (click)="imgClick(mostPopularVideo)">
                                 </li>
                             </ul>
                         </div>
@@ -21,35 +22,14 @@
                                 <span> 
                                     <a href="">{{item.title}}</a>
                                 </span>
-                                <div class="like-icons">
-                                    <app-like [item] = "item"  [userEmail] = "userEmail" ></app-like>   
-                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Start Video Properties Area -->
-        <div class="col-md-9">
-            <app-video-properties [userEmail]="userEmail"></app-video-properties> 
-        </div>
-        <!-- End Video Properties Area -->
     </div>
   </div>
-  <!-- End Slider Area -->
-  
-  <!-- Start Video Properties Area -->
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <app-video-properties [userEmail]="userEmail"></app-video-properties>            
-            </div>
-        </div>
-    </div> -->
-  <!-- End Video Properties Area -->
-
-  <!-- Start Video Carousel -->
   <div class="video-carousel-area themeix-ptb">
     <div class="container">
         <div class="row">

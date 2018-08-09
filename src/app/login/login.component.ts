@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   mainButtonText: string = '';
 
   constructor(private usersService: UsersService) { 
-    debugger;
     this.setPageMode('signIn');
   }
 
