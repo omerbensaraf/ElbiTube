@@ -32,10 +32,10 @@ export class MediaService {
         return this.http.get<IMedia>(requestUrl);
     }
 
-    httpGetVideoProperties(video: IMedia) {
-        const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
-        return this.http.get<IMedia>(requestUrl);
-    }
+    // httpGetVideoProperties(video: IMedia) {
+    //     const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
+    //     return this.http.get<IMedia>(requestUrl);
+    // }
 
     httpPutVideoViews(video: IMedia) {
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews/'+video._id;
