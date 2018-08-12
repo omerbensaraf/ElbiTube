@@ -69,7 +69,6 @@ export class LikeComponent implements OnInit {
   }
 
   initLikeStatus(){
-    debugger
     if(this.item.likeUsers.includes(this.userEmail) || this.item.likeUsers.includes(this.userEmailViaProperties)){
       this.likeSelected = true;
       this.likeClass="fa fa-thumbs-up";

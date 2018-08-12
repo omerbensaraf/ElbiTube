@@ -76,18 +76,18 @@ ul.pgwSlider>li,.pgwSlider>.ps-list>li{
 ul.pgwSlider>li:last-child,.pgwSlider>ul>li:last-child{
     margin-bottom:0
 }
-ul.pgwSlider>li span,.pgwSlider>.ps-list>li span{
+ul.pgwSlider>li span,.pgwSlider>.ps-list>li span .video-duration{
     display:block;
-    width:100%;
     position:absolute;
+    font-size: 14px;
+    right: 10px;
     text-align: center;
-    top:0;
-    padding:5px;
-    background:rgba(0,0,0,0.7);
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap
+    color: #fff;
+    bottom: 10px;
+    padding: 0 5px;
+    background:rgba(0,0,0,0.69);
+    min-width: 50px;
+    text-transform: capitalize;
 }
 ul.pgwSlider>li span,.pgwSlider>.ps-list>li .like{
     display:block;
