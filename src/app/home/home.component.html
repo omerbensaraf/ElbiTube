@@ -1,100 +1,50 @@
 <div class="slider-area pt-40">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="slider-wrapper">
-                        <div class="pgwSlider wide">
-                            <div class="ps-current" style="height: 467px;">
-                                <ul>
-                                    <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
-                                        <img [src]="currentItem.imageSrc">
-                                      <!-- <app-player [videoUrl]="currentItem.src" (onEnded)="onVideoEnded($event)" (onLoad)="onVideoLoaded($event)" ></app-player> -->
-                                    </li>
-                                </ul>
-                            </div>
-                            <ul class="slider ps-list">
-                                <li *ngFor="let item of playList; let $index = index"
-                                    class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 155px;">
-                                    <div class="single-video">
-                                        <div class="video-img">
-                                            <a href=""> 
-                                                <img [src]="item.imageSrc" alt=""
-                                                (click)="onClickPlaylistItem(item, $index)"
-                                                [class.selected]="item === currentItem">
-                                            </a>
-                                            <span class="video-duration">duration</span>
-                                        </div>
-                                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="slider-wrapper">
+                    <div class="pgwSlider wide">
+                        <div class="ps-current" style="height: 486px;">
+                            <ul>
+                                <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
+                                    <img [src]="currentItem.imageSrc">
                                 </li>
                             </ul>
                         </div>
+                        <ul class="slider ps-list">
+                            <li *ngFor="let item of playList; let $index = index"
+                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 158px;">
+                                <div class="single-video">
+                                    <div class="video-img">
+                                        <a href=""> 
+                                            <img [src]="item.imageSrc" alt=""
+                                            (click)="onClickPlaylistItem(item, $index)"
+                                            [class.selected]="item === currentItem">
+                                        </a>
+                                        <span class="video-duration">duration</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <!-- Start Video Properties Area -->
-            <div class="col-md-9">
-                <app-video-properties [userEmail]="userEmail"></app-video-properties> 
-            </div>
-            <!-- End Video Properties Area -->
         </div>
-      </div>
-      <!-- End Slider Area -->
-    
-      <!-- Start Video Carousel -->
-      <div class="video-carousel-area themeix-ptb">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="themeix-section-h section-heading-one">
-                        <span class="heading-icon"><i class="fa fa-bolt"></i></span>
-                        <h3>Trending Videos</h3>
-                    </div>
-                    <div class="video-carousel owl-carousel owl-theme owl-loaded">
-      
-                        <div class="owl-stage-outer">
-                              <div class="owl-stage" style="transform: translate3d(-1140px, 0px, 0px); transition: 0s; width: 3705px;">
-                                  <div class="owl-item cloned" style="width: 255px; margin-right: 30px;">
-                                    <div class="single-video">
-                                        <div class="video-img"><a href="/worms-and-dirt-poke-cake/"><img src="./assets/images/cake.jpg" alt="/worms-and-dirt-poke-cake/"></a><span class="video-duration">Video</span></div>
-                                        <div class="video-content">
-                                            <h4><a href="/worms-and-dirt-poke-cake/" class="video-title">Worms And Dirt Poke Cake</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                  <div class="owl-item cloned" style="width: 255px; margin-right: 30px;">
-                                    <div class="single-video">
-                                        <div class="video-img"><a href="/molten-cinnamon-rolls/"><img src="./assets/images/cake.jpg" alt="/molten-cinnamon-rolls/"></a><span class="video-duration">Video</span></div>
-                                        <div class="video-content">
-                                            <h4><a href="/molten-cinnamon-rolls/" class="video-title">Molten Cinnamon Rolls</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                  <div class="owl-item cloned" style="width: 255px; margin-right: 30px;">
-                                    <div class="single-video">
-                                        <div class="video-img"><a href="/rainbow-sprinkle-cinnamon-rolls/"><img src="./assets/images/cake.jpg" alt="/rainbow-sprinkle-cinnamon-rolls/"></a><span class="video-duration">Video</span></div>
-                                        <div class="video-content">
-                                            <h4><a href="/rainbow-sprinkle-cinnamon-rolls/" class="video-title">Rainbow Sprinkle Cinnamon Rolls</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                  <div class="owl-item cloned" style="width: 255px; margin-right: 30px;">
-                                    <div class="single-video">
-                                        <div class="video-img"><a href="/double-chocolate-stuffed-mini-churros/"><img src="./assets/images/cake.jpg" alt="/double-chocolate-stuffed-mini-churros/"></a><span class="video-duration">Video</span></div>
-                                        <div
-                                            class="video-content">
-                                            <h4><a href="/double-chocolate-stuffed-mini-churros/" class="video-title">Double Chocolate-Stuffed Mini Churros</a></h4>
-                                    </div>
-                                </div>
-                            </div>
-                              <div class="owl-item active" style="width: 255px; margin-right: 30px;">
-                                <div class="single-video">
-                                    <div class="video-img"><a href="/frozen-irish-coffee/"><img src="./assets/images/cake.jpg" alt="/frozen-irish-coffee/"></a><span class="video-duration">Video</span></div>
-                                    <div class="video-content">
-                                        <h4><a href="/frozen-irish-coffee/" class="video-title">Frozen Irish Coffee</a></h4>
-                                    </div>
-                                </div>
-                            </div>
-                              <div class="owl-item active" style="width: 255px; margin-right: 30px;">
+    </div>
+  </div>
+  <div class="video-carousel-area themeix-ptb">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="themeix-section-h section-heading-one">
+                    <span class="heading-icon"><i class="fa fa-bolt"></i></span>
+                    <h3>Trending Videos</h3>
+                </div>
+                <div class="video-carousel owl-carousel owl-theme owl-loaded">
+  
+                    <div class="owl-stage-outer">
+                          <div class="owl-stage" style="transform: translate3d(-1140px, 0px, 0px); transition: 0s; width: 3705px;">
+                              <div class="owl-item cloned" style="width: 255px; margin-right: 30px;">
                                 <div class="single-video">
                                     <div class="video-img"><a href="/worms-and-dirt-poke-cake/"><img src="./assets/images/cake.jpg" alt="/worms-and-dirt-poke-cake/"></a><span class="video-duration">Video</span></div>
                                     <div class="video-content">
