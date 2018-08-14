@@ -23,6 +23,64 @@
     position:relative;
     font-size:1rem
 }
+.pgwSlider .ps-current > ul > li > a {
+    position: relative;
+    display: inline-block;
+    overflow: hidden
+}
+
+.pgwSlider .ps-current > ul > li > a:before {
+    color: #fff;
+    content: "\f01d";
+    font-family: FontAwesome;
+    font-size: 60px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%) rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
+    -webkit-transition: all .3s linear 0s;
+    transition: all .3s linear 0s;
+    z-index: 11
+}
+
+.pgwSlider .ps-current > ul > li > a:after {
+    content: "\f03e";
+    font-size: 50px
+}
+
+.pgwSlider:hover > ul > li > a:after {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    visibility: visible
+}
+
+.pgwSlider:hover .ps-current > ul > li > a:before {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+    opacity: .0001;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    visibility: hidden
+}
+
+.pgwSlider:hover .ps-current > ul > li > a:after {
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    visibility: visible
+}
+
+.ps-current > ul > li > a {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 9
+}
+
 .pgwSlider.listOnTheLeft .ps-current{
     float:right
 }

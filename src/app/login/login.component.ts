@@ -100,7 +100,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn(): void {
-    debugger;
     this.errorMessage = '';
     let isFormValid: boolean = true;
     if (!this.isEmailNameValid()) {

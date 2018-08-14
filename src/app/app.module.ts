@@ -22,6 +22,7 @@ import { VideoPropertiesComponent } from './components/video-properties/video-pr
 import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WatchComponent } from './components/watch/watch.component';
+import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { WatchComponent } from './components/watch/watch.component';
     LoginHeaderComponent,
     VideoPropertiesComponent,
     AutoCompleteSearchComponent,
-    WatchComponent
+    WatchComponent,
+    VideoPropertiesMinComponent
   ],
   imports: [
     BrowserModule,

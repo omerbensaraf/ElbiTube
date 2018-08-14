@@ -33,17 +33,14 @@ export class WatchComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
     this.videoId = params.get('_id');
     });
-    debugger;
     this.userEmail = this.userService.getUserEmail();
     this.route.data
       .map((data) => data['videos'])
       .subscribe(
         (videos) => {
-          debugger;
           this.sortVideos = this.sort(videos);
           this.currentItem = this.sortVideos.filter(video => video._id == this.videoId)[0];
           this.playList = this.sortVideos.filter(video => video._id !== this.videoId).slice(0,3);
-          debugger;
           this.mediaService.changeVideoProperties(this.currentItem);
         }
       );
@@ -54,7 +51,6 @@ export class WatchComponent implements OnInit {
   }
 
   imgClick(item:IMedia){
-    debugger;
       this.router.navigate(['/watch', item._id]);
   }
 

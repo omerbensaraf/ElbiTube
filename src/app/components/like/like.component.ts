@@ -26,7 +26,6 @@ export class LikeComponent implements OnInit {
   
 
   ngOnInit() {
-    debugger;
     this.userEmail = this.usersService.getUserEmail();
     this.initLikeStatus();
     this.likeExists=true; 
