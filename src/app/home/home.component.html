@@ -18,7 +18,7 @@
                                 </ul>
                             </div>
                             <ul class="slider ps-list">
-                                <li *ngFor="let item of homeTop3Videos; let $index = index"
+                                <li *ngFor="let item of top3_list; let $index = index"
                                     class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 155px;">
                                     <div class="single-video">
                                         <div class="video-img">
@@ -44,13 +44,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-clipboard" aria-hidden="true"></i></span>
+                    <span class="heading-icon"><i class="fa fa-fire" aria-hidden="true"></i></span>
                     <h3>Most Popular Videos</h3>
                 </div>
             </div>
         </div>
         <div class="row news-posts-wrapper">
-            <div class="col-md-3 themeix-half" *ngFor="let item of mostPopularVideosList; let $index = index">
+            <div class="col-md-3 themeix-half" *ngFor="let item of popularVideos_list; let $index = index">
                 <div class="single-video">
                     <div class="video-img">
                         <a href=""> 
@@ -69,19 +69,18 @@
     </div>
 </div>
 
-<!-- Start Wide Video Section -->
-<div class="wide-video-section themeix-ptb bg-themeix">
+<div class="wide-video-section themeix-ptb bg-themeix border-btm" *ngIf="air_list !== undefined">
     <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="themeix-section-h section-heading-four">
-                        <span class="heading-icon"><i class="fa fa-clipboard" aria-hidden="true"></i></span>
-                        <h3>Category 1</h3>
+                        <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
+                        <h3>Air</h3>
                     </div>
                 </div>
             </div>
             <div class="row news-posts-wrapper">
-                <div class="col-md-3 themeix-half" *ngFor="let item of category_1_list; let $index = index">
+                <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
                     <div class="single-video">
                         <div class="video-img">
                             <a href=""> 
@@ -99,4 +98,93 @@
             </div>
     </div>
 </div>
-<!-- End Wide Video Section -->
+
+<div class="wide-video-section themeix-ptb bg-themeix border-btm"  *ngIf="land_list !== undefined">
+    <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-area-chart" aria-hidden="true"></i></span>
+                        <h3>Land</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row news-posts-wrapper">
+                <div class="col-md-3 themeix-half" *ngFor="let item of land_list; let $index = index">
+                    <div class="single-video">
+                        <div class="video-img">
+                            <a href=""> 
+                                <img [src]="item.imageSrc" alt=""
+                                (click)="onClickPlaylistItem(item, $index)"
+                                [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">duration</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="wide-video-section themeix-ptb bg-themeix border-btm" *ngIf="radio_list !== undefined">
+    <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-wifi" aria-hidden="true"></i></span>
+                        <h3>Radio</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row news-posts-wrapper">
+                <div class="col-md-3 themeix-half" *ngFor="let item of radio_list; let $index = index">
+                    <div class="single-video">
+                        <div class="video-img">
+                            <a href=""> 
+                                <img [src]="item.imageSrc" alt=""
+                                (click)="onClickPlaylistItem(item, $index)"
+                                [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">duration</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="wide-video-section themeix-ptb bg-themeix" *ngIf="more_list !== undefined">
+    <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
+                        <h3>More</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row news-posts-wrapper">
+                <div class="col-md-3 themeix-half" *ngFor="let item of more_list; let $index = index">
+                    <div class="single-video">
+                        <div class="video-img">
+                            <a href=""> 
+                                <img [src]="item.imageSrc" alt=""
+                                (click)="onClickPlaylistItem(item, $index)"
+                                [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">duration</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

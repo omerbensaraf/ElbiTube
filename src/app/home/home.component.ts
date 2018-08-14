@@ -24,12 +24,17 @@ export class HomeComponent implements OnInit {
   sortVideos :  Array<IMedia>;
   mostPopularVideo : IMedia;
   playList: Array<IMedia>;
-  mostPopularVideosList: Array<IMedia>;
-  category_1_list: Array<IMedia>;
-  homeTop3Videos: Array<IMedia>;
   userEmail : String;
-
   homeLoading:boolean=false;
+
+  // All Home Page Categories Lists
+  popularVideos_list: Array<IMedia>;
+  air_list: Array<IMedia>;
+  land_list: Array<IMedia>;
+  radio_list: Array<IMedia>;
+  more_list: Array<IMedia>;  
+  top3_list: Array<IMedia>;
+
   constructor(private router:Router,private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
 
@@ -39,25 +44,83 @@ export class HomeComponent implements OnInit {
 
     this.mediaService.httpGetMedia().subscribe(data => { 
       this.sortVideos = this.sort(data);
-      this.mostPopularVideo = this.sortVideos[0];
-      //this.playList = this.sortVideos.slice(1,4);
-      this.homeTop3Videos = this.sortVideos.slice(1,4);
-      this.playList = data;
-      this.mostPopularVideosList = data.slice(1,6);
-      this.category_1_list = data.slice(6,data.length);
+      this.mostPopularVideo = this.sortVideos[0];;
+      
+      //Init categories lists
+      this.top3_list = this.getTop3List(data);
+      this.popularVideos_list = this.getPopularVideosList(data);
+      this.air_list = this.getAirList(data);
+      this.land_list = this.getLandList(data);
+      this.more_list = this.getMoreList(data);
+      
       this.homeLoading=true;
     });
     debugger;
   }
 
-imgClick(item:IMedia){
-    this.router.navigate(['/watch', item._id]);
-}
+  imgClick(item:IMedia){
+      this.router.navigate(['/watch', item._id]);
+  }
 
 
-sort(data : IMedia[]){
-  return data.sort((a, b)=>{return b.likeUsers.length - a.likeUsers.length});
-}
+  sort(data : IMedia[]){
+    return data.sort((a, b)=>{return b.likeUsers.length - a.likeUsers.length});
+  }
+
+  getPopularVideosList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.views > 0);
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+
+  getTop3List(data:Array<IMedia>): Array<IMedia> {
+    //var returnArray = new Array<IMedia>();
+    return this.sortVideos.slice(1,4);
+  }
+
+  getAirList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.category === 'UAV');
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+  
+  getLandList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.category === 'UAV');
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+
+  getMoreList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => !(this.land_list.includes(item) || this.air_list.includes(item) || this.top3_list.includes(item) || this.popularVideos_list.includes(item)) );
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+
+
 
 }
 
