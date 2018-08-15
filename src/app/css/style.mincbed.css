@@ -468,7 +468,7 @@ ul.pgwSlider>li span {
 
 .heading-icon i,
 .video-title {
-    font-size: 18px
+    font-size: 16px
 }
 
 .pgwSlider a:hover {
@@ -486,38 +486,45 @@ ul.pgwSlider>li span {
     width: 35px
 }
 
+.properties {
+    margin-left:1%
+}
 .video-title {
     color: #111;
     line-height: 22px;
-    font-weight: 700
-}
-
-.video-like-counter,
-.video-viewers {
-    display: inline-block;
-    font-size: 12px
+    font-weight: 100
 }
 
 .video-title:hover {
     color: #4267b2
 }
 
-.video-feedback {
-    overflow: hidden
+.video-uploadedby-and-viewers {
+    margin-left: 70%; 
+    margin-top:-4%;
+    text-align: right; 
+    width: 30%;
+    display: inline-block;
+    font-size: 20px
 }
-
-.video-like-counter {
+/* .video-like-counter {
+    display: inline-block;
+    font-size: 20px;
+    text-align: left;
     padding: 0 5px;
-    color: #767676
+    color: #767676;
+    margin-left: 1%;
+    width: 70%;
+} */
+.video-viewers {
+    display: inline-block;
+    font-size: 20px
 }
 
-.video-like-counter:last-child {
-    padding-right: 0
-}
-
+.video-feedback {overflow: hidden}
 .view-icon {
     color: #418fd1;
-    padding-right: 10px
+    padding-right: 5px
 }
 
 .like-icon {
@@ -1156,9 +1163,9 @@ a.themeix-purchase-btn-3:hover {
 .video-dislike p,
 .video-icons,
 .video-like p,
-.video-post-counter .video-like,
-.video-post-title .video-icons,
-.video-post-title .video-post-info,
+.video-counter .video-like,
+.video-title .video-icons,
+.video-title .video-info,
 .video-text h1 {
     display: inline-block
 }
@@ -1257,84 +1264,89 @@ body.tag-template .category-posts {
     max-width: 100%
 }
 
-.video-posts-data {
+.video-properties{
     overflow: hidden;
     margin: 20px 0;
     width: 100%
 }
 
-.video-posts-data .video-title {
+.video-properties .video-title {
     float: left
 }
 
-.video-post-counter .video-dislike,
-.video-posts-data .video-post-counter {
+.video-counter .video-dislike,
+.video-properties .video-counter {
     float: right
 }
 
-.video-post-counter .video-like {
+.video-counter .video-like {
     padding-right: 25px
 }
 
 .video-icons {
     width: 50px;
     height: 50px;
-    background-color: #cc181e;
+    background-color: #1824cc;
     line-height: 52px;
     color: #fff;
     text-align: center;
     font-size: 30px
 }
 
-.video-post-title {
+.video-title {
     width: 70%;
     float: left;
 }
 
-.video-post-counter {
+.video-counter {
     width: 30%;
     text-align: right
 }
 
-.video-post-title p {
+.video-title p {
     margin-bottom: 0
 }
 
-.video-post-author p,
-.video-post-date p {
+.video-author a,
+.video-date p, .video-category a {
     display: inline-block;
-    padding-left: 5px
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.video-post-date .video-posts-author {
-    padding-left: 10px
-}
+/* .video-date, .video-author, .video-category {
+    padding-left: 0px
+} */
 
-.video-post-info h4 {
+.video-info h4 {
     font-size: 16px;
     font-weight: 500;
     margin-top: 5px;
     margin-bottom: 5px
 }
 
-.video-post-info h4 a {
+.video-info h4 a {
     color: #111;
     font-weight: 700
 }
 
-.video-post-info h4 a:hover {
+.video-info h4 a:hover {
     color: #cc181e
 }
 
-.video-post-info {
+.video-info {
     margin-left: 15px
 }
 
-.video-post-viewers h3 {
+.video-viewers h3 {
     font-size: 22px;
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 5px
+}
+
+.video-like-counter {
+    cursor: pointer;
 }
 
 .video-dislike p,
@@ -1350,12 +1362,16 @@ body.tag-template .category-posts {
     color: red
 }
 
-.video-posts-author a {
+.video-author a {
     padding-left: 5px
 }
 
-.video-posts-author a:hover {
+.video-author a:hover {
     color: #cc181e
+}
+
+.video-category a:hover {
+    color: #39af1b
 }
 
 .recent-posts-wrapper .single-video {
@@ -2041,10 +2057,10 @@ header .modal-body .btn.btn-primary {
 }
 
 @media only screen and (min-width:576px) and (max-width:991px) {
-    .video-post-title {
+    .video-title {
         width: 65%
     }
-    .video-post-counter {
+    .video-counter {
         width: 35%
     }
 }
@@ -2213,10 +2229,10 @@ header .modal-body .btn.btn-primary {
     .four-zero-page {
         padding: 50px 0
     }
-.video-post-title {
+.video-title {
     width: 100%;
 }	
-.video-post-counter {
+.video-counter {
     width: 100%;
     margin-top: 15px;
     text-align: left;
@@ -2243,7 +2259,7 @@ header .modal-body .btn.btn-primary {
 }
 
 @media only screen and (max-width:469px) {
-    .video-post-counter {
+    .video-counter {
         display: none
     }
     .navbar-brand img {
