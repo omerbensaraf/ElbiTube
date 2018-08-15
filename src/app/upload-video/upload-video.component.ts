@@ -9,16 +9,24 @@ import { MediaService } from '../services/media.service';
   providers: [MediaService]
 })
 export class UploadVideoComponent implements OnInit {
-  filePath : string = '';
-  videoTitle : string = '';
-  videoDescription : string = '';
+  filePath="";
+  videoTitle="";
+  videoDescription="";
   constructor(private mediaService : MediaService) { }
 
   ngOnInit() {
   }
 
-  onSubmit(){
-      this.mediaService.httpUploadVideo(this.filePath, this.videoTitle, this.videoDescription);
+  getFileExtension(filename) {
+    var ext = filename.slice((filename.lastIndexOf("/") - 1 >>> 0) + 2);
+    return "."+ext;
   }
+
+  onSubmit(){
+    var mimetype : string = this.getFileExtension(this.filePath);
+    this.mediaService.httpUploadVideo(this.filePath, this.videoTitle, this.videoDescription, mimetype);
+  }
+
+
 
 }

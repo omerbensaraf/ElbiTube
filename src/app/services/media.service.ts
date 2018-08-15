@@ -81,13 +81,14 @@ export class MediaService {
         this.mediaSource.next(item);
     }
 
-httpUploadVideo(filePath: string, title: string, description: string) {
+httpUploadVideo(_filePath: string, _title: string, _description: string, _mimetype: string) {
     const requestUrl = 'http://11.0.73.2:3000/upload';
     const request = {
         file:{
-            path:filePath,
-            originalname: title,
-            description: description
+            path:_filePath,
+            originalname: _title,
+            description: _description,
+            mimetype:_mimetype
         } 
     };
     return this.http.post(requestUrl, request);
