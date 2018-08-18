@@ -76,7 +76,7 @@ img {
 }
 
 .border-btm {
-    border-bottom: inset;
+    border-bottom: 2px solid lightgray;
 }
 
 .right,
@@ -93,12 +93,17 @@ img {
     padding-bottom: 80px
 }
 
+.pb-40 {
+    padding-bottom: 40px
+}
+
 .ptb-40 {
     padding: 40px 0
 }
 
 .themeix-ptb {
-    padding: 80px 0
+    padding: 0 0 80px 0;
+    border-bottom: 2px solid lightgray;
 }
 
 .themeix-ptb-2 {
