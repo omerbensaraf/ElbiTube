@@ -39,6 +39,18 @@ body {
     line-height: 26px
 }
 
+.themeix-half > ul  {
+    display: -webkit-box;
+    padding: 0;
+}
+
+.themeix-half > ul > li {
+    cursor: pointer; 
+    opacity: 1; 
+    list-style-type: none; 
+    padding-right: 25px;
+}
+
 a {
     transition: all .4s linear 0s
 }
@@ -63,6 +75,10 @@ img {
     float: left
 }
 
+.border-btm {
+    border-bottom: 2px solid lightgray;
+}
+
 .right,
 .single-video .video-feedback,
 .themeix-section-h .see-all-link {
@@ -77,12 +93,17 @@ img {
     padding-bottom: 80px
 }
 
+.pb-40 {
+    padding-bottom: 40px
+}
+
 .ptb-40 {
     padding: 40px 0
 }
 
 .themeix-ptb {
-    padding: 80px 0
+    padding: 0 0 80px 0;
+    border-bottom: 2px solid lightgray;
 }
 
 .themeix-ptb-2 {
@@ -361,7 +382,7 @@ ul.nav>li:hover>a {
     font-family: FontAwesome
 }
 
-.pgwSlideshow .ps-current>ul>li img {
+.pgwSlideshow .ps-current>ul>li >img {
     max-height: 450px;
     width: 100%;
     max-width: 1140px
@@ -538,6 +559,11 @@ ul.pgwSlider>li span {
 }
 
 .video-img img {
+    max-width: 100%;
+    min-height: 145px
+}
+
+.video-img .main-img img {
     max-width: 100%;
     min-height: 145px
 }
@@ -781,10 +807,10 @@ width:100%
     margin-top: 10px;
 }
 
-.wide-video-section .single-video {
+/* .wide-video-section .single-video {
     margin-bottom: 30px;
     min-height: 210px
-}
+} */
 
 .see-all-link {
     padding-left: 10px;
@@ -2066,11 +2092,6 @@ header .modal-body .btn.btn-primary {
 }
 
 @media only screen and (max-width:767px) {
-    .pgwSlider>.ps-list>li span,
-    .see-all-link,
-    ul.pgwSlider>li span {
-        display: none
-    }
     .ps-caption b,
     .themeix-section-h h3 {
         font-size: 20px
@@ -2229,14 +2250,14 @@ header .modal-body .btn.btn-primary {
     .four-zero-page {
         padding: 50px 0
     }
-.video-title {
-    width: 100%;
-}	
-.video-counter {
-    width: 100%;
-    margin-top: 15px;
-    text-align: left;
-}
+    .video-title {
+        width: 100%;
+    }	
+    .video-counter {
+        width: 100%;
+        margin-top: 15px;
+        text-align: left;
+    }
 }
 
 @media only screen and (min-width:480px) and (max-width:767px) {

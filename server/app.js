@@ -6,6 +6,7 @@ const User = require('./models/users');
 const Video = require('./models/videos');
 const cors = require('cors');
 const config = require('./config');
+const getDuration = require('get-video-duration');
 const socketIO = require('socket.io');
 // Get and Set ffmpeg library for frame generation
 const path = require('path');
@@ -16,12 +17,13 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 
 
+
+
 // Define Storage Engine as Disk Storage
 const storage = multer.diskStorage({
     destination: './videos/',
     filename: function(req, file, cb){
-        //console.log(file);
-        cb(null,file.fieldname + '-' + file.originalname);
+        cb(null,file.originalname);
     }
 });
 
@@ -206,7 +208,9 @@ app.get('/videos/:videoId',  function (req,res) {
 
     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
         //console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
-        
+        getDuration(selectedVideo).then((duration) => {
+            console.log(">>> duration: " +duration);
+        });
         url = config.url;
         videoSrc = selectedVideo.src;
         var position = videoSrc.indexOf("\\videos");
@@ -245,8 +249,11 @@ app.post('/upload', (req, res) => {
             var videoName = path.parse(req.file.originalname).name;
             // define the name of the frame / image
             var frameName = videoName+'_frame.jpg';
-            var frame = ffmpeg(req.file.path);
-            console.log(">>>  frame: " +  JSON.stringify(frame));   
+            var frame = ffmpeg(req.file.path);            
+            // From a local path...
+            getDuration(req.file).then((duration) => {
+                console.log(">>> duration: " +duration);
+            });
             // generate the frame from the video
             frame.screenshots({
                 timestamps: ['1'],
@@ -256,10 +263,13 @@ app.post('/upload', (req, res) => {
                 size: '320x240'
             });
             // gerenate schema object and save in DB
+            let id = mongoose.Types.ObjectId();
             var video = new Video({ 
+                _id : id,
                 title: req.file.originalname, 
-                src: req.file.path,
-                imageSrc: frameDestinationPath+frameName, 
+                 //src: req.file.path,
+                 src: 'http:\\\\11.0.73.2:3000\\videos\\'+id,
+                imageSrc: 'http:\\\\11.0.73.2:3000\\'+frameDestinationPath+frameName, 
                 type: req.file.mimetype, 
                 views: 0, 
                 uploadedBy: 'Alon Yeshurun'

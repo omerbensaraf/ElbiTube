@@ -1,31 +1,9 @@
-<!-- <div style="width: 100%">
-    <div class="video-title properties" > {{ videoTitle }} </div>
-    <span style="margin-top: 5px"></span>
-    <div class="video-like-counter">
-        <app-like [item] = "currentVideo" [userEmailViaProperties] = "userEmailViaProperties"></app-like>   
-        <div class="video-like-counter" title="number of likes"><span class="fa fa-thumbs-o-up like-icon" style="color:#3694f4; font-size:3em"></span> <span style="font-size:1.5em">{{ likeCounter }}</span></div>
-        <div class="video-like-counter" title="number of dislikes"> <span class="fa fa-thumbs-o-down dislike-icon" style="font-size:3em"></span> <span style="font-size:1.5em">{{ disLikeCounter }}</span></div>
-    </div>
-    <div class="video-uploadedby-and-viewers">
-        <div class="video-viewers" title="number of views">
-            <span class="fa fa-eye view-icon"></span> <span style="">{{ views }} </span>
-        </div>
-        <span style="margin-right: 10px"></span>
-        <span class="fa fa-user" title="uploaded by"></span> <span style="">{{ uploadedBy }}</span>
-    </div>
-</div> -->
-
-
 <div class="video-properties">
     <div class="video-title">
         <span class="video-icons"><i class="fa fa-info-circle"></i></span>
         <div class="video-info">
                 <h4><a href="{{videoTitle}}" title="Title">{{ videoTitle }}</a></h4>
             <div class="video-date">
-                <span title="Uploaded Date">
-                    <i class="fa fa-calendar"></i>
-                    <p>21 August, 2017</p>
-                </span>
                 <span class="video-author" title="Author">
                         <i class="fa fa-user-o"></i>
                         <a href="/uploadedBy/">{{uploadedBy}}</a>
@@ -33,6 +11,10 @@
                 <span class="video-category" title="Category">
                     <i class="fa fa-folder-o"></i>
                     <a href="/categories/">Category</a>
+                </span>
+                <span title="Uploaded Date">
+                    <i class="fa fa-calendar"></i>
+                    <p>21 August, 2017</p>
                 </span>
             </div>
         </div>
@@ -42,11 +24,7 @@
             <h3>{{ views }}  views</h3>
         </div>
         <div class="video-like-counter">
-            <app-like [item] = "currentVideo" [userEmailViaProperties] = "userEmailViaProperties"></app-like>      
+            <app-like [item] = "currentItem"></app-like>      
         </div>
-        <!-- <span><i class="fa fa-thumbs-o-up"></i></span><p>&nbsp;&nbsp; {{likes}}</p></div>
-        <div class="video-dislike">
-
-        <span><i class="fa fa-thumbs-o-down"></i></span><p>&nbsp;&nbsp; {{dislikes}}</p></div> -->
     </div>
 </div>
