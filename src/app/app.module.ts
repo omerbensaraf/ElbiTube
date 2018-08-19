@@ -38,7 +38,7 @@ import { VideoPropertiesMinComponent } from './components/video-properties/video
     LoginHeaderComponent,
     VideoPropertiesComponent,
     AutoCompleteSearchComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
     WatchComponent,
     VideoPropertiesMinComponent
   ],

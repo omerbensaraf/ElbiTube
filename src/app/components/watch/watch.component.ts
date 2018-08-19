@@ -46,10 +46,6 @@ export class WatchComponent implements OnInit {
       );
   }
 
-  onClickPlaylistItem(item: IMedia, index: number) {
-    this.currentItem = item;
-  }
-
   imgClick(item:IMedia){
       this.router.navigate(['/watch', item._id]);
   }
