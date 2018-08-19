@@ -19,12 +19,8 @@ const routes: Routes = [
     path: 'searchResutls/:term',
     component: SearchResultsComponent,
     runGuardsAndResolvers: 'always'
-  }
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
-  exports: [RouterModule]
+  },
+  {
     path:'watch/:_id',
     component: WatchComponent,
     resolve: {
@@ -33,10 +29,12 @@ const routes: Routes = [
   }
 ];
 
+
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes,
-    { enableTracing: true })
+      {onSameUrlNavigation: 'reload'})
   ],
   exports: [RouterModule],
   providers: [
