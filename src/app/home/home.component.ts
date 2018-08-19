@@ -39,13 +39,14 @@ export class HomeComponent implements OnInit {
     this.currentIndex = 0;
     this.currentItem = this.playList[ this.currentIndex];*/
     
-    this.mediaService.httpGetMedia().subscribe(data => { 
+    this.mediaService.httpGetMedia().subscribe(data => {
       console.log(data);
        this.playList = data.filter(item => item.likeCouner > 0);
        this.currentIndex = 0;
        this.currentItem = this.playList[ this.currentIndex ];
        // Initiate video properties with the selected video
        this.mediaService.changeVideoProperties(this.currentItem);
+       this.mediaService.setVideoList(data);
       });
   }
 

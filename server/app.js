@@ -11,6 +11,7 @@ const path = require('path');
 const ffprobePath = require('@ffprobe-installer/ffprobe').path;
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
+const fuzzysort = require('./fuzzysort');
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 
@@ -103,6 +104,19 @@ app.get('/users', function (req,res) {
     mongoose.model('User').find(function (err,users) {
         res.send(users);
     })
+});
+
+app.get('/searchVideos/:searchedValue', function (req,res) {
+    const searchedVideoArr = [];
+    if (req.params && req.params.searchedValue && req.params.searchedValue.trim().length > 0) {
+        mongoose.model('Video').find(function (err,videos) {
+            const results = fuzzysort.go(req.params.searchedValue, videos, {key:'title'});            
+            results.map((vid) => {
+                searchedVideoArr.push(vid.obj);
+            });
+            res.send(searchedVideoArr);
+        })
+    }
 });
 
 app.post('/upload', (req, res) => {

@@ -1,0 +1,30 @@
+<div class="review-and-contribute themeix-ptb">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="review-area">
+                  <div class="themeix-section-h section-heading-three">
+                      <h3>{{searchResults.length}} Search results</h3>
+                  </div>
+                  <div class="featured-area">
+                      <div *ngFor="let video of searchResults; let i=index" class="single-review">
+                          <div class="review-img">
+                              <a href="#" (click)="selectVideo($event, video)"><img src={{video.imageSrc}} alt={{video.title}} style="height: 150px; width: 270px"></a> <span class="video-duration">4:34</span></div>
+                          <div class="review-content">
+                              <h4><a (click)="selectVideo($event, video)" href="#" class="video-title">{{video.title}}</a></h4>
+                              <div class="video-counter-plan" style="display: block;">
+                                  <div class="video-viewers"> <span class="fa fa-eye view-icon fa-lg"></span><span>{{video.views}}</span></div>
+                                  <div class="video-feedback">
+                                      <div class="video-like-counter"> <span class="fa fa-thumbs-o-up like-icon fa-lg"></span> <span>{{video.likeUsers.length}}</span></div>
+                                      <div class="video-like-counter"> <span class="fa fa-thumbs-o-down dislike-icon fa-lg"></span> <span>{{video.disLikeUsers.length}}</span></div>
+                                  </div>
+                              </div>
+                              <div class="reviwe-text">Uploaded By: {{video.uploadedBy}}</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -6,6 +6,7 @@ import { IMedia } from '../models/imadia.model';
 
 @Injectable()
 export class MediaService {
+    
     //playList: Array<IMedia> = [];
     playList: Array<IMedia> = [
         {
@@ -51,6 +52,10 @@ export class MediaService {
     private mediaSource = new BehaviorSubject<any>({});
     currentVideoProperty = this.mediaSource.asObservable();
 
+    private videosSource =  <BehaviorSubject<IMedia[]>>new BehaviorSubject([]);
+    videoList = this.videosSource.asObservable();
+
+
     constructor(private http : HttpClient) {   
     }
 
@@ -68,17 +73,27 @@ export class MediaService {
             const requestUrl = 'https://newsapi.org/v2/top-headlines?sources=ynet&apiKey=82f0da9784344916a6b506196467c87c';
             //return this.http.get<Array<IMedia>>(requestUrl);
             return this.playList[index];
-        }
+    }
 
     httpUpdateSpecificItem(item : IMedia, index : number){
         //httpGetMedia(): Observable<Array<IMedia>>{
             const requestUrl = 'https://newsapi.org/v2/top-headlines?sources=ynet&apiKey=82f0da9784344916a6b506196467c87c';
             //return this.http.get<Array<IMedia>>(requestUrl);
             this.playList[index] = item;
-        }
+    }
+
+    searchVideos(searchVal: String) {
+        if (searchVal && searchVal.length > 0 ) {
+            return this.http.get<Array<IMedia>>('http://11.0.73.2:3000/searchVideos/' + searchVal);
+        }        
+    }
 
     changeVideoProperties(item: IMedia) {
         this.mediaSource.next(item);
+    }
+
+    setVideoList(videoList: IMedia[]) {
+        this.videosSource.next(videoList);
     }
 
 }

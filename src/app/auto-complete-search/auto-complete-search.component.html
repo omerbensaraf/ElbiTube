@@ -5,7 +5,7 @@
           <div>
             <ul *ngIf="filteredResult.length>0" class="search-result-ul">
               <li *ngFor="let video of filteredResult; let i=index" (click)="selectVideo(video)" class="search-result-li" tabindex="i" [class.active]="i == selectedLiValue">
-                  <span>{{video}}</span>
+                  <span>{{video.title}}</span>
               </li>
             </ul>
           </div>
