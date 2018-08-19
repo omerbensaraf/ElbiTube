@@ -59,8 +59,8 @@ export class HomeComponent implements OnInit {
   }
 
   imgClick(item:IMedia){
-      this.router.navigate(['/watch', item._id]);
-  }
+    this.router.navigate(['/watch', item._id]);
+}
 
 
   sort(data : IMedia[]){
