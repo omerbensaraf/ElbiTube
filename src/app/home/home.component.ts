@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck, Output, EventEmitter } from '@angular/core';
 import { MediaService } from '../services/media.service';
+import { UsersService } from '../services/users.service';
 import { IMedia } from '../models/imadia.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,43 +21,106 @@ import { VideoPropertiesComponent } from '../components/video-properties/video-p
   ]
 })
 export class HomeComponent implements OnInit {
+  sortVideos :  Array<IMedia>;
+  mostPopularVideo : IMedia;
   playList: Array<IMedia>;
-  currentIndex: number;
-  currentItem: IMedia;
+  userEmail : String;
+  homeLoading:boolean=false;
 
-  constructor(private mediaService: MediaService, private http: HttpClient) {
+  // All Home Page Categories Lists
+  popularVideos_list: Array<IMedia>;
+  air_list: Array<IMedia>;
+  land_list: Array<IMedia>;
+  radio_list: Array<IMedia>;
+  more_list: Array<IMedia>;  
+  top3_list: Array<IMedia>;
 
+  constructor(private router:Router,private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
 
-  onVideoEnded() {
-    this.currentIndex++;
-    if (this.currentIndex === this.playList.length) {
-      this.currentIndex = 0;
-    }
-    this.currentItem = this.playList[this.currentIndex];
-  }
   ngOnInit() {
-    /*this.playList = this.mediaService.httpGetMedia();
-    this.currentIndex = 0;
-    this.currentItem = this.playList[ this.currentIndex];*/
     
-    this.mediaService.httpGetMedia().subscribe(data => {
-      console.log(data);
-       this.playList = data.filter(item => item.likeCouner > 0);
-       this.currentIndex = 0;
-       this.currentItem = this.playList[ this.currentIndex ];
-       // Initiate video properties with the selected video
-       this.mediaService.changeVideoProperties(this.currentItem);
-       this.mediaService.setVideoList(data);
-      });
+    this.userEmail = this.userService.getUserEmail();
+
+    this.mediaService.httpGetMedia().subscribe(data => { 
+      this.sortVideos = this.sort(data);
+      this.mostPopularVideo = this.sortVideos[0];;
+      this.mediaService.setVideoList(data);
+      //Init categories lists
+      this.top3_list = this.getTop3List(data);
+      this.popularVideos_list = this.getPopularVideosList(data);
+      this.air_list = this.getAirList(data);
+      this.land_list = this.getLandList(data);
+      this.more_list = this.getMoreList(data);
+      
+      this.homeLoading=true;
+    });
+    debugger;
   }
 
-  onClickPlaylistItem(item: IMedia, index: number) {
-    this.currentIndex = index;
-    this.currentItem = item;
-    // Raise flag on the subscribed field that video has changed and need to update properties
-    this.mediaService.changeVideoProperties(item);
+  imgClick(item:IMedia){
+      this.router.navigate(['/watch', item._id]);
   }
+
+
+  sort(data : IMedia[]){
+    return data.sort((a, b)=>{return b.likeUsers.length - a.likeUsers.length});
+  }
+
+  getPopularVideosList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.views > 0);
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+
+  getTop3List(data:Array<IMedia>): Array<IMedia> {
+    //var returnArray = new Array<IMedia>();
+    return this.sortVideos.slice(1,4);
+  }
+
+  getAirList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.category === 'UAV');
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+  
+  getLandList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.category === 'UAV');
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+
+  getMoreList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => !(this.land_list.includes(item) || this.air_list.includes(item) || this.top3_list.includes(item) || this.popularVideos_list.includes(item)) );
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
+
+
 
 }
 

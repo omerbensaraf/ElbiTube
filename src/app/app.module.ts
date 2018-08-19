@@ -17,16 +17,19 @@ import {VgBufferingModule} from 'videogular2/buffering';
 import {MediaService} from './services/media.service';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
 import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { HttpClientModule } from '@angular/common/http';
+import { WatchComponent } from './components/watch/watch.component';
+import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    LoginHeaderComponent,
     HomeComponent,
     MenuComponent,
     FooterComponent,
@@ -36,6 +39,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     VideoPropertiesComponent,
     AutoCompleteSearchComponent,
     SearchResultsComponent
+    WatchComponent,
+    VideoPropertiesMinComponent
   ],
   imports: [
     BrowserModule,
@@ -49,8 +54,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
   ],
   providers: [    
     MediaService,
-    HttpClientModule,
-    UsersService
+    UsersService,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })
