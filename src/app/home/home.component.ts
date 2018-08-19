@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
     this.mediaService.httpGetMedia().subscribe(data => { 
       this.sortVideos = this.sort(data);
       this.mostPopularVideo = this.sortVideos[0];;
-      
+      this.mediaService.setVideoList(data);
       //Init categories lists
       this.top3_list = this.getTop3List(data);
       this.popularVideos_list = this.getPopularVideosList(data);

@@ -9,12 +9,17 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class MediaService {
+
     private url = 'http://11.0.73.2:3000';
     private socket;
     playList: Array<IMedia> = [];
     
     private mediaSource = new BehaviorSubject<any>({});
     currentVideoProperty = this.mediaSource.asObservable();
+
+    private videosSource =  <BehaviorSubject<IMedia[]>>new BehaviorSubject([]);
+    videoList = this.videosSource.asObservable();
+
 
     constructor(private http : HttpClient) {   
         this.socket = io(this.url);
@@ -26,15 +31,17 @@ export class MediaService {
         return this.http.get<Array<IMedia>>(requestUrl);
     }
 
+    searchVideos(searchVal: String) {
+        if (searchVal && searchVal.length > 0 ) {
+            return this.http.get<Array<IMedia>>('http://11.0.73.2:3000/searchVideos/' + searchVal);
+        }        
+    }
+  
     httpGetSpecificItem(id : String): Observable<IMedia>{
         const requestUrl = 'http://11.0.73.2:3000/videoRecord/' + id;
         return this.http.get<IMedia>(requestUrl);
     }
 
-    // httpGetVideoProperties(video: IMedia) {
-    //     const requestUrl = 'http://11.0.73.2:3000/getVideoProperties/'+video._id;
-    //     return this.http.get<IMedia>(requestUrl);
-    // }
 
     httpPutVideoViews(video: IMedia) {
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews/'+video._id;
@@ -48,6 +55,10 @@ export class MediaService {
     
     changeVideoProperties(item: IMedia) {
         this.mediaSource.next(item);
+    }
+
+    setVideoList(videoList: IMedia[]) {
+        this.videosSource.next(videoList);
     }
 
     public getLikeUpdates = () => {

@@ -1,4 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import {Router} from "@angular/router";
+import { MediaService } from '../services/media.service';
 
 @Component({
   selector: 'app-auto-complete-search',
@@ -24,29 +26,41 @@ export class AutoCompleteSearchComponent implements OnInit {
   filteredResult: any[] = [];
   public _el;
   selectedLiValue = -1;
+  MAX_RESUTLS_TO_SHOW = 7;
 
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef, private router: Router, private mediaService: MediaService) {
     this._el = el;
-    this.videoList = ['Lior', 'alon king', 'viodeoo5', 'video4', 'video3', 'video2', 'video1'];
+
+    if (!this.videoList || this.videoList.length === 0 ) {
+      this.mediaService.videoList.subscribe(videoList => 
+        this.videoList = videoList
+      );
+
+      this.mediaService.httpGetMedia().subscribe(data => {
+        this.mediaService.setVideoList(data);
+       });
+    }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   filterVideoList() {
     if (this.searchTerm && this.searchTerm !== '') {
         let term = this.searchTerm.toLowerCase();
         this.filteredResult = this.videoList.filter(function (el: any) {
-            return el.toLowerCase().indexOf(term.toLowerCase()) > -1;
+            return el.title.toLowerCase().indexOf(term) > -1;
         });
     } else {
         this.filteredResult = [];
     }
+    if (this.filteredResult.length > 7) {
+      this.filteredResult = this.filteredResult.slice(0,this.MAX_RESUTLS_TO_SHOW);
+    }
   }
 
   selectVideo(video) {
-    this.searchTerm = video;
-    this.filteredResult = [];
+    this.searchTerm = video.title;
+    this.navigateToSearchResultScreen();    
   }
   
   closeAutocompleteDiv(event) {
@@ -65,24 +79,34 @@ export class AutoCompleteSearchComponent implements OnInit {
     }
   }
 
-  onInputChange(searchValue : string ) {  
+  onInputChange(searchValue : string) {  
     this.selectedLiValue = -1;
   }
 
   handleKeyEvent(event, key) {
     if (key === 'ArrowUp' &&  this.selectedLiValue > 0 && this.filteredResult.length > 0) {
       this.selectedLiValue--;
-    } else if (key === 'ArrowDown' &&  this.selectedLiValue < this.videoList.length - 1 && this.filteredResult.length>0) {
+    } else if (key === 'ArrowDown' &&  this.selectedLiValue < this.videoList.length - 1 && this.filteredResult.length >0) {
       this.selectedLiValue++;
     } else if (key === 'Enter') {
       if ( this.selectedLiValue !== -1 ) {
         this.selectVideo(this.filteredResult[this.selectedLiValue]);        
-      }
-        alert('searched value ' +this.searchTerm);            
-    }
+      } else {
+        this.navigateToSearchResultScreen();        
+      }        
+    }    
   }
 
-  searchButtonClick() {
-    alert('searched value ' +this.searchTerm);
+  searchButtonClick() {    
+    this.navigateToSearchResultScreen();
   }
+
+  navigateToSearchResultScreen() {
+    if (this.searchTerm && this.searchTerm.trim().length > 0 ) {
+      this.router.navigate(['searchResutls', this.searchTerm]);
+      this.filteredResult = [];
+      this.searchTerm = "";
+    }    
+  }
+
 }
