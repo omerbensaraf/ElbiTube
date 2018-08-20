@@ -3,13 +3,19 @@ import 'rxjs/Rx';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import {HttpClient} from '@angular/common/http';
+import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { IMedia, Updates } from '../models/imadia.model';
 import * as io from 'socket.io-client';
 
 @Injectable()
 export class MediaService {
 
+    httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'text/plain'
+        })
+      };
     private url = 'http://11.0.73.2:3000';
     private socket;
     playList: Array<IMedia> = [];
@@ -44,9 +50,17 @@ export class MediaService {
 
 
     httpPutVideoViews(video: IMedia) {
-        const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews/'+video._id;
-        video.views+=1;
-        return this.http.put(requestUrl,video);
+        debugger;
+        const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews';
+        var body = JSON.stringify({id: video._id});
+        var headerOptions = new Headers({ 'Content-Type': 'text/plain' });
+        var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
+    
+        this.http.put(requestUrl,body, this.httpOptions);
+
+
+        const headers = new HttpHeaders().set('Content-Type', 'text/plain');
+        this.http.put(requestUrl,{"id": video._id.toString()}, {headers} );
     }
 
     likeSocket(update : Updates, id :String, userEmail :String ){

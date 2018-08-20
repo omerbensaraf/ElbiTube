@@ -2,11 +2,11 @@
     <div class="video-title">
         <span class="video-icons"><i class="fa fa-info-circle"></i></span>
         <div class="video-info">
-                <h4><a href="{{videoTitle}}" title="Title">{{ videoTitle }}</a></h4>
+                <h4><a href="{{videoTitle}}" title="Title">{{ currentItem.title }}</a></h4>
             <div class="video-date">
                 <span class="video-author" title="Author">
                         <i class="fa fa-user-o"></i>
-                        <a href="/uploadedBy/">{{uploadedBy}}</a>
+                        <a href="/uploadedBy/">{{currentItem.uploadedBy}}</a>
                 </span>
                 <span class="video-category" title="Category">
                     <i class="fa fa-folder-o"></i>
@@ -21,7 +21,7 @@
     </div>
     <div class="video-counter">
         <div class="video-viewers" title="Number of Views">
-            <h3>{{ views }}  views</h3>
+            <h3>{{ currentItem.views }}  views</h3>
         </div>
         <div class="video-like-counter">
             <app-like [item] = "currentItem"></app-like>      
