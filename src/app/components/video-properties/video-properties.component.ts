@@ -18,24 +18,10 @@ import { UsersService } from '../../services/users.service';
             ]
 })
 export class VideoPropertiesComponent implements OnInit {
-  
-  private currentVideo: IMedia;
-  private views : number;
-  private uploadedBy : String;
-  private videoTitle: String;
-  private userEmail : String;
   @Input() currentItem : IMedia;
   
+  constructor(){}
 
-  constructor(private mediaService: MediaService, private userService : UsersService){
+  ngOnInit() {}
   
-  }
-
-  ngOnInit() {
-    debugger;
-    this.userEmail = this.userService.getUserEmail();
-    this.views = this.currentItem.views;
-    this.uploadedBy = this.currentItem.uploadedBy;
-    this.videoTitle = this.currentItem.title;
-  }  
 }
