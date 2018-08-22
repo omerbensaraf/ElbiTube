@@ -1,0 +1,40 @@
+.video-properties-min, 
+.video-properties-min > h4 {
+    font-size: 14px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.video-info-min {
+    display: flow-root;
+}
+
+.video-date-min {
+    display: block;
+}
+
+.video-author-min {
+    max-width: 50%;
+    float: left;
+}
+
+.video-upload-date-min {
+    display: -webkit-box;
+    max-width: 50%;
+    float: right;
+}
+
+span.video-title-min {
+    width: 60%;
+    word-break: break-word;
+    float: left;
+    font-weight: 1000;
+}
+
+span.video-viewers-min {
+    float: right;
+}
+
+span.video-upload-date {
+    display: -webkit-inline-box;
+}

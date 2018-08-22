@@ -8,12 +8,12 @@ import { UsersService } from '../services/users.service';
 })
 export class LoginHeaderComponent implements OnInit {
 
-  email: string = '';
+  email: string = 'omerBenSaraf@gmail.com';
   
   constructor(private usersService: UsersService) { }
 
   ngOnInit() {
-    this.usersService.loggedInUser.subscribe(email => this.email = email);
+     this.usersService.loggedInUser.subscribe(email => this.email = email);
   }
 
   logout(): void {
@@ -26,3 +26,4 @@ export class LoginHeaderComponent implements OnInit {
     )   
   }
 }
+

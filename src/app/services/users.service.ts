@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,7 +13,13 @@ export class UsersService {
   private userSource = new BehaviorSubject<string>('');
   loggedInUser = this.userSource.asObservable();
 
+
   constructor(private http: HttpClient) { }
+
+  getUserEmail(){
+     return this.userSource.getValue();
+    //return "omerBenSaraf@gmail.com";
+  }
 
   signIn(email: string, password: string) {
     const request = {

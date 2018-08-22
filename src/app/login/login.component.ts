@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../services/users.service';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -110,8 +110,9 @@ export class LoginComponent implements OnInit {
       isFormValid = false;
     }
     if (isFormValid) {
-      this.usersService.signIn(this.email, this.password).subscribe(
+     /* this.usersService.signIn(this.email, this.password).subscribe(
         (data) => {
+          debugger;
           this.hideShowSignInModal(false);
           this.usersService.changeloggedInUser(data['email']);
         },
@@ -120,7 +121,9 @@ export class LoginComponent implements OnInit {
           this.password = '';
           this.email = '';
         }
-      )      
+      )*/      
+      this.hideShowSignInModal(false);
+      this.usersService.changeloggedInUser(this.email);
     }
   }
 
@@ -154,3 +157,4 @@ export class LoginComponent implements OnInit {
     }
   }    
 }
+
