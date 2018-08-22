@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from './services/users.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
 import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 import { HttpClientModule } from '@angular/common/http';
 import { WatchComponent } from './components/watch/watch.component';
 import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
@@ -37,6 +38,7 @@ import { VideoPropertiesMinComponent } from './components/video-properties/video
     LoginHeaderComponent,
     VideoPropertiesComponent,
     AutoCompleteSearchComponent,
+    SearchResultsComponent,
     WatchComponent,
     VideoPropertiesMinComponent
   ],

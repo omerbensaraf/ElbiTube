@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IMedia } from '../../models/imadia.model';
-import { MediaService } from '../../services/media.service';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
+import { MediaService } from '../../services/media.service';
 
 @Component({
   selector: 'app-watch',
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 })
 export class WatchComponent implements OnInit {
 
-  constructor(private router:Router,private route: ActivatedRoute,private mediaService: MediaService, private userService:UsersService) { }
+  constructor(private router:Router,private route: ActivatedRoute, private userService:UsersService , private mediaService: MediaService) { }
   sortVideos :  Array<IMedia>;
   playList: Array<IMedia>;
   currentItem: IMedia;
@@ -41,13 +41,9 @@ export class WatchComponent implements OnInit {
           this.sortVideos = this.sort(videos);
           this.currentItem = this.sortVideos.filter(video => video._id == this.videoId)[0];
           this.playList = this.sortVideos.filter(video => video._id !== this.videoId).slice(0,3);
-          this.mediaService.changeVideoProperties(this.currentItem);
+          this.mediaService.httpPutVideoViews(this.currentItem);
         }
       );
-  }
-
-  onClickPlaylistItem(item: IMedia, index: number) {
-    this.currentItem = item;
   }
 
   imgClick(item:IMedia){

@@ -1,27 +1,27 @@
 <div class="slider-area pt-40">
-    <div class="container" style="padding-left: 0px">
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="slider-wrapper">
                     <div class="pgwSlider wide">
-                        <div class="ps-current" style="height: 467px; margin-bottom: 50px;">
-                            <a>
-                                <img [src]="mostPopularVideo.imageSrc">
-                            </a>                                    
+                        <div class="ps-current" style="height: 486px;">
+                            <ul>
+                                <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
+                                    <img [src]="mostPopularVideo.imageSrc"
+                                        (click)="imgClick(mostPopularVideo)">
+                                </li>
+                            </ul>
                         </div>
                         <ul class="slider ps-list">
                             <li *ngFor="let item of top3_list; let $index = index"
-                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 155px;">
-                                <div class="single-video">
-                                    <div class="video-img">
-                                        <a href=""> 
-                                            <img [src]="item.imageSrc" alt=""
-                                            (click)="onClickPlaylistItem(item, $index)"
-                                            [class.selected]="item === currentItem">
-                                        </a>
-                                        <span class="video-duration">duration</span>
-                                    </div>
-                                </div>
+                                class="elt_1" style="cursor: pointer; opacity: 1; width: 33.3333%; height: 158px;">
+                                <img [src]="item.imageSrc" alt="Take Your Selfie"
+                                (click)="imgClick(item)"
+                                
+                                 [class.selected]="item === currentItem">
+                                <span> 
+                                    <a href="">{{item.title}}</a>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -29,10 +29,10 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 
 
-<div class="container themeix-ptb">
+<div class="container themeix-ptb" *ngIf="popularVideos_list !== undefined && popularVideos_list.legnth > 0 ">
     <div class="row">
         <div class="col-md-12">
             <div class="themeix-section-h section-heading-four">
@@ -47,7 +47,7 @@
                 <div class="video-img">
                     <a href=""> 
                         <img [src]="item.imageSrc" alt=""
-                        (click)="onClickPlaylistItem(item, $index)"
+                        (click)="imgClick(item)"
                         [class.selected]="item === currentItem">
                     </a>
                     <span class="video-duration">duration</span>
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="container themeix-ptb" *ngIf="air_list !== undefined">
+<div class="container themeix-ptb" *ngIf="air_list !== undefined && air_list.legnth > 0">
     <div class="row">
         <div class="col-md-12">
             <div class="themeix-section-h section-heading-four">
@@ -75,7 +75,7 @@
                 <div class="video-img">
                     <a href=""> 
                         <img [src]="item.imageSrc" alt=""
-                        (click)="onClickPlaylistItem(item, $index)"
+                        (click)="imgClick(item)"
                         [class.selected]="item === currentItem">
                     </a>
                     <span class="video-duration">duration</span>
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-<div class="container themeix-ptb" *ngIf="land_list !== undefined">
+<div class="container themeix-ptb" *ngIf="land_list !== undefined && land_list.length > 0">
     <div class="row">
         <div class="col-md-12">
             <div class="themeix-section-h section-heading-four">
@@ -103,7 +103,7 @@
                 <div class="video-img">
                     <a href=""> 
                         <img [src]="item.imageSrc" alt=""
-                        (click)="onClickPlaylistItem(item, $index)"
+                        (click)="imgClick(item)"
                         [class.selected]="item === currentItem">
                     </a>
                     <span class="video-duration">duration</span>
@@ -117,7 +117,7 @@
 </div>
 
 
-<div class="container themeix-ptb" *ngIf="radio_list !== undefined">
+<div class="container themeix-ptb" *ngIf="radio_list !== undefined && radio_list.length > 0">
     <div class="row">
         <div class="col-md-12">
             <div class="themeix-section-h section-heading-four">
@@ -132,7 +132,7 @@
                 <div class="video-img">
                     <a href=""> 
                         <img [src]="item.imageSrc" alt=""
-                        (click)="onClickPlaylistItem(item, $index)"
+                        (click)="imgClick(item)"
                         [class.selected]="item === currentItem">
                     </a>
                     <span class="video-duration">duration</span>
@@ -146,7 +146,7 @@
 </div>
 
 
-<div class="container themeix-ptb" style="border-bottom: none" *ngIf="more_list !== undefined">
+<div class="container themeix-ptb" style="border-bottom: none" *ngIf="more_list !== undefined && more_list.length > 0">
     <div class="row">
         <div class="col-md-12">
             <div class="themeix-section-h section-heading-four">
@@ -161,7 +161,7 @@
                 <div class="video-img">
                     <a href=""> 
                         <img [src]="item.imageSrc" alt=""
-                        (click)="onClickPlaylistItem(item, $index)"
+                        (click)="imgClick(item)"
                         [class.selected]="item === currentItem">
                     </a>
                     <span class="video-duration">duration</span>

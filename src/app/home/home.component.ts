@@ -45,9 +45,10 @@ export class HomeComponent implements OnInit {
     this.mediaService.httpGetMedia().subscribe(data => { 
       this.sortVideos = this.sort(data);
       this.mostPopularVideo = this.sortVideos[0];;
-      
+      this.mediaService.setVideoList(data);
       //Init categories lists
       this.top3_list = this.getTop3List(data);
+      debugger;
       this.popularVideos_list = this.getPopularVideosList(data);
       this.air_list = this.getAirList(data);
       this.land_list = this.getLandList(data);
@@ -59,8 +60,8 @@ export class HomeComponent implements OnInit {
   }
 
   imgClick(item:IMedia){
-      this.router.navigate(['/watch', item._id]);
-  }
+    this.router.navigate(['/watch', item._id]);
+}
 
 
   sort(data : IMedia[]){
@@ -80,7 +81,6 @@ export class HomeComponent implements OnInit {
   }
 
   getTop3List(data:Array<IMedia>): Array<IMedia> {
-    //var returnArray = new Array<IMedia>();
     return this.sortVideos.slice(1,4);
   }
 
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
   getLandList(data:Array<IMedia>): Array<IMedia> {
     var returnArray = new Array<IMedia>();
     //return data.slice(1,6);
-    var filteredData = data.filter(item => item.category === 'UAV');
+    var filteredData = data.filter(item => item.category === 'Land');
     if (filteredData) {
       for (var i=0 ; i<filteredData.length ; i++) {
         returnArray.push(filteredData[i]);
