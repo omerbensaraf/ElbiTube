@@ -7,7 +7,8 @@ export interface IMedia {
   likeUsers : String[];
   disLikeUsers : String[];
   views: number,
-  uploadedBy: String
+  uploadedBy: String,
+  category: String
 }
 
 export enum Updates{

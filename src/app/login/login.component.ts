@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
   mainButtonText: string = '';
 
   constructor(private usersService: UsersService) { 
-    debugger;
     this.setPageMode('signIn');
   }
 
@@ -101,7 +100,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn(): void {
-    debugger;
     this.errorMessage = '';
     let isFormValid: boolean = true;
     if (!this.isEmailNameValid()) {
