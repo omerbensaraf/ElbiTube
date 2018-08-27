@@ -52,15 +52,13 @@ export class MediaService {
 
     httpUploadVideo(_filePath: string, _title: string, _description: string, _mimetype: string) {
         const requestUrl = 'http://11.0.73.2:3000/upload';
-        const request = {
-            file:{
+        const file = {
                 path:_filePath,
                 originalname: _title,
                 description: _description,
                 mimetype:_mimetype
-            } 
-        };
-        return this.http.post(requestUrl, request);
+            };
+        return this.http.post(requestUrl,file);
     }
 
     public getLikeUpdates = () => {
