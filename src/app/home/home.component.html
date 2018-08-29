@@ -1,4 +1,4 @@
-<div class="slider-area pt-40">
+<!-- <div class="slider-area pt-40">
     <div class="container" style="padding: 0">
         <div class="row">
             <div class="col-md-12">
@@ -30,10 +30,69 @@
             </div>
         </div>
     </div>
-  </div>
+  </div> -->
+<div class="container pt-40">
+    <div class="row">
+        <div class="col-md-12" style="display: -webkit-box">
+            <div class="col-md-9" >
+                <a (click)="imgClick(mostPopularVideo)">  
+                <img [src]="mostPopularVideo.imageSrc" style="width: 100%;"> 
+                </a> 
+                <span class="video-duration">duration</span> 
+                <span class="video-content">
+                    <app-video-properties-min [currentItem] = "mostPopularVideo"></app-video-properties-min>
+                </span>
+            </div>
+            <div class="right-col">
+                <div class="col-md-3" *ngFor="let item of top3_list; let $index = index">
+                    <div class="single-video">
+                        <div class="video-img">
+                            <a (click)="imgClick(item)"> 
+                                <img [src]="item.imageSrc" alt=""
+                                (click)="imgClick(item)"
+                                [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">duration</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="categories">
-    <div class="container themeix-ptb" *ngIf="popularVideos_list !== undefined && popularVideos_list.legnth > 0 ">
+<div class="categories">   
+    <div class="container themeix-ptu" *ngIf="new_list !== undefined && new_list.length > 0" >
+        <div class="row">
+            <div class="col-md-12">
+                <div class="themeix-section-h section-heading-four">
+                    <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
+                    <h3>New Uploads [{{new_list.length}}]</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row news-posts-wrapper">
+            <div class="col-md-3 themeix-half" *ngFor="let item of new_list; let $index = index">
+                <div class="single-video">
+                    <div class="video-img">
+                        <a (click)="imgClick(item)"> 
+                            <img [src]="item.imageSrc" alt=""
+                            (click)="imgClick(item)"
+                            [class.selected]="item === currentItem">
+                        </a>
+                        <span class="video-duration">duration</span>
+                    </div>
+                </div>
+                <div class="video-content">
+                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container themeix-ptu" *ngIf="popularVideos_list !== undefined && popularVideos_list.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
@@ -58,62 +117,33 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="container themeix-ptb" >
-    <div class="row">
-        <div class="col-md-12">
-            <div class="themeix-section-h section-heading-four">
-                <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                <h3>New Uploads [{{new_list.length}}]</h3>
-            </div>
-        </div>
-    </div>
-    <div class="row news-posts-wrapper">
-        <div class="col-md-3 themeix-half" *ngFor="let item of new_list; let $index = index">
-            <div class="single-video">
-                <div class="video-img">
-                    <a (click)="imgClick(item)"> 
-                        <img [src]="item.imageSrc" alt=""
-                        (click)="imgClick(item)"
-                        [class.selected]="item === currentItem">
-                    </a>
-                    <span class="video-duration">duration</span>
+    <div class="container themeix-ptu" *ngIf="air_list !== undefined && air_list.length > 0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="themeix-section-h section-heading-four">
+                    <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
+                    <h3>Air [{{air_list.length}}]</h3>
                 </div>
             </div>
-            <div class="video-content">
-                <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container themeix-ptb" *ngIf="air_list !== undefined && air_list.legnth > 0">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="themeix-section-h section-heading-four">
-                <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                <h3>Air [{{air_list.length}}]</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">duration</span>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a> 
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">duration</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
                     </div>
                 </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
             </div>
         </div>
     </div>
-    
-    <div class="container themeix-ptb" *ngIf="land_list !== undefined && land_list.length > 0">
+        
+    <div class="container themeix-ptu" *ngIf="land_list !== undefined && land_list.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
@@ -138,9 +168,9 @@
             </div>
         </div>
     </div>
-    
-    
-    <div class="container themeix-ptb" *ngIf="radio_list !== undefined && radio_list.length > 0">
+        
+        
+    <div class="container themeix-ptu" *ngIf="radio_list !== undefined && radio_list.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
@@ -166,8 +196,8 @@
         </div>
     </div>
     
-    
-    <div class="container themeix-ptb" style="border-bottom: none" *ngIf="more_list !== undefined && more_list.length > 0">
+        
+    <div class="container themeix-ptu" style="border-bottom: none" *ngIf="more_list !== undefined && more_list.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
