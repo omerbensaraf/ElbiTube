@@ -93,4 +93,14 @@ export class MediaService {
             });
         })
     };
+
+    postFile(fileToUpload: File , fileName : string) {
+        const endpoint =  'http://11.0.73.2:3000/upload';
+        const formData: FormData = new FormData();
+        formData.append("myFiles", fileToUpload,fileName);
+        debugger;
+        return this.http
+          .post(endpoint, formData).subscribe(data => console.log(data));
+          //.map(() => { return true; });
+    }
 }

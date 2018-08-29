@@ -1,49 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <title>Elbitube upload</title>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Upload Video</h1>
-        <div class="container" id="upload-div">
-        <form>
-            <br/>
-            <table>
-                <tr>
-                    <td>
-                        <label>File</label>
-                    </td>
-                    <td>
-                        <input name="myFiles" class="choose-file" type="file" #file [(ngModel)]="filePath">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="videoTitle">Title</label>
-                    </td>
-                    <td>
-                        <input [(ngModel)]="videoTitle" type="text" class="input--text" aria-label="Title" required="" placeholder="Add a title...">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label id="desc-label" for="description">Description</label>
-                    </td>
-                    <td>
-                        <textarea [(ngModel)]="videoDescription" cols="30" rows="10" class="textarea" placeholder="Add a description..."></textarea>
-                    </td>
-                </tr>
-            </table>
-            <br/>
-            <button class="upload-btn" type="submit" (click)="onUpload(file)">Upload</button>
-        </form>
-        </div>  
-    </div>
+<div class="container" id="upload-div">
     <br/>
-</body>
-
-</html>
+    <table>
+        <tr>
+            <td>
+                <label>File</label>
+            </td>
+            <td>
+                <input type="file"
+                id="file"
+                (change)="handleFileInput($event.target.files)">
+        
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Title</label>
+            </td>
+            <td>
+                <input [(ngModel)]="videoTitle" type="text" class="input--text" aria-label="Title" maxlength="30">
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <label id="desc-label" for="description">Description</label>
+            </td>
+            <td>
+                <textarea [(ngModel)]="videoDescription" cols="30" rows="10" class="textarea" placeholder="Add a description..."></textarea>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <button class="upload-btn" type="submit" (click)="uploadFileToActivity()">Upload</button>
+</div>  

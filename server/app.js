@@ -13,11 +13,10 @@ const path = require('path');
 const ffprobePath = require('@ffprobe-installer/ffprobe').path;
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
-const fuzzysort = require('./fuzzysort');
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
-
-
+const fuzzysort = require('./fuzzysort');
+var fs = require('fs');
 
 
 // Define Storage Engine as Disk Storage
@@ -28,10 +27,17 @@ const storage = multer.diskStorage({
     }
 });
 
+
+
 // Init Multer and Storage
 const upload = multer({
     storage: storage
-}).single('myFiles');
+}).single("myFiles");
+
+/*const upload = multer({
+    dest: 'videos/' // this saves your file into a directory called "uploads"
+  });*/
+
 
 // Define the app
 const app = express();
@@ -96,7 +102,8 @@ app.use(express.static('./videos'));
 app.use(express.static('./videos/frames'));
 
 // Define Cross Origin Resource Sharing
-/*var corsOptions = { origin: 'http://localhost:4200' //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}*/
+var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}
+
 app.use(cors());
 
 // Define MongoDB
@@ -183,52 +190,57 @@ function addDisLikeRemoveLike (id,userEmail) {
 }
 
 //app.get('/videoRecord/:videoId', function(req,res){
-app.get('/getVideoProperties/:videoId', function(req,res){
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
-        res.send(video);
-        // video.views+=1;
-        // video.save();
-    })
-});
+// app.get('/getVideoProperties/:videoId', function(req,res){
+//     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
+//         res.send(video);
+//         // video.views+=1;
+//         // video.save();
+//     })
+// });
 
 
 // Update Number of views
-app.put('/updateNumberOfViews/:videoId', function(req,res){
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
-        video.views+=1;
-        video.save();
-    })
+app.put('/updateNumberOfViews', (req,res) => {
+    if (!req.body) {
+        return res.status(500).json({
+            message: 'Error While Update Views'
+        });
+    }
+    else {
+        let query = { _id : req.body._id };
+        mongoose.model('Video').findOneAndUpdate(query, {$inc: {views: 1}} ,(err) => {
+            if (err)
+                return res.status(500).json(err);
+            else {
+                return res.status(200).json({
+                    message: 'Update views succeeded'
+                });
+            }
+        })
+    }
 });
 
 // Get Specific Video - Play selected video
-app.get('/videos/:videoId',  function (req,res) {
-    
+app.get('/videos/:videoId',  function (req,res) {    
     var url = '';
     var videoSrc = '';
-    //console.log(">>> Inside get --------> videoId "+ req.params.videoId);
-
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {
-        //console.log(">>> Inside findOne  --------> videoId "+ JSON.stringify(selectedVideo));
-        getDuration(selectedVideo).then((duration) => {
-            console.log(">>> duration: " +duration);
-        });
+    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {        
         url = config.url;
-        videoSrc = selectedVideo.src;
-        var position = videoSrc.indexOf("\\videos");
-        if(position !== -1) {
-            let filePath = videoSrc.substr(position,videoSrc.length); 
-            let fileType = getFileExtensionAndValidation(selectedVideo.type);
-            //console.log(">>>fileType: "+ fileType);
-            if (fileType !== -1) {   
-                res.sendFile(__dirname + filePath + fileType);
-                // selectedVideo.views+=1;
-                // selectedVideo.save();
-                //console.log(">>> file name: "+ selectedVideo.title);
+        if(selectedVideo && selectedVideo.src){
+            videoSrc = selectedVideo.src;
+            var position = videoSrc.indexOf("\\videos");
+            if(position !== -1) {
+                let filePath = videoSrc.substr(position,videoSrc.length); 
+                let fileType = getFileExtensionAndValidation(selectedVideo.type);
+                if (fileType !== -1) {   
+                    res.sendFile(__dirname + filePath + fileType);
+                }
+                else {
+                    throw ("File type is not compatible");
+                }   
             }
-            else {
-                throw ("File type is not compatible");
-            }   
         }
+        
     })
 });
 
@@ -241,7 +253,7 @@ app.get('/users', function (req,res) {
 
 app.get('/searchVideos/:searchedValue', function (req,res) {
     const searchedVideoArr = [];
-    if (req.params && req.params.searchedValue && req.params.searchedValue.trim().length > 0) {
+    if (req.params && req.params.searchedValue && req.params.searchedValue.length > 0) {
         mongoose.model('Video').find(function (err,videos) {
             const results = fuzzysort.go(req.params.searchedValue, videos, {key:'title'});            
             results.map((vid) => {
@@ -252,21 +264,45 @@ app.get('/searchVideos/:searchedValue', function (req,res) {
     }
 });
 
+
+/*app.post('/upload', upload.single('file-to-upload'), (req, res) => {
+    console.log("-----------");
+    res.redirect('/');
+  });
+*/
+// Upload file
 app.post('/upload', (req, res) => {
+    //console.log(req);
+    console.log(req.body);
+  /* upload(req, res, (err) => {
+        console.log("err: " + err);
+    });*/
     upload(req, res, (err) => {
-        if(req.file === undefined){
-            console.log(">>> undefined! ");
+        if(req.body === undefined){
+            console.log(">>> undefined! in upload function");
         } else {
+            console.log(">>> start upload the file! ");
             // define the destination folder which the frame will be saved
-            var frameDestinationPath = 'videos\\frames\\';
+            var frameDestinationPath = __dirname + "\\" + 'videos\\frames\\';
             var videoName = path.parse(req.file.originalname).name;
             // define the name of the frame / image
             var frameName = videoName+'_frame.jpg';
-            var frame = ffmpeg(req.file.path);            
+            //var frame = ffmpeg(req.file.path); 
+            console.log(req.file.path);
+            
+            console.log(">>> create a frame! ");
             // From a local path...
             getDuration(req.file).then((duration) => {
                 console.log(">>> duration: " +duration);
             });
+           
+            let id = mongoose.Types.ObjectId();
+            fs.rename(__dirname + "\\videos\\" + req.file.originalname, __dirname + "\\videos\\" + id + ".mp4", function(err) {
+                if ( err ) console.log('ERROR: ' + err);
+            });
+            var videoType = req.file.originalname.slice(req.file.originalname.lastIndexOf("."),req.file.originalname.length)
+            
+            var frame = ffmpeg( __dirname + "\\videos\\" + id + videoType);
             // generate the frame from the video
             frame.screenshots({
                 timestamps: ['1'],
@@ -275,21 +311,28 @@ app.post('/upload', (req, res) => {
                 folder: frameDestinationPath,
                 size: '320x240'
             });
-            // gerenate schema object and save in DB
-            let id = mongoose.Types.ObjectId();
+         
+            
+         
             var video = new Video({ 
                 _id : id,
-                title: req.file.originalname, 
-                 //src: req.file.path,
-                 src: 'http:\\\\11.0.73.2:3000\\videos\\'+id,
-                imageSrc: 'http:\\\\11.0.73.2:3000\\'+frameDestinationPath+frameName, 
+                title: path.parse(req.file.originalname).name, 
+                //src: req.file.path,
+                src: 'http:\\\\11.0.73.2:3000\\videos\\'+id,
+                imageSrc: 'http:\\\\11.0.73.2:3000\\'+frameName, 
                 type: req.file.mimetype, 
-                viewes: 0, 
-                uploadedBy: 'Alon Yeshurun'
+                views: 0, 
+                uploadedBy: 'Alon Yeshurun',
+                category: "New"
             });
-            console.log(">>>  req.files.originalname: " +  req.file.originalname);
+            console.log(">>>  req.body.originalname: " +  req.file.originalname);
             video.save();
+            console.log(__dirname + "\\videos\\" + req.file.originalname);
+            console.log(__dirname + "\\vidoes\\" + id);
+           
+            res.send("OK");
         }
+      
     });
 });
 
@@ -303,5 +346,8 @@ function getFileExtensionAndValidation(filename) {
     }
     else return -1;
 }
+
+
+
 
 server.listen(port, () => console.log(`Server started on port ${port}`));

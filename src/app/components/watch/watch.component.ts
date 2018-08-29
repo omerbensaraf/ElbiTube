@@ -29,6 +29,7 @@ export class WatchComponent implements OnInit {
   userEmail : String;
 
   public ngOnInit() {
+    debugger;
     this.route.paramMap.subscribe(params => {
     this.videoId = params.get('_id');
     });
