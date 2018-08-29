@@ -49,8 +49,7 @@ export class MediaService {
     }
 
 
-    httpPutVideoViews(video: IMedia) {
-        debugger;
+    httpPutVideoViews(video: IMedia) {        
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews';
         var body = JSON.stringify({id: video._id});
         var headerOptions = new Headers({ 'Content-Type': 'text/plain' });
