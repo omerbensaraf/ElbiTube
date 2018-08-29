@@ -27,7 +27,6 @@ export class WatchComponent implements OnInit {
   currentItem: IMedia;
   videoId : String;
   userEmail : String;
-//https://etube.themeix.com/
 
   public ngOnInit() {
     this.route.paramMap.subscribe(params => {
