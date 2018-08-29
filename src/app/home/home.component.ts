@@ -47,16 +47,14 @@ export class HomeComponent implements OnInit {
       this.mostPopularVideo = this.sortVideos[0];;
       this.mediaService.setVideoList(data);
       //Init categories lists
-      this.top3_list = this.getTop3List(data);
-      debugger;
+      this.top3_list = this.getTop3List(data);      
       this.popularVideos_list = this.getPopularVideosList(data);
       this.air_list = this.getAirList(data);
       this.land_list = this.getLandList(data);
       this.more_list = this.getMoreList(data);
       
       this.homeLoading=true;
-    });
-    debugger;
+    });    
   }
 
   imgClick(item:IMedia){
