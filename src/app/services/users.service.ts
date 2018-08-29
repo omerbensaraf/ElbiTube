@@ -12,6 +12,7 @@ export class UsersService {
 
   private userSource = new BehaviorSubject<string>('');
   loggedInUser = this.userSource.asObservable();
+  baseUrl = 'http://11.0.73.2:3000';
 
 
   constructor(private http: HttpClient) { }
@@ -26,7 +27,7 @@ export class UsersService {
       email: email,
       password: password
     };
-    return this.http.post('/signin', request);
+    return this.http.post(this.baseUrl + '/signin', request);
   }
 
   signUp(email: string, password: string) {
@@ -34,11 +35,11 @@ export class UsersService {
       email: email,
       password: password
     };
-    return this.http.post('/signup', request);
+    return this.http.post(this.baseUrl + '/signup', request);
   }
 
   logout() {
-    return this.http.get('/logout');    
+    return this.http.get(this.baseUrl + '/logout');    
   }
 
   changeloggedInUser(email: string) {

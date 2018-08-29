@@ -110,20 +110,20 @@ export class LoginComponent implements OnInit {
       isFormValid = false;
     }
     if (isFormValid) {
-     /* this.usersService.signIn(this.email, this.password).subscribe(
+     this.usersService.signIn(this.email, this.password).subscribe(
         (data) => {
           debugger;
           this.hideShowSignInModal(false);
           this.usersService.changeloggedInUser(data['email']);
+          this.hideShowSignInModal(false);
+          this.usersService.changeloggedInUser(this.email);
         },
         (error) => {
           this.errorMessage = 'Authentication failed';
           this.password = '';
           this.email = '';
         }
-      )*/      
-      this.hideShowSignInModal(false);
-      this.usersService.changeloggedInUser(this.email);
+      )
     }
   }
 

@@ -49,8 +49,7 @@ export class MediaService {
     }
 
 
-    httpPutVideoViews(video: IMedia) {
-        debugger;
+    httpPutVideoViews(video: IMedia) {        
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews';
         this.http.put(requestUrl,video).subscribe(data => console.log(data));
     }
