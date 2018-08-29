@@ -52,15 +52,7 @@ export class MediaService {
     httpPutVideoViews(video: IMedia) {
         debugger;
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews';
-        var body = JSON.stringify({id: video._id});
-        var headerOptions = new Headers({ 'Content-Type': 'text/plain' });
-        var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
-    
-        this.http.put(requestUrl,body, this.httpOptions);
-
-
-        const headers = new HttpHeaders().set('Content-Type', 'text/plain');
-        this.http.put(requestUrl,{"id": video._id.toString()}, {headers} );
+        this.http.put(requestUrl,video).subscribe(data => console.log(data));
     }
 
     likeSocket(update : Updates, id :String, userEmail :String ){

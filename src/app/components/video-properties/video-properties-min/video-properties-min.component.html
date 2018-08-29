@@ -1,12 +1,12 @@
 <div class="video-properties-min">
     <div class="video-info-min">
-      <span class="video-title-min"><a href="{{videoTitle}}" title="Title">{{ videoTitle }}</a></span>
-      <span class="video-viewers-min" title="Number of Views"> {{ views }}  views </span>
+      <span class="video-title-min"><a href="{{videoTitle}}" title="Title">{{ currentItem.title }}</a></span>
+      <span class="video-viewers-min" title="Number of Views"> {{ currentItem.views }}  views </span>
     </div>
     <div class="video-date-min">
         <span class="video-author-min" title="Author">
             <i class="fa fa-user-circle-o"></i>
-            <a href="/uploadedBy/">{{uploadedBy}}</a>
+            <a href="/uploadedBy/">{{ currentItem.uploadedBy }}</a>
         </span>
         <span class="video-upload-date-min" title="Uploaded Date">
             <i class="fa fa-calendar" style="padding-right: 5px;"></i>

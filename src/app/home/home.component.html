@@ -15,12 +15,10 @@
                         <ul class="slider ps-list">
                             <li *ngFor="let item of top3_list; let $index = index"
                                 class="elt_1" style="cursor: pointer; opacity: 1; height: 160px;">
-                                <div class="single-video">
+                                <div class="single-video" (click)="imgClick(item)">
                                     <div class="video-img">
-                                        <a href=""> 
-                                            <img [src]="item.imageSrc" alt=""
-                                            (click)="imgClick(item)"
-                                            [class.selected]="item === currentItem">
+                                        <a> 
+                                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                                         </a>
                                         <span class="video-duration">duration</span>
                                     </div>
@@ -46,12 +44,10 @@
         </div>
         <div class="row">
             <div class="col-md-3 themeix-half" *ngFor="let item of popularVideos_list; let $index = index">
-                <div class="single-video">
+                <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
-                        <a href=""> 
-                            <img [src]="item.imageSrc" alt=""
-                            (click)="imgClick(item)"
-                            [class.selected]="item === currentItem">
+                        <a> 
+                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
                         <span class="video-duration">duration</span>
                     </div>
@@ -74,12 +70,10 @@
         </div>
         <div class="row">
             <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
-                <div class="single-video">
+                <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
-                        <a href=""> 
-                            <img [src]="item.imageSrc" alt=""
-                            (click)="imgClick(item)"
-                            [class.selected]="item === currentItem">
+                        <a> 
+                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
                         <span class="video-duration">duration</span>
                     </div>
@@ -102,12 +96,10 @@
         </div>
         <div class="row">
             <div class="col-md-3 themeix-half" *ngFor="let item of land_list; let $index = index">
-                <div class="single-video">
+                <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
-                        <a href=""> 
-                            <img [src]="item.imageSrc" alt=""
-                            (click)="imgClick(item)"
-                            [class.selected]="item === currentItem">
+                        <a> 
+                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
                         <span class="video-duration">duration</span>
                     </div>
@@ -131,12 +123,10 @@
         </div>
         <div class="row">
             <div class="col-md-3 themeix-half" *ngFor="let item of radio_list; let $index = index">
-                <div class="single-video">
+                <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
-                        <a href=""> 
-                            <img [src]="item.imageSrc" alt=""
-                            (click)="imgClick(item)"
-                            [class.selected]="item === currentItem">
+                        <a> 
+                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
                         <span class="video-duration">duration</span>
                     </div>
@@ -160,12 +150,10 @@
         </div>
         <div class="row">
             <div class="col-md-3 themeix-half" *ngFor="let item of more_list; let $index = index">
-                <div class="single-video">
+                <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
-                        <a href=""> 
-                            <img [src]="item.imageSrc" alt=""
-                            (click)="imgClick(item)"
-                            [class.selected]="item === currentItem">
+                        <a> 
+                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
                         <span class="video-duration">duration</span>
                     </div>
