@@ -17,6 +17,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 const fuzzysort = require('./fuzzysort');
 var fs = require('fs');
+//const userRoutes = require('./routes/users'); 
 
 
 // Define Storage Engine as Disk Storage
@@ -105,6 +106,7 @@ app.use(express.static('./videos/frames'));
 var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}
 
 app.use(cors());
+// app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
 
 // Define MongoDB
 mongoose.connect('mongodb://localhost/db');
