@@ -49,18 +49,9 @@ export class MediaService {
     }
 
 
-    httpPutVideoViews(video: IMedia) {
-        debugger;
+    httpPutVideoViews(video: IMedia) {        
         const requestUrl = 'http://11.0.73.2:3000/updateNumberOfViews';
-        var body = JSON.stringify({id: video._id});
-        var headerOptions = new Headers({ 'Content-Type': 'text/plain' });
-        var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
-    
-        this.http.put(requestUrl,body, this.httpOptions);
-
-
-        const headers = new HttpHeaders().set('Content-Type', 'text/plain');
-        this.http.put(requestUrl,{"id": video._id.toString()}, {headers} );
+        this.http.put(requestUrl,video).subscribe(data => console.log(data));
     }
 
     likeSocket(update : Updates, id :String, userEmail :String ){
@@ -71,6 +62,17 @@ export class MediaService {
         this.mediaSource.next(item);
     }
 
+    httpUploadVideo(_filePath: string, _title: string, _description: string, _mimetype: string) {
+        const requestUrl = 'http://11.0.73.2:3000/upload';
+        const file = {
+                path:_filePath,
+                originalname: _title,
+                description: _description,
+                mimetype:_mimetype
+            };
+        return this.http.post(requestUrl,file);
+    }
+    
     setVideoList(videoList: IMedia[]) {
         this.videosSource.next(videoList);
     }
@@ -82,4 +84,14 @@ export class MediaService {
             });
         })
     };
+
+    postFile(fileToUpload: File , fileName : string) {
+        const endpoint =  'http://11.0.73.2:3000/upload';
+        const formData: FormData = new FormData();
+        formData.append("myFiles", fileToUpload,fileName);
+        debugger;
+        return this.http
+          .post(endpoint, formData).subscribe(data => console.log(data));
+          //.map(() => { return true; });
+    }
 }

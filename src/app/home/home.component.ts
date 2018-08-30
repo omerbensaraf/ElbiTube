@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   radio_list: Array<IMedia>;
   more_list: Array<IMedia>;  
   top3_list: Array<IMedia>;
+  new_list: Array<IMedia>;
 
   constructor(private router:Router,private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
@@ -47,16 +48,15 @@ export class HomeComponent implements OnInit {
       this.mostPopularVideo = this.sortVideos[0];;
       this.mediaService.setVideoList(data);
       //Init categories lists
-      this.top3_list = this.getTop3List(data);
-      debugger;
+      this.top3_list = this.getTop3List(data);      
       this.popularVideos_list = this.getPopularVideosList(data);
       this.air_list = this.getAirList(data);
       this.land_list = this.getLandList(data);
       this.more_list = this.getMoreList(data);
+      this.new_list = this.getNewList(data);
       
       this.homeLoading=true;
-    });
-    debugger;
+    });    
   }
 
   imgClick(item:IMedia){
@@ -120,6 +120,17 @@ export class HomeComponent implements OnInit {
     return returnArray;
   }
 
+  getNewList(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    //return data.slice(1,6);
+    var filteredData = data.filter(item => item.category === 'New');
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
 
 
 }
