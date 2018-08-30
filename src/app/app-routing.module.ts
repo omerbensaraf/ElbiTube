@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LoginHeaderComponent
   },
   {
-    path: "uploadVideo",
+    path: "upload",
     component: UploadVideoComponent
   },
   {
