@@ -103,7 +103,7 @@ app.use(express.static('./videos'));
 app.use(express.static('./videos/frames'));
 
 // Define Cross Origin Resource Sharing
-var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}
+var corsOptions = { origin: 'http://10.173.3.13:4200', optionsSuccessStatus: 200}; // some legacy browsers (IE11, various SmartTVs) choke on 204}
 
 app.use(cors());
 // app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
@@ -299,10 +299,11 @@ app.post('/upload', (req, res) => {
             });
            
             let id = mongoose.Types.ObjectId();
-            fs.rename(__dirname + "\\videos\\" + req.file.originalname, __dirname + "\\videos\\" + id + ".mp4", function(err) {
+            var videoType = req.file.originalname.slice(req.file.originalname.lastIndexOf("."),req.file.originalname.length)
+            fs.rename(__dirname + "\\videos\\" + req.file.originalname, __dirname + "\\videos\\" + id + videoType, function(err) {
                 if ( err ) console.log('ERROR: ' + err);
             });
-            var videoType = req.file.originalname.slice(req.file.originalname.lastIndexOf("."),req.file.originalname.length)
+            
             
             var frame = ffmpeg( __dirname + "\\videos\\" + id + videoType);
             // generate the frame from the video
@@ -332,7 +333,7 @@ app.post('/upload', (req, res) => {
             console.log(__dirname + "\\videos\\" + req.file.originalname);
             console.log(__dirname + "\\vidoes\\" + id);
            
-            res.send("OK");
+            res.status(200).send('OK');
         }
       
     });
