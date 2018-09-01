@@ -91,7 +91,9 @@ export class MediaService {
         formData.append("myFiles", fileToUpload,fileName);
         debugger;
         return this.http
-          .post(endpoint, formData).subscribe(data => console.log(data));
-          //.map(() => { return true; });
+          .post(endpoint, formData, {responseType: 'text'})
+          .map(() => { 
+            return true;
+        });
     }
 }
