@@ -10,7 +10,9 @@
                                     <img [src]="mostPopularVideo.imageSrc"
                                         (click)="imgClick(mostPopularVideo)">
                                 </li>
+                               
                             </ul>
+                            <span class="ps-caption">duration</span>
                         </div>
                         <ul class="slider ps-list">
                             <li *ngFor="let item of top3_list; let $index = index"
@@ -30,33 +32,52 @@
             </div>
         </div>
     </div>
-  </div> -->
-<div class="container pt-40 boxshadow">
-    <div class="row">
-        <div class="col-md-12" style="display: -webkit-box">
-            <div class="col-md-9" >
-                <a (click)="imgClick(mostPopularVideo)">  
-                <img [src]="mostPopularVideo.imageSrc" style="width: 100%;"> 
-                </a> 
-                <span class="video-duration">duration</span> 
-                <span class="video-content">
-                    <app-video-properties-min [currentItem] = "mostPopularVideo"></app-video-properties-min>
-                </span>
-            </div>
-            <div class="right-col">
-                <div class="col-md-3" *ngFor="let item of top3_list; let $index = index">
-                    <div class="single-video">
-                        <div class="video-img">
-                            <a (click)="imgClick(item)"> 
-                                <img [src]="item.imageSrc" alt=""
-                                (click)="imgClick(item)"
-                                [class.selected]="item === currentItem">
-                            </a>
-                            <span class="video-duration">duration</span>
-                        </div>
+</div> -->
+<div class="boxshadow pt-40 pb-40">
+    <div class="container" style="padding-left: 0">
+        <div class="row">
+            <div class="col-md-12" style="display: -webkit-box;">
+                <div class="col-md-9 main-video" >
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-title">
+                            <h3>Most Popular</h3>
+                        </span>                        
                     </div>
-                    <div class="video-content">
-                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                    <div class="single-video">
+                        <div class="video-img" style="max-height: 100%; display: grid">
+                            <!-- <span class="caption">
+                                <h3>Most Popular</h3>
+                            </span>   -->
+                            <a (click)="imgClick(mostPopularVideo)" >  
+                                <img [src]="mostPopularVideo.imageSrc" style="width: 100%; height: 486px"> 
+                            </a> 
+                        </div>
+                        <span class="caption">{{mostPopularVideo.duration}}</span> 
+                    </div>                    
+                    <span class="video-content">
+                        <app-video-properties-min [currentItem] = "mostPopularVideo"></app-video-properties-min>
+                    </span>
+                </div>
+                <div class="right-col">
+                    <div class="themeix-section-h section-heading-four" style="padding-left: 15px; padding-right: 15px;">
+                        <span class="heading-title">
+                            <h3>Top 3</h3>
+                        </span>
+                    </div>
+                    <div class="col-md-3" style="display:block; max-width: 100%;" *ngFor="let item of top3_list; let $index = index">
+                        <div class="single-video">
+                            <div class="video-img">
+                                <a (click)="imgClick(item)"> 
+                                    <img [src]="item.imageSrc" alt=""
+                                    (click)="imgClick(item)"
+                                    [class.selected]="item === currentItem">
+                                </a>
+                                <span class="video-duration">{{item.duration}}</span>
+                            </div>
+                        </div>
+                        <span class="video-content">
+                            <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -83,7 +104,7 @@
                             (click)="imgClick(item)"
                             [class.selected]="item === currentItem">
                         </a>
-                        <span class="video-duration">duration</span>
+                        <span class="video-duration">{{item.duration}}</span>
                     </div>
                 </div>
                 <div class="video-content">
@@ -108,7 +129,7 @@
                         <a> 
                             <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
-                        <span class="video-duration">duration</span>
+                        <span class="video-duration">{{item.duration}}</span>
                     </div>
                 </div>
                 <div class="video-content">
@@ -117,6 +138,7 @@
             </div>
         </div>
     </div>
+
     <div class="container themeix-ptu" *ngIf="air_list !== undefined && air_list.length > 0">
         <div class="row">
             <div class="col-md-12">
@@ -125,19 +147,19 @@
                     <h3>Air [{{air_list.length}}]</h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
-                    <div class="single-video" (click)="imgClick(item)">
-                        <div class="video-img">
-                            <a> 
-                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                            </a>
-                            <span class="video-duration">duration</span>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
+                <div class="single-video" (click)="imgClick(item)">
+                    <div class="video-img">
+                        <a> 
+                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                        </a>
+                        <span class="video-duration">{{item.duration}}</span>
                     </div>
-                    <div class="video-content">
-                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                    </div>
+                </div>
+                <div class="video-content">
+                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
                 </div>
             </div>
         </div>
@@ -159,7 +181,7 @@
                         <a> 
                             <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
-                        <span class="video-duration">duration</span>
+                        <span class="video-duration">{{item.duration}}</span>
                     </div>
                 </div>
                 <div class="video-content">
@@ -186,7 +208,7 @@
                         <a> 
                             <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
-                        <span class="video-duration">duration</span>
+                        <span class="video-duration">{{item.duration}}</span>
                     </div>
                 </div>
                 <div class="video-content">
@@ -213,7 +235,7 @@
                         <a> 
                             <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                         </a>
-                        <span class="video-duration">duration</span>
+                        <span class="video-duration">{{item.duration}}</span>
                     </div>
                 </div>
                 <div class="video-content">

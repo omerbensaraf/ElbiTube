@@ -19,33 +19,32 @@ export class UploadVideoComponent implements OnInit {
   ngOnInit() {
   }
 
-  getFileExtension(filename) {
-    var ext = filename.slice((filename.lastIndexOf(".")));
-    return ext;
-  }
+  // getFileExtension(filename) {
+  //   var ext = filename.slice((filename.lastIndexOf(".")));
+  //   return ext;
+  // }
 
-  onUpload(){
-    var mimetype : string = this.getFileExtension(this.filePath);
-    this.mediaService.httpUploadVideo(this.filePath, this.videoTitle, this.videoDescription, mimetype);
-  }
+  // onUpload(){
+  //   var mimetype : string = this.getFileExtension(this.filePath);
+  //   this.mediaService.httpUploadVideo(this.filePath, this.videoTitle, this.videoDescription, mimetype);
+  // }
 
   handleFileInput(files: FileList) {
+    debugger;
     this.fileToUpload = files.item(0);
-}
-
-uploadFileToActivity() {
-  debugger;
-  var fileType;
-  if(this.videoTitle !== ''){
-    fileType = this.fileToUpload.name.slice(this.fileToUpload.name.lastIndexOf(".") , this.fileToUpload.name.length);
   }
-  else{
-    fileType = this.fileToUpload.name;
-  }
-  
 
-  this.mediaService.postFile(this.fileToUpload, this.videoTitle + fileType);
-}
+  uploadFileToActivity() {    
+    debugger;
+    var fileType;
+    if(this.videoTitle !== ''){
+      fileType = this.fileToUpload.name.slice(this.fileToUpload.name.lastIndexOf(".") , this.fileToUpload.name.length);
+    }
+    else{
+      fileType = this.fileToUpload.name;
+    }
+    this.mediaService.postFile(this.fileToUpload, this.videoTitle + fileType);
+  }
 
 
 
