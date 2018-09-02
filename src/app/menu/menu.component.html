@@ -3,10 +3,16 @@
       <div class="row">
           <div class="col-md-12">
               <nav class="main-menu navbar navbar-expand-lg">
+                <div class="col-md-2">
                   <a class="navbar-brand" href="/home"><img src="./assets/images/logo.png" alt="/home"></a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu">
                     <span class="fa fa-bars"></span>
                 </button>
+                <div class="col-md-6">
+                    <app-auto-complete-search></app-auto-complete-search>
+                </div>
+                <div class="col-md-4">
                   <div class="collapse navbar-collapse" id="mainMenu">
                       <ul class="navbar-nav ml-auto">
                           <li class="nav-item active">
@@ -26,30 +32,10 @@
                           </li>
                       </ul>
                   </div>
+                </div>
               </nav>
           </div>
       </div>
   </div>
   <!-- added this section to here for the demo, need to remove and fix the login component-->
-  <!-- <div class="header-top hidden-xs">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="header-top-area">
-                        <div class="site-info left">
-                            <div class="mail-address">                            
-                                <a href="#"><i class="fa fa-user"></i>{{userEmail}}</a>
-                            </div>
-                        </div>
-                        <div class="user-info right">
-                            <div class="login-info">
-                                <i class="fa fa-lock"></i>
-                                <a href="#" (click)="logout()">Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</div> -->
 </header>
