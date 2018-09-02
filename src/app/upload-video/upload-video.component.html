@@ -1,36 +1,24 @@
-
-<div class="container" id="upload-div">
-    <br/>
-    <table>
-        <tr>
-            <td>
-                <label>File</label>
-            </td>
-            <td>
-                <input type="file"
-                id="file"
-                (change)="handleFileInput($event.target.files)">
-        
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Title</label>
-            </td>
-            <td>
-                <input [(ngModel)]="videoTitle" type="text" class="input--text" aria-label="Title" maxlength="30">
-            </td>
-        </tr>
-        
-        <tr>
-            <td>
-                <label id="desc-label" for="description">Description</label>
-            </td>
-            <td>
-                <textarea [(ngModel)]="videoDescription" cols="30" rows="10" class="textarea" placeholder="Add a description..."></textarea>
-            </td>
-        </tr>
-    </table>
-    <br/>
-    <button class="upload-btn" type="submit" (click)="uploadFileToActivity()">Upload</button>
-</div>  
+<div id="upload-div">
+    <div class="row">
+        <label for="browse" class="btn btn-info upload-btn">
+             <i class="fa fa-search"></i> Browse
+        </label>
+        <input id="browse" type="file" (change)="handleFileInput($event.target.files)" />
+        <label *ngIf="fileToUpload" class="fileName">{{fileToUpload.name}}</label>
+    </div>
+    <div class="row">
+        <input [(ngModel)]="videoTitle" placeholder="Title" type="text" class="input--text" aria-label="Title" maxlength="30">
+    </div>
+    <div class="row">
+        <textarea [(ngModel)]="videoDescription" cols="30" rows="5" class="textarea" placeholder="Add a description..."></textarea>
+    </div>
+    <div style="height: 50px;text-align: center">
+        <button *ngIf="!buttonClicked" class="btn btn-info upload-btn" type="submit" (click)="uploadFileToActivity()">
+            <span class="fa fa-upload"></span> Upload
+    </button>
+        <div class="progress" *ngIf="buttonClicked">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                aria-valuemax="100" style="width: 100%"></div>
+        </div>
+    </div>
+</div>

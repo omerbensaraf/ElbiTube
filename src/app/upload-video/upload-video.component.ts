@@ -10,13 +10,15 @@ import { MediaService } from '../services/media.service';
 })
 export class UploadVideoComponent implements OnInit {
   filePath: string='';
-  videoTitle : string='Alon';
+  videoTitle : string='';
   videoDescription: string='';
-
+  buttonClicked : Boolean;
   fileToUpload: File = null;
   constructor(private mediaService : MediaService) { }
 
   ngOnInit() {
+    debugger;
+    this.buttonClicked = false;
   }
 
   // getFileExtension(filename) {
@@ -34,18 +36,29 @@ export class UploadVideoComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
-  uploadFileToActivity() {    
+  uploadFileToActivity() {
     debugger;
-    var fileType;
-    if(this.videoTitle !== ''){
-      fileType = this.fileToUpload.name.slice(this.fileToUpload.name.lastIndexOf(".") , this.fileToUpload.name.length);
+    if(this.fileToUpload){
+      this.buttonClicked = true;
+      var fileType;
+      if(this.videoTitle !== ''){
+        fileType = this.fileToUpload.name.slice(this.fileToUpload.name.lastIndexOf(".") , this.fileToUpload.name.length);
+      }
+      else{
+        fileType = this.fileToUpload.name;
+      }
+      
+    
+      this.mediaService.postFile(this.fileToUpload, this.videoTitle + fileType).subscribe(data => 
+        {
+            if(data){
+              setTimeout(()=>{ 
+                this.buttonClicked = false;
+              //  this.fileToUpload = null;
+          }, 1000);
+          
+            }
+        });
     }
-    else{
-      fileType = this.fileToUpload.name;
-    }
-    this.mediaService.postFile(this.fileToUpload, this.videoTitle + fileType);
   }
-
-
-
 }
