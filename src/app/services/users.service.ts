@@ -12,7 +12,7 @@ export class UsersService {
 
   private userSource = new BehaviorSubject<string>('');
   loggedInUser = this.userSource.asObservable();
-  baseUrl = 'http://11.0.73.2:3000';
+  baseUrl = 'http://11.0.73.2:3000/user';
 
 
   constructor(private http: HttpClient) { }
