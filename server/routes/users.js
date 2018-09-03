@@ -43,7 +43,8 @@ router.post('/signin', (req, res, next) => {
                 res.cookie('token', token, { httpOnly: true, expires: farFuture });                
                 return res.status(200).json({
                     message: 'Authentication succesed',
-                    email: users[0].email
+                    email: users[0].email,
+                    userName: users[0].userName,
                 });
             }
             return res.status(401).json({
@@ -91,6 +92,7 @@ router.post('/signup', (req, res, next) => {
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: email,
+                            userName: email.substr(0,email.indexOf('@')),
                             password: hash
                         });
                         user
@@ -104,7 +106,8 @@ router.post('/signup', (req, res, next) => {
                             res.cookie('token', token, { httpOnly: true, expires: farFuture });            
                             res.status(201).json({
                                 message: 'User created',
-                                email
+                                email,
+                                userName: result.userName
                             });
                         })
                         .catch((err)=>{
@@ -121,12 +124,22 @@ router.post('/signup', (req, res, next) => {
 });
 
 
-router.get('/getAllUsers', checkAuth, (req, res, next) => {
+router.get('/getAllUsers', (req, res, next) => {
     // only admin can access this rest
     User.find({})
     .exec()
     .then((users) => {        
         return res.status(200).json(users);
+    })
+    .catch((err) => {
+        return res.status(500).json(err);
+    });
+});
+router.get('/removeAllUsers', (req, res, next) => {    
+    User.remove({})
+    .exec()
+    .then(() => {        
+        return res.status(200).json({});
     })
     .catch((err) => {
         return res.status(500).json(err);
