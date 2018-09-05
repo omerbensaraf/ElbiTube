@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const User = require('./models/users');
+// const User = require('./models/users');
 const Video = require('./models/videos');
 const cors = require('cors');
 const config = require('./config');
@@ -17,7 +17,7 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 const fuzzysort = require('./fuzzysort');
 var fs = require('fs');
-//const userRoutes = require('./routes/users'); 
+const userRoutes = require('./routes/users');
 
 
 // Define Storage Engine as Disk Storage

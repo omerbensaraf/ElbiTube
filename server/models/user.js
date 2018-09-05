@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
     _id: Schema.Types.ObjectId,
     email: { type: String, required: true, unique: true, lowercase: true, trim: true, dropDups: true, match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/},
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    userName: {type: String}
 });
 
 // Create a model to compile the schema

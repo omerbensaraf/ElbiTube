@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../services/users.service';
-import {Observable} from 'rxjs';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   pageTitle: string = '';
   mainButtonText: string = '';
 
-  constructor(private usersService: UsersService) { 
+  constructor(private usersService: UsersService, private router: Router) { 
     this.setPageMode('signIn');
   }
 
@@ -116,7 +116,8 @@ export class LoginComponent implements OnInit {
           this.hideShowSignInModal(false);
           this.usersService.changeloggedInUser(data['email']);
           this.hideShowSignInModal(false);
-          this.usersService.changeloggedInUser(this.email);
+          localStorage.setItem("email", data['email']);
+          this.router.navigate(['home']);
         },
         (error) => {
           this.errorMessage = 'Authentication failed';
@@ -145,7 +146,9 @@ export class LoginComponent implements OnInit {
       this.usersService.signUp(this.email, this.password).subscribe(
         (data) => {
            this.hideShowSignInModal(false);
-           this.usersService.changeloggedInUser(data['email']);
+           localStorage.setItem("email", this.email);
+           this.usersService.changeloggedInUser(data['email']);           
+           this.router.navigate(['home']);
         },
         (error) => {
           this.errorMessage = 'Authentication failed';
