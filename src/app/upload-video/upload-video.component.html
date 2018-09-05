@@ -1,6 +1,6 @@
 <div id="upload-div">
     <div class="row">
-        <label for="browse" class="btn btn-info upload-btn">
+        <label for="browse" class="btn btn-info upload-btn" style="background-color: #ffe14f; color: black;">
              <i class="fa fa-search"></i> Browse
         </label>
         <input id="browse" type="file" (change)="handleFileInput($event.target.files)" />
@@ -9,16 +9,25 @@
     <div class="row">
         <input [(ngModel)]="videoTitle" placeholder="Title" type="text" class="input--text" aria-label="Title" maxlength="30">
     </div>
-    <div class="row">
-        <textarea [(ngModel)]="videoDescription" cols="30" rows="5" class="textarea" placeholder="Add a description..."></textarea>
+    <div class="row" style="margin: 0 0 10px 45px;">        
+        <div class="category" *ngFor="let category of categories">
+            <span class="badge badge-pill badge-secondary" style="cursor: pointer" [class.selected]="category == selectedCategory" (click)="onClick(category)">{{ category }}</span>
+        </div>
     </div>
-    <div style="height: 50px;text-align: center">
-        <button *ngIf="!buttonClicked" class="btn btn-info upload-btn" type="submit" (click)="uploadFileToActivity()">
+    <div class="row">
+        <textarea [(ngModel)]="videoDescription" cols="30" rows="5" class="textarea"  style="overflow-y: auto" placeholder="Add a description..."></textarea>
+    </div>
+    <div style="height: 30px;text-align: center">
+        <button *ngIf="!buttonClicked" class="btn btn-info upload-btn" style="background-color:#004990" type="submit" (click)="uploadFileToActivity()">
             <span class="fa fa-upload"></span> Upload
     </button>
-        <div class="progress" *ngIf="buttonClicked">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                aria-valuemax="100" style="width: 100%"></div>
+    <div class="progress" *ngIf="buttonClicked">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+            aria-valuemax="100" style="width: 100%"></div>
         </div>
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="isUploadSucceeded" style="margin-top: 25px;margin-bottom: -10px;text-align: center;">
+        Woohoo! You just uploaded new movie to our repository!<br>
+        You may share this video with <a href="www.elbitsystems.com">this link</a>
     </div>
 </div>
