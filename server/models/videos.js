@@ -11,7 +11,8 @@ var videoSchema = new Schema({
     disLikeUsers : [String],
     views: Number,
     uploadedBy: String,
-    category: String
+    category: String,
+    uploadedDate: String
 });
 
 // Create a model to compile the schema

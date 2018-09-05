@@ -17,7 +17,8 @@ ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 const fuzzysort = require('./fuzzysort');
 var fs = require('fs');
-const userRoutes = require('./routes/users');
+var dateTime = require('node-datetime');
+const userRoutes = require('./routes/users'); 
 
 
 // Define Storage Engine as Disk Storage
@@ -103,10 +104,10 @@ app.use(express.static('./videos'));
 app.use(express.static('./videos/frames'));
 
 // Define Cross Origin Resource Sharing
-var corsOptions = { origin: 'http://10.173.3.13:4200', optionsSuccessStatus: 200}; // some legacy browsers (IE11, various SmartTVs) choke on 204}
+var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}
 
 app.use(cors());
-// app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
+app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
 
 // Define MongoDB
 mongoose.connect('mongodb://localhost/db');
@@ -191,16 +192,6 @@ function addDisLikeRemoveLike (id,userEmail) {
     })
 }
 
-//app.get('/videoRecord/:videoId', function(req,res){
-// app.get('/getVideoProperties/:videoId', function(req,res){
-//     mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,video) {
-//         res.send(video);
-//         // video.views+=1;
-//         // video.save();
-//     })
-// });
-
-
 // Update Number of views
 app.put('/updateNumberOfViews', (req,res) => {
     if (!req.body) {
@@ -233,9 +224,10 @@ app.get('/videos/:videoId',  function (req,res) {
             var position = videoSrc.indexOf("\\videos");
             if(position !== -1) {
                 let filePath = videoSrc.substr(position,videoSrc.length); 
-                let fileType = getFileExtensionAndValidation(selectedVideo.type);
-                if (fileType !== -1) {   
-                    res.sendFile(__dirname + filePath + fileType);
+                //let fileType = getFileExtensionAndValidation(selectedVideo.type);
+                //if (fileType !== -1) {   
+                if (selectedVideo.type) {
+                    res.sendFile(__dirname + filePath + selectedVideo.type);
                 }
                 else {
                     throw ("File type is not compatible");
@@ -253,6 +245,7 @@ app.get('/users', function (req,res) {
     })
 });
 
+// Search value
 app.get('/searchVideos/:searchedValue', function (req,res) {
     const searchedVideoArr = [];
     if (req.params && req.params.searchedValue && req.params.searchedValue.length > 0) {
@@ -267,18 +260,10 @@ app.get('/searchVideos/:searchedValue', function (req,res) {
 });
 
 
-/*app.post('/upload', upload.single('file-to-upload'), (req, res) => {
-    console.log("-----------");
-    res.redirect('/');
-  });
-*/
 // Upload file
 app.post('/upload', (req, res) => {
-    //console.log(req);
     console.log(req.body);
-  /* upload(req, res, (err) => {
-        console.log("err: " + err);
-    });*/
+
     upload(req, res, (err) => {
         if(req.body === undefined){
             console.log(">>> undefined! in upload function");
@@ -294,16 +279,19 @@ app.post('/upload', (req, res) => {
             
             console.log(">>> create a frame! ");
             // From a local path...
-            getDuration(req.file).then((duration) => {
+            getDuration(req.file.path).then((duration) => {
                 console.log(">>> duration: " +duration);
             });
-           
+
+           var dt = dateTime.create();
+           var formatted = dt.format('d n Y');
+           console.log(formatted);
+
             let id = mongoose.Types.ObjectId();
             var videoType = req.file.originalname.slice(req.file.originalname.lastIndexOf("."),req.file.originalname.length)
             fs.rename(__dirname + "\\videos\\" + req.file.originalname, __dirname + "\\videos\\" + id + videoType, function(err) {
                 if ( err ) console.log('ERROR: ' + err);
             });
-            
             
             var frame = ffmpeg( __dirname + "\\videos\\" + id + videoType);
             // generate the frame from the video
@@ -313,9 +301,7 @@ app.post('/upload', (req, res) => {
                 filename: frameName,
                 folder: frameDestinationPath,
                 size: '320x240'
-            });
-         
-            
+            });            
          
             var video = new Video({ 
                 _id : id,
@@ -323,17 +309,18 @@ app.post('/upload', (req, res) => {
                 //src: req.file.path,
                 src: 'http:\\\\11.0.73.2:3000\\videos\\'+id,
                 imageSrc: 'http:\\\\11.0.73.2:3000\\'+frameName, 
-                type: req.file.mimetype, 
+                type: videoType, 
                 views: 0, 
                 uploadedBy: 'Alon Yeshurun',
-                category: "New"
+                category: "New",
+                uploadedDate : formatted
             });
             console.log(">>>  req.body.originalname: " +  req.file.originalname);
             video.save();
             console.log(__dirname + "\\videos\\" + req.file.originalname);
             console.log(__dirname + "\\vidoes\\" + id);
            
-            res.status(200).send('OK');
+            res.send("OK");
         }
       
     });
