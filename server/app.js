@@ -262,13 +262,14 @@ app.get('/searchVideos/:searchedValue', function (req,res) {
 
 // Upload file
 app.post('/upload', (req, res) => {
-    console.log(req.body);
 
     upload(req, res, (err) => {
         if(req.body === undefined){
             console.log(">>> undefined! in upload function");
         } else {
+
             console.log(">>> start upload the file! ");
+            
             // define the destination folder which the frame will be saved
             var frameDestinationPath = __dirname + "\\" + 'videos\\frames\\';
             var videoName = path.parse(req.file.originalname).name;
@@ -302,7 +303,8 @@ app.post('/upload', (req, res) => {
                 folder: frameDestinationPath,
                 size: '320x240'
             });            
-         
+            var category;
+            if(req.body.category) category = req.body.category;
             var video = new Video({ 
                 _id : id,
                 title: path.parse(req.file.originalname).name, 
@@ -312,7 +314,7 @@ app.post('/upload', (req, res) => {
                 type: videoType, 
                 views: 0, 
                 uploadedBy: 'Alon Yeshurun',
-                category: "New",
+                category: category,
                 uploadedDate : formatted
             });
             console.log(">>>  req.body.originalname: " +  req.file.originalname);

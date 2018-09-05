@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+  
     this.userEmail = this.userService.getUserEmail();
 
     this.mediaService.httpGetMedia().subscribe(data => { 
@@ -53,10 +53,28 @@ export class HomeComponent implements OnInit {
       this.air_list = this.getAirList(data);
       this.land_list = this.getLandList(data);
       this.more_list = this.getMoreList(data);
-      this.new_list = this.getNewList(data);
-      
+      //this.new_list = this.getNewList(data);
+      this.new_list = this.getNewListByDate(data);
       this.homeLoading=true;
     });    
+  }
+
+
+
+  getNewListByDate(data:Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    var now= Date.now();
+    var filteredData = data.filter(item=>{
+      debugger;
+      var uploadDate = new Date(item.uploadedDate).getTime();
+      return (now - uploadDate < (24 * 60 * 60 * 1000))});
+  
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
   }
 
   imgClick(item:IMedia){
