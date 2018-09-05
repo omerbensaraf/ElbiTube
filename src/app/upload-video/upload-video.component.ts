@@ -52,7 +52,7 @@ export class UploadVideoComponent implements OnInit {
         fileType = this.fileToUpload.name;
       }
     
-      this.mediaService.postFile(this.fileToUpload, this.videoTitle + fileType,this.selectedCategory).subscribe(data => {
+      this.mediaService.postFile(this.fileToUpload, this.videoTitle + fileType).subscribe(data => {
           if(data){
             setTimeout(()=>{ 
               this.buttonClicked = false;
