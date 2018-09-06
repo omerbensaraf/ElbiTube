@@ -24,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WatchComponent } from './components/watch/watch.component';
 import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
-
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +52,13 @@ import { AppHeaderComponent } from './app-header/app-header.component';
     VgOverlayPlayModule,
     VgBufferingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SweetAlert2Module.forRoot({
+          buttonsStyling: false,
+          customClass: 'modal-content',
+          confirmButtonClass: 'btn btn-primary',
+          cancelButtonClass: 'btn'
+    })
   ],
   providers: [    
     MediaService,

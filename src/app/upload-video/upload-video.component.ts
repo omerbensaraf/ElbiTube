@@ -1,7 +1,8 @@
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { MediaService } from '../services/media.service';
 import { Observable } from 'rxjs';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-upload-video',
@@ -56,9 +57,11 @@ export class UploadVideoComponent implements OnInit {
           if(data){
             setTimeout(()=>{ 
               this.buttonClicked = false;
-              this.isUploadSucceeded = true;
-              this.timer = Observable.timer(5000);
-              this.timer.subscribe(() => this.isUploadSucceeded = false);
+              
+              // this.isUploadSucceeded = true;
+              // this.timer = Observable.timer(10000);
+              // this.timer.subscribe(() => this.isUploadSucceeded = false);
+              swal('Wohoo!', 'You have just uploaded new movie','success');
               //this.fileToUpload = null;
               this.videoTitle = '';
             }, 1000);

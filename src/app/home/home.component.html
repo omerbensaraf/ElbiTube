@@ -41,22 +41,19 @@
                     <div class="themeix-section-h section-heading-four" style="padding: 10px 0;">
                         <span class="heading-title">
                             <img src="./assets/images/lit.png" alt="Fire" style="width: 8%;padding-bottom: 1rem;">
-                            <h3>Most Popular</h3>
+                            <h3>Hot Video</h3>
                         </span>                        
                     </div>
-                    <div class="single-video">
+                    <div class="single-video" (click)="imgClick(mostPopularVideo)">
                         <div class="video-img" style="max-height: 100%; display: grid">
-                            <!-- <span class="caption">
-                                <h3>Most Popular</h3>
-                            </span>   -->
-                            <a (click)="imgClick(mostPopularVideo)" >  
+                            <a>
                                 <img [src]="mostPopularVideo.imageSrc" style="width: 100%; height: 486px"> 
                             </a> 
                         </div>
                         <span class="caption">{{mostPopularVideo.duration}}</span> 
                     </div>                    
                     <span class="video-content">
-                        <app-video-properties-min [currentItem] = "mostPopularVideo"></app-video-properties-min>
+                        <app-video-properties [currentItem] = "mostPopularVideo"></app-video-properties>
                     </span>
                 </div>
                 <div class="right-col">
