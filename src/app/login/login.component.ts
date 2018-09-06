@@ -159,5 +159,10 @@ export class LoginComponent implements OnInit {
       )      
     }
   }    
+  handleKeyEvent(event, key) {
+    if (key === 'Enter') {
+      this.onMainButtonClicked();
+    }
+  }
 }
 
