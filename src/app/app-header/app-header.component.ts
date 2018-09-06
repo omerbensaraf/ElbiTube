@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ export class AppHeaderComponent implements OnInit {
 
   email: string = '';
   
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService,  private router: Router) { }
 
   ngOnInit() {
      this.usersService.loggedInUser.subscribe(email => this.email = email);     
@@ -21,6 +22,7 @@ export class AppHeaderComponent implements OnInit {
     this.usersService.logout().subscribe(
       (data) => {
         this.usersService.changeloggedInUser('');
+        this.router.navigate(['']);
       },
       (error) => {
       }
