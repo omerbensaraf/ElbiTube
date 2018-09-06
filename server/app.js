@@ -99,6 +99,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Expose Videos Public Folder
 app.use(express.static('./videos'));
+app.use(express.static('./views'));
 
 // Expose Images Public Folder
 app.use(express.static('./videos/frames'));
@@ -119,10 +120,6 @@ db.once('open', function() {
 });
 
 
-// Get home page
-app.get("/", function (req,res) {
-    res.sendFile(__dirname+"/views/index.html");
-})
 
 // Get videos page - display videos json from db
 app.get('/videos', function (req,res) {
@@ -340,6 +337,19 @@ function getFileExtensionAndValidation(filename) {
 }
 
 
-
+/*app.get('/removeAllVideos', (req, res, next) => {    
+    Video.remove({})
+    .exec()
+    .then(() => {        
+        return res.status(200).json({});
+    })
+    .catch((err) => {
+        return res.status(500).json(err);
+    });
+});*/
+// Get home page
+app.get("*", function (req,res) {
+    res.sendFile(__dirname+"/views/index.html");
+})
 
 server.listen(port, () => console.log(`Server started on port ${port}`));
