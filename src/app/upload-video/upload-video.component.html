@@ -26,8 +26,15 @@
             aria-valuemax="100" style="width: 100%"></div>
         </div>
     </div>
-    <div class="alert alert-success" role="alert" *ngIf="isUploadSucceeded" style="margin-top: 25px;margin-bottom: -10px;text-align: center;">
-        Woohoo! You just uploaded new movie to our repository!<br>
-        You may share this video with <a href="www.elbitsystems.com">this link</a>
-    </div>
+    <swal [options]="{ confirmButtonText: 'I understand' }" *ngIf="isUploadedSucceeded"></swal>
+    <!-- <div class="alert alert-success" role="alert" *ngIf="isUploadSucceeded" style="margin-top: 25px;margin-bottom: -10px;text-align: center;">
+        <h1>Woohoo!</h1><br>
+        <h2>You just uploaded new movie to our repository!</h2>
+    </div> -->
+    <!-- <swal [options]="{ confirmButtonText: 'I understand' }"></swal>
+    <swal title="SweetAlert2 Timer" *ngIf="isUploadSucceeded">
+        <div *swalPartial class="alert alert-info">
+            <strong>{{ elapsedSeconds }}</strong> seconds elapsed since then.
+        </div>
+    </swal> -->
 </div>
