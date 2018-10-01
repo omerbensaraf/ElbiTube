@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
       this.popularVideos_list = this.getPopularVideosList(data);
       this.air_list = this.getAirList(data);
       this.land_list = this.getLandList(data);
+      this.radio_list = this.getRadioList(data);
       this.more_list = this.getMoreList(data);
       //this.new_list = this.getNewList(data);
       this.new_list = this.getNewListByDate(data);
@@ -105,7 +106,7 @@ export class HomeComponent implements OnInit {
   getAirList(data:Array<IMedia>): Array<IMedia> {
     var returnArray = new Array<IMedia>();
     //return data.slice(1,6);
-    var filteredData = data.filter(item => item.category === 'UAV');
+    var filteredData = data.filter(item => item.category === 'Air');
     if (filteredData) {
       for (var i=0 ; i<filteredData.length ; i++) {
         returnArray.push(filteredData[i]);
@@ -114,6 +115,16 @@ export class HomeComponent implements OnInit {
     return returnArray;
   }
   
+  getRadioList(data: Array<IMedia>): Array<IMedia> {
+    var returnArray = new Array<IMedia>();
+    var filteredData = data.filter(item => item.category === 'Radio');
+    if (filteredData) {
+      for (var i=0 ; i<filteredData.length ; i++) {
+        returnArray.push(filteredData[i]);
+      }
+    }
+    return returnArray;
+  }
   getLandList(data:Array<IMedia>): Array<IMedia> {
     var returnArray = new Array<IMedia>();
     //return data.slice(1,6);

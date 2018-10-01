@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from '../services/users.service';
 import {Router} from "@angular/router";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -147,8 +148,11 @@ export class LoginComponent implements OnInit {
         (data) => {
            this.hideShowSignInModal(false);
            localStorage.setItem("email", this.email);
-           this.usersService.changeloggedInUser(data['email']);           
-           this.router.navigate(['home']);
+           this.usersService.changeloggedInUser(data['email']);  
+           swal('Congrats!','You are now a legit elbitube user','success').then( () =>
+            this.router.navigate(['home'])
+          );         
+           
         },
         (error) => {
           this.errorMessage = 'Authentication failed';
