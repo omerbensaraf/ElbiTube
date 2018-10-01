@@ -1,4 +1,3 @@
-import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { MediaService } from '../services/media.service';
 import { Observable } from 'rxjs';
