@@ -10,18 +10,24 @@
 }
 
 .video-date-min {
-    display: block;
+    display: flex;
+    justify-content: space-between;
 }
 
 .video-author-min {
     max-width: 50%;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
 }
 
 .video-upload-date-min {
     display: -webkit-box;
     max-width: 50%;
     float: right;
+    font-size: 12px;
 }
 
 span.video-title-min {
