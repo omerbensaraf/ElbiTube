@@ -24,4 +24,12 @@ export class VideoPropertiesComponent implements OnInit {
 
   ngOnInit() {}
   
+  getUrl() {
+    const url = `${window.location.origin}/watch/${this.currentItem._id}`;
+    const ltrUrl = encodeURIComponent(`\u200e${url}`);
+    return ltrUrl;
+  }
+  getVideoUrl() {    
+    return `I am sharing this video - ${this.currentItem.title}%0A${this.getUrl()}%0Awith you.`;
+  }
 }

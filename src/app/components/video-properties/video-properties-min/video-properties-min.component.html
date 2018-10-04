@@ -4,13 +4,16 @@
       <span class="video-viewers-min" title="Number of Views"> {{ currentItem.views }}  views </span>
     </div>
     <div class="video-date-min">
-        <span class="video-author-min" title="Author">
+        <span class="video-author-min" title="{{ currentItem.uploadedBy }}">
             <i class="fa fa-user-circle-o"></i>
             <a href="/uploadedBy/">{{ currentItem.uploadedBy }}</a>
         </span>
         <span class="video-upload-date-min" title="Uploaded Date">
             <i class="fa fa-calendar" style="padding-right: 5px;"></i>
             <p>{{currentItem.uploadedDate}}</p>
+        </span>
+        <span title="Share">
+            <a href="mailto:?subject=Recommended video for you!&body={{getVideoUrl()}}"><i class="fa fa-share-alt"></i></a>
         </span>
     </div>
 </div> 
