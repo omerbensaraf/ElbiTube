@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IMedia, Updates } from '../../../models/imadia.model';
 import { UsersService } from '../../../services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-properties-min',
@@ -20,7 +21,7 @@ export class VideoPropertiesMinComponent implements OnInit {
   @Input() currentItem : IMedia;
   
 
-  constructor(private userService : UsersService) {}
+  constructor(private router:Router, private userService : UsersService) {}
 
   ngOnInit() {
     this.userEmail = this.userService.getUserEmail();
@@ -31,7 +32,12 @@ export class VideoPropertiesMinComponent implements OnInit {
     const ltrUrl = encodeURIComponent(`\u200e${url}`);
     return ltrUrl;
   }
-  getVideoUrl() {    
+
+  getVideoUrl() {
     return `I am sharing this video - ${this.currentItem.title}%0A${this.getUrl()}%0Awith you.`;
+  }
+  navigateToWatchComp(event) {
+    event.preventDefault();
+    this.router.navigate(['/watch', this.currentItem._id]);
   }
 }
