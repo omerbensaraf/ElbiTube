@@ -249,4 +249,33 @@
             </div>
         </div>
     </div>
+
+    <div class="container themeix-ptu" style="border-bottom: none" *ngIf="entertaiment_list !== undefined && entertaiment_list.length > 0">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
+                        <!-- <h3><a [routerLink]="['/category/more']">More [{{more_list.length}}]</a></h3> -->
+                        <h3><a (click)="goToCategory('entertaiment',entertaiment_list)">  Entertaiment [{{entertaiment_list.length}}]</a> </h3>
+    
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of entertaiment_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a> 
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>

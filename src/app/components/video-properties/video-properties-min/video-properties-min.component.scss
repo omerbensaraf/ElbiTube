@@ -25,10 +25,13 @@
 }
 
 span.video-title-min {
-    width: 60%;
-    word-break: break-word;
+    width: 75%;
+    // word-break: break-word;
     float: left;
     font-weight: 1000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 span.video-viewers-min {

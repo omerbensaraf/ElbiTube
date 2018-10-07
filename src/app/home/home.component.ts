@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   top3_list: Array<IMedia>;
   new_list: Array<IMedia>;
   tech_list: Array<IMedia>;
+  entertaiment_list: Array<IMedia>;
 
   constructor(private router:Router,private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
@@ -57,6 +58,7 @@ export class HomeComponent implements OnInit {
       this.sea_list = this.mediaService.getSeaList(data);
       this.ted_list = this.mediaService.getTedList(data);
       this.tech_list = this.mediaService.getTechnologyList(data);
+      this.entertaiment_list = this.mediaService.getEntertaimentList(data);
       //this.new_list = this.getNewList(data);
       this.new_list = this.mediaService.getNewListByDate(data);
       this.homeLoading=true;
