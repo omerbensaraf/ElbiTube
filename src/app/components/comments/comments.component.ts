@@ -23,6 +23,7 @@ export class CommentsComponent implements OnInit{
   // directly using a reference
   @ViewChild(EditorComponent) newCommentEditor;
 
+  @Input() video;
   // We're using the user service to obtain the currently logged 
   // in user
   constructor(private userService : UsersService, private commentService : CommentService) {
@@ -52,19 +53,19 @@ export class CommentsComponent implements OnInit{
   // bound to the editor content
   addNewComment() {
     debugger;
-    const comments = this.comments.slice();
-    comments.splice(0, 0, {
-      _id : "123",
-      videoId : "123",
+    const comment =  {
+      parent : null,
+      videoId :this.video,
       user: this.userService.getUserEmail(),
       time: +new Date(),
       content: this.newCommentEditor.getEditableContent(),
       disLikeUsers:[],
       likeUsers:[]
-    });
+    };
+    this.commentService.postComment(comment);
     // Emit event so the updated comment list can be persisted 
     // outside the component
-    this.commentsUpdated.next(comments);
+    //this.commentsUpdated.next(comments);
     // We reset the content of the editor
     this.newCommentEditor.setEditableContent('');
   }
@@ -79,7 +80,6 @@ export class CommentsComponent implements OnInit{
     } else {
       // Otherwise we're replacing the existing comment
       comments.splice(comments.indexOf(comment), 1, {
-        _id : "123",
         videoId : "123",
         user: this.userService.getUserEmail(),
         time: +new Date(),

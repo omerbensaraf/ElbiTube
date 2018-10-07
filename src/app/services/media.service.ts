@@ -33,7 +33,7 @@ export class MediaService {
 
 
     httpGetMedia(): Observable<Array<IMedia>>{
-        const requestUrl = 'http://11.0.73.2:3000/videos';
+        const requestUrl = 'http://localhost:3000/videos';
         return this.http.get<Array<IMedia>>(requestUrl);
     }
 

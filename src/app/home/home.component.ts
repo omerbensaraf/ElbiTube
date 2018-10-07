@@ -39,8 +39,6 @@ export class HomeComponent implements OnInit {
   constructor(private router:Router,private mediaService: MediaService, private http: HttpClient, private userService:UsersService) {
   }
 
-  updateComments(comments) {}
-
   ngOnInit() {
   
     this.userEmail = this.userService.getUserEmail();

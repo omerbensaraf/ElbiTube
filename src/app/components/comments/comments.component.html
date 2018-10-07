@@ -37,7 +37,7 @@
 <!-- <div *ngIf="hasComments"> -->
 <div>
   <div class="comments__title">All comments</div>
-  <p>dddddddddddddddddd</p>
+ 
   <ul class="comments__list">
     <li *ngFor="let comment of comments">
       <ngc-comment [content]="comment.content" [time]="comment.time" [user]="comment.user" (commentEdited)="onCommentEdited(comment, $event)">

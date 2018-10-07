@@ -13,6 +13,7 @@ export class FromNowPipe {
   // The transform method will be called when the pipe is used 
   // within a template
   transform(value) {
+    debugger;
     if (value && (value instanceof Date || 
         typeof value === 'number')) {
       return moment(value).fromNow();

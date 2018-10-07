@@ -14,4 +14,8 @@ export class CommentService {
     return this.http.get<Array<Comment>>(this.baseUrl + '/getAllComments');
   }
 
+  postComment(comment : any){
+    return this.http.post(this.baseUrl + '/postComment',comment);
+  }
+
 }

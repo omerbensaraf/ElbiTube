@@ -3,9 +3,10 @@ var Schema = mongoose.Schema;
 
 // Create a schema
 var commentSchema = new Schema({
+  parent : {type: Schema.Types.ObjectId, ref: 'Comment', required: false},
   videoId: {type: Schema.Types.ObjectId, ref: 'Video', required: true},
   user :  String,
-  time : Date,
+  time : Number,
   content : String,
   likeUsers : [String],
   disLikeUsers : [String]

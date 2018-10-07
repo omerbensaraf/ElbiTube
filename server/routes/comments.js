@@ -9,4 +9,8 @@ router.get('/getAllComments', (req, res) =>{
     })
 });
 
+router.post('/postComment', (req, res) => {
+    console.log("popopopopo");
+});
+
 module.exports = router;

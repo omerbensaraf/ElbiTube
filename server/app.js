@@ -329,6 +329,7 @@ app.post('/upload', (req, res) => {
 });
 
 var comment = new Comment({
+    parent : null,
     videoId : "5b903683e9d1600c04c6a4a6",
     user: "lavidnt@gmail.com",
     time: +new Date(),
