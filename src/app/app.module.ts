@@ -25,6 +25,7 @@ import { WatchComponent } from './components/watch/watch.component';
 import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import {AuthGuardService} from './services/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,8 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
   providers: [    
     MediaService,
     UsersService,
-    HttpClientModule
+    HttpClientModule,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

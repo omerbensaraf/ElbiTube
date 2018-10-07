@@ -90,7 +90,6 @@ export class MediaService {
         const formData: FormData = new FormData();
         formData.append("myFiles", fileToUpload,fileName);
         formData.append("category",selectedCategory);
-        debugger;
         return this.http
           .post(endpoint, formData, {responseType: 'text'})
           .map(() => { 

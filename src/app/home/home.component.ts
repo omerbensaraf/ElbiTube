@@ -66,7 +66,6 @@ export class HomeComponent implements OnInit {
     var returnArray = new Array<IMedia>();
     var now= Date.now();
     var filteredData = data.filter(item=>{
-      debugger;
       var uploadDate = new Date(item.uploadedDate).getTime();
       return (now - uploadDate < (24 * 60 * 60 * 1000))});
   
