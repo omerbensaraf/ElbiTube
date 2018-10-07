@@ -26,29 +26,39 @@ export class CategoryComponent implements OnInit {
         img: './assets/images/air.png'
       },
       {
+        name: 'Most Popular Videos', 
+        text: 'videos with highest views number',
+        img: './assets/images/tiger.png'
+      },
+      {
+        name: 'Air', 
+        text: 'air & simulation',
+        img: './assets/images/uav.png'
+      },
+      {  
+        name: 'Land',
+        text: 'c4i',
+        img: './assets/images/land.png'
+      },
+      {
+        name: 'Sea', 
+        text: 'under ground vehicles',
+        img: './assets/images/sea.png'
+      },
+      {
         name: 'TED',
         text: 'ted...',
         img: './assets/images/ted.png'
       },
       {
         name: 'Technology',
-        text: 'ted...',
+        text: 'what do you know about...',
         img: './assets/images/technology.png'
       },
       {
-        name: 'Air', 
-        text: 'videos related to air division',
-        img: './assets/images/uav.png'
-      },
-      {  
-        name: 'Land',
-        text: 'videos related to land division',
-        img: './assets/images/land.png'
-      },
-      {
-        name: 'Sea', 
-        text: 'videos related to sea division',
-        img: './assets/images/sea.png'
+        name: 'Entertaiment', 
+        text: 'happy occasions',
+        img: './assets/images/entertaiment.png'
       }
   ];
   videos: Array<IMedia>;
@@ -77,7 +87,10 @@ export class CategoryComponent implements OnInit {
           case 'ted':  
             this.videos = this.mediaService.getTedList(data);
             break;  
-            case 'technology':  
+          case 'entertaiment':  
+            this.videos = this.mediaService.getEntertaimentList(data);
+            break;  
+          case 'technology':  
             this.videos = this.mediaService.getTechnologyList(data);
             break;  
           case 'new-uploads':  

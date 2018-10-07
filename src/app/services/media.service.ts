@@ -153,6 +153,17 @@ export class MediaService {
         }
         return returnArray;
       }
+      getEntertaimentList(data:Array<IMedia>): Array<IMedia> {
+        var returnArray = new Array<IMedia>();
+        //return data.slice(1,6);
+        var filteredData = data.filter(item => item.category === 'Entertaiment');
+        if (filteredData) {
+          for (var i=0 ; i<filteredData.length ; i++) {
+            returnArray.push(filteredData[i]);
+          }
+        }
+        return returnArray;
+      }
 
 
       getTechnologyList(data:Array<IMedia>): Array<IMedia> {
