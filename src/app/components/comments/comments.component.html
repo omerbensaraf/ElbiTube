@@ -1,0 +1,59 @@
+<div class="comments__title">Add new comment</div>
+<div class="comments__add-comment-section">
+  <div class="comments__add-comment-box">
+    <ngc-editor [editMode]="true" [showControls]="false"></ngc-editor>
+  </div>
+  <button (click)="addNewComment()" class="button">Add comment</button>
+</div>
+
+
+<!-- <div id="posts">
+  <div id="form" class="textarea-wrapper--top-level">
+    <form class="reply">
+      <div class="postbox">
+        <div role="alert"></div>
+        <div class="avatar"><span class="user"><img data-role="user-avatar" src="https://c.disquscdn.com/next/embed/assets/img/noavatar92.7b2fde640943965cc88df0cdee365907.png" alt="Avatar"></span></div>
+        <div class="textarea-wrapper" data-role="textarea" dir="auto">
+          <div>
+            <div class="textarea" tabindex="0" role="textbox" aria-multiline="true" contenteditable="PLAINTEXT-ONLY" data-role="editable"
+              aria-label="Start the discussion…" style="overflow: auto; word-wrap: break-word; max-height: 350px;">
+              <p>בדיקה בדיקה בדיקה<br></p>
+            </div>
+            <div style="display: none;">
+              <ul class="user-mention__list">
+                <li class="header user-mention__header">
+                  <h5>in this conversation</h5>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+
+<!-- <div *ngIf="hasComments"> -->
+<div>
+  <div class="comments__title">All comments</div>
+  <p>dddddddddddddddddd</p>
+  <ul class="comments__list">
+    <li *ngFor="let comment of comments">
+      <ngc-comment [content]="comment.content" [time]="comment.time" [user]="comment.user" (commentEdited)="onCommentEdited(comment, $event)">
+      </ngc-comment>
+    </li>
+  </ul>
+</div>
+
+<!-- <ul>
+  <li style="background-color: whitesmoke;padding: 15px">
+    <span style="font-weight: bold"> name 1 </span>
+    <span style="color:gray;margin-left: 5px;text-overflow: clip">1 hour ago</span>
+    <p>The Angular CLI is a command line interface tool that can create a project, 
+      add files, and perform a variety of ongoing development tasks such as testing,
+       bundling, and deployment.</p>
+    <span class="fa fa-thumbs-o-up"> 2 </span>
+    <span class="fa fa-thumbs-o-down"> 1 </span>
+  </li>
+</ul> -->

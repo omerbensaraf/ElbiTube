@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 // const User = require('./models/users');
 const Video = require('./models/videos');
+const Comment = require('./models/comment');
 const cors = require('cors');
 const config = require('./config');
 const getDuration = require('get-video-duration');
@@ -19,6 +20,7 @@ const fuzzysort = require('./fuzzysort');
 var fs = require('fs');
 var dateTime = require('node-datetime');
 const userRoutes = require('./routes/users'); 
+const commentsRoutes = require('./routes/comments');
 
 
 // Define Storage Engine as Disk Storage
@@ -109,6 +111,7 @@ var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 
 
 app.use(cors());
 app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
+app.use("/comment",commentsRoutes);
 
 // Define MongoDB
 mongoose.connect('mongodb://localhost/db');
@@ -324,6 +327,16 @@ app.post('/upload', (req, res) => {
       
     });
 });
+
+var comment = new Comment({
+    videoId : "5b903683e9d1600c04c6a4a6",
+    user: "lavidnt@gmail.com",
+    time: +new Date(),
+    content: "ffffffffffffff",
+    disLikeUsers:[],
+    likeUsers:[]
+});
+comment.save();
 
 const port = 3000;
 

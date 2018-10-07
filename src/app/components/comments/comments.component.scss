@@ -1,0 +1,85 @@
+.textarea-wrapper--top-level .postbox {
+    margin: 0 0 24px;
+}
+.postbox {
+    position: relative;
+    margin-left: 60px;
+}
+.textarea-wrapper--top-level .avatar {
+    position: absolute;
+    left: 0;
+    transition: left .2s linear;
+}
+.avatar {
+    float: left;
+}
+.avatar .user {
+    position: relative;
+    z-index: 100;
+    background: #dbdfe4;
+    padding: 0;
+}
+.avatar .user, .avatar img {
+    display: block;
+    border-radius: 3px;
+}
+.avatar img {
+    width: 48px;
+    height: 48px;
+}
+.avatar .user, .avatar img {
+    display: block;
+    border-radius: 3px;
+}
+.textarea-wrapper--top-level .textarea-wrapper {
+    margin-left: 60px;
+}
+.textarea-wrapper {
+    background: #fff;
+    border: 2px solid #dbdfe4;
+    position: relative;
+    border-radius: 4px;
+    margin: 0 0 0 48px;
+}
+.textarea {
+    color: #2a2e2e;
+    cursor: text;
+    resize: none;
+    border: 0;
+    display: block;
+    padding: 6px 10px 8px;
+    margin: 0;
+    width: 100%;
+    min-height: 44px;
+    height: auto;
+    line-height: 1.4;
+    font-size: 14px;
+    font-family: "Helvetica Neue",arial,sans-serif;
+    overflow-y: scroll;
+    transition: all .15s ease-in-out;
+}
+div {
+    display: block;
+}
+body {
+    line-height: 20px;
+}
+a, abbr, acronym, address, blockquote, button, caption, cite, code, dd, del, dfn, dl, dt, em, fieldset, form, h1, h2, h3, h4, h5, h6, img, label, legend, li, ol, p, pre, q, s, samp, small, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, tr, tt, ul, var {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100%;
+    line-height: 1;
+    font-family: inherit;
+}
+.textarea-wrapper:after, .textarea-wrapper:before {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.textarea div, .textarea p {
+    margin: 0;
+    line-height: 1.4;
+}
