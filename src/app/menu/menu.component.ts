@@ -18,7 +18,6 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   constructor(private router:Router) { }
-
   ngOnInit() {
   }
 
@@ -30,4 +29,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  goToCategories() {
+    this.router.navigate(['/categories']);
+  }
 }

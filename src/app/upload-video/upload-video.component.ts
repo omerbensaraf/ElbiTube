@@ -15,7 +15,7 @@ export class UploadVideoComponent implements OnInit {
   videoDescription: string='';
   buttonClicked : Boolean;
   fileToUpload: File = null;
-  categories: String[] = ['Land','Air','Radio','More'];
+  categories: String[] = ['Air','Land','Sea','TED','Technology','Entertaiment'];
   selectedCategory: string;
   isUploadSucceeded: boolean = false;
   timer: Observable<any>;

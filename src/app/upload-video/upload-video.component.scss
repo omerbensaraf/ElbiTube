@@ -10,8 +10,11 @@ body{
   margin-right: 10px;
 }
 .category > span {
-  width: 80px;
-  font-size: 12px
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  // width: 80px;
+  // font-size: 12px
 }
 .selected {
   background-color: #ffe14f;

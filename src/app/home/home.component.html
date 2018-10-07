@@ -88,7 +88,8 @@
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
                     <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                    <h3>New Uploads [{{new_list.length}}]</h3>
+                    <!-- <h3><a [routerLink]="['/category','new-uploads']">New Uploads [{{new_list.length}}]</a></h3> -->
+                    <h3 ><a (click)="goToCategory('new-uploads',new_list)">  New Uploads [{{new_list.length}}]</a> </h3> 
                 </div>
             </div>
         </div>
@@ -115,12 +116,13 @@
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
                     <span class="heading-icon"><i class="fa fa-fire" aria-hidden="true"></i></span>
-                    <h3>Most Popular Videos [{{popularVideos_list.length}}]</h3>
+                    <!-- <h3><a [routerLink]="['/categories','most-popular-videos']">  Most Popular Videos [{{popularVideos_list.length}}]</a> </h3> -->
+                    <h3><a (click)="goToCategory('most-popular-videos',popularVideos_list)">  Most Popular Videos [{{popularVideos_list.length}}]</a> </h3> click here for more...
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of popularVideos_list; let $index = index">
+            <div class="col-md-3 themeix-half" *ngFor="let item of popularVideos_list.slice(0,4); let $index = index">
                 <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
                         <a> 
@@ -141,12 +143,13 @@
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
                     <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                    <h3>Air [{{air_list.length}}]</h3>
+                    <!-- <h3><a [routerLink]="['/categories','air']">Air [{{air_list.length}}]</a></h3> -->
+                    <h3><a (click)="goToCategory('air',air_list)">  Air [{{air_list.length}}]</a> </h3>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of air_list; let $index = index">
+            <div class="col-md-3 themeix-half" *ngFor="let item of air_list.slice(0,4); let $index = index">
                 <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
                         <a> 
@@ -167,12 +170,13 @@
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
                     <span class="heading-icon"><i class="fa fa-area-chart" aria-hidden="true"></i></span>
-                    <h3>Land [{{land_list.length}}]</h3>
+                    <!-- <h3><a [routerLink]="['/categories','land']">Land [{{land_list.length}}]</a></h3> -->
+                    <h3><a (click)="goToCategory('land',land_list)">  Land [{{land_list.length}}]</a> </h3>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of land_list; let $index = index">
+            <div class="col-md-3 themeix-half" *ngFor="let item of land_list.slice(0,4); let $index = index">
                 <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
                         <a> 
@@ -189,17 +193,18 @@
     </div>
         
         
-    <div class="container themeix-ptu" *ngIf="radio_list !== undefined && radio_list.length > 0">
+    <div class="container themeix-ptu" *ngIf="sea_list !== undefined && sea_list.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
                     <span class="heading-icon"><i class="fa fa-wifi" aria-hidden="true"></i></span>
-                    <h3>Radio [{{radio_list.length}}]</h3>
+                    <!-- <h3><a [routerLink]="['/categories','radio']">Radio [{{radio_list.length}}]</a></h3> -->
+                    <h3><a (click)="goToCategory('sea',sea_list)">  Sea [{{sea_list.length}}]</a> </h3>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of radio_list; let $index = index">
+            <div class="col-md-3 themeix-half" *ngFor="let item of sea_list.slice(0,4); let $index = index">
                 <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
                         <a> 
@@ -216,17 +221,20 @@
     </div>
     
         
-    <div class="container themeix-ptu" style="border-bottom: none" *ngIf="more_list !== undefined && more_list.length > 0">
+    <div class="container themeix-ptu" style="border-bottom: none" *ngIf="ted_list !== undefined && ted_list.length > 0">
         <div class="row">
             <div class="col-md-12">
                 <div class="themeix-section-h section-heading-four">
                     <span class="heading-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
-                    <h3>More [{{more_list.length}}]</h3>
+                    <!-- <h3><a [routerLink]="['/category/more']">More [{{more_list.length}}]</a></h3> -->
+                    <h3><a (click)="goToCategory('ted',ted_list)">  TED [{{ted_list.length}}]</a> </h3>
+
+                    
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of more_list; let $index = index">
+            <div class="col-md-3 themeix-half" *ngFor="let item of ted_list.slice(0,4); let $index = index">
                 <div class="single-video" (click)="imgClick(item)">
                     <div class="video-img">
                         <a> 
