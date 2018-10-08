@@ -21,12 +21,12 @@
     </div>
     <div class="video-counter">
         <div class="video-viewers" title="Number of Views">
-            <h3>{{ currentItem.views }}  views</h3>
+            <h3><span>{{ currentItem.views }}</span><span style="padding-left: 0.3rem;">views</span></h3>
         </div>
         <div class="video-like-counter">
             <app-like [item] = "currentItem"></app-like>      
-            <span style="font-size: 20px;"><a href="mailto:?subject=Recommended video for you!&body={{getVideoUrl()}}"><i class="fa fa-share-alt"></i></a></span>
-            <span title="Download">
+            <span title="Share" style="font-size: 20px;  padding-left: 0.5rem;"><a href="mailto:?subject=Recommended video for you!&body={{getVideoUrl()}}"><i class="fa fa-share-alt"></i></a></span>
+            <span title="Download" style="font-size: 20px; padding-left: 0.5rem;">
                 <a href="#" (click)="downloadVideo($event)"><i class="fa fa-download"></i></a>
             </span>
         </div>
