@@ -69,7 +69,7 @@ import { NoHyphenPipe } from './common/noHyphen.pipe';
   providers: [    
     MediaService,
     UsersService,
-    feature-share-video
+    feature-share-video,
     HttpClientModule,
     AuthGuardService
   ],
