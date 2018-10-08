@@ -41,19 +41,19 @@ const routes: Routes = [
   },  
   {
     path:'categories/:name',
-    component: CategoryComponent
+    component: CategoryComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'categories',
-    component: CategoryComponent
+    component: CategoryComponent,
+    canActivate: [AuthGuardService]
   },
   { 
     path: '**', 
     redirectTo: '' 
   }  
 ];
-
-
 
 @NgModule({
   imports: [
