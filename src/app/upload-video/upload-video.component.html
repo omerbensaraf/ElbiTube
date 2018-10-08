@@ -9,7 +9,7 @@
     <div class="row">
         <input [(ngModel)]="videoTitle" placeholder="Title" type="text" class="input--text" aria-label="Title" maxlength="30">
     </div>
-    <div class="row" style="margin: 0 0 10px 45px;">        
+    <div class="row" style="margin: 25px 0 25px 0px">        
         <div class="category" *ngFor="let category of categories">
             <span class="badge badge-pill badge-secondary" style="cursor: pointer" [class.selected]="category == selectedCategory" (click)="onClick(category)">{{ category }}</span>
         </div>
