@@ -1,0 +1,73 @@
+<ng-container *ngIf="name !== undefined; else elseTemplate">
+    <div class="categories">   
+        <div class="container pb-40" >
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-tag" aria-hidden="true"></i></span>
+                        <h3> <a [routerLink]="['/categories']" >Categories</a> / {{ name | removeHyphen }} </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row news-posts-wrapper">
+                <ng-container *ngIf="videos.length > 0; else elseTemplate">
+                  <div class="col-md-3 themeix-half" *ngFor="let item of videos; let $index = index" >
+                      <div class="single-video">
+                          <div class="video-img">
+                              <a (click)="goToVideo(item)"> 
+                                  <img [src]="item.imageSrc"
+                                  [class.selected]="item === currentItem">
+                              </a>
+                              <span class="video-duration">{{item.duration}}</span>
+                          </div>
+                      </div>
+                      <div class="video-content">
+                          <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                      </div>
+                  </div>
+                </ng-container>
+                <ng-template #elseTemplate>
+                  <div class="alert alert-danger" style="width: -webkit-fill-available;">
+                      No videos found in this category
+                  </div>
+                </ng-template>
+            </div>
+        </div>
+      </div>
+</ng-container>
+<ng-template #elseTemplate>
+    <div class="categories">   
+        <div class="container pb-40" >
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-tag" aria-hidden="true"></i></span>
+                        <h3>Categories</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row news-posts-wrapper">
+                <div class="col-md-4 themeix-half" *ngFor="let category of categories">
+                  <a (click)="goToCategory(category.name)" style="cursor: pointer"> 
+                      <div class="card card-style">
+                        <img class="card-img-top" [src]="category.img" width="339" height="154">
+                        <div class="card-body">
+                          <h5 class="card-title"> {{ category.name }}</h5>
+                          <p class="card-text"> {{ category.text }} </p>
+                        </div>
+                      </div>
+                      <!-- <div class="card card-style" >
+                        <div class="card-body">
+                          <h5 class="card-title">{{category.name}}</h5>
+                          <p class="card-text">{{category.text}}</p>
+                        </div>
+                      </div> -->
+                  </a>
+                </div>
+            </div>
+        </div>
+      </div>
+</ng-template>
+
+
+
