@@ -26,6 +26,12 @@
         <div class="video-like-counter">
             <app-like [item] = "currentItem"></app-like>      
             <span style="font-size: 20px;"><a href="mailto:?subject=Recommended video for you!&body={{getVideoUrl()}}"><i class="fa fa-share-alt"></i></a></span>
+            <span title="Download">
+                <a href="#" (click)="downloadVideo($event)"><i class="fa fa-download"></i></a>
+            </span>
         </div>
+    </div>
+    <div class="download-video-message" [ngStyle]="isShowDownloadMessage()">
+        {{downloadMessage}}
     </div>
 </div>
