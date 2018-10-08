@@ -26,6 +26,9 @@ import { VideoPropertiesMinComponent } from './components/video-properties/video
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import {AuthGuardService} from './services/auth-guard.service';
+import { CategoryComponent } from './components/category/category.component';
+import { NoHyphenPipe } from './common/noHyphen.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +46,9 @@ import {AuthGuardService} from './services/auth-guard.service';
     SearchResultsComponent,
     WatchComponent,
     VideoPropertiesMinComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
+    CategoryComponent,
+    NoHyphenPipe
   ],
   imports: [
     BrowserModule,
@@ -64,6 +69,7 @@ import {AuthGuardService} from './services/auth-guard.service';
   providers: [    
     MediaService,
     UsersService,
+    feature-share-video
     HttpClientModule,
     AuthGuardService
   ],
