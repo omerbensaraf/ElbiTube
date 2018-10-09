@@ -28,7 +28,7 @@ export class CategoryComponent implements OnInit {
       {
         name: 'Most Popular Videos', 
         text: 'videos with highest views number',
-        img: './assets/images/tiger.png'
+        img: './assets/images/bestseller.png'
       },
       {
         name: 'Air', 
