@@ -20,6 +20,22 @@ import { IMedia } from '../../models/imadia.model';
 export class CategoryComponent implements OnInit {
   name: string;
   categories = [
+
+      {
+        name: 'Air', 
+        text: 'Air & Helicopters & Simulation',
+        img: './assets/images/uav.png'
+      },
+      {  
+        name: 'Land',
+        text: 'C4I',
+        img: './assets/images/land.png'
+      },
+      {
+        name: 'Sea', 
+        text: 'Under Water vehicles',
+        img: './assets/images/sea.png'
+      },
       {
         name: 'New Uploads', 
         text: 'uploads from the current week',
@@ -29,21 +45,6 @@ export class CategoryComponent implements OnInit {
         name: 'Most Popular Videos', 
         text: 'videos with highest views number',
         img: './assets/images/bestseller.png'
-      },
-      {
-        name: 'Air', 
-        text: 'air & simulation',
-        img: './assets/images/uav.png'
-      },
-      {  
-        name: 'Land',
-        text: 'c4i',
-        img: './assets/images/land.png'
-      },
-      {
-        name: 'Sea', 
-        text: 'under ground vehicles',
-        img: './assets/images/sea.png'
       },
       {
         name: 'TED',
