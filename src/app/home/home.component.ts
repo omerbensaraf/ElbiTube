@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
       this.homeLoading=true;
     });    
   }
-
+  
   imgClick(item:IMedia){
     this.router.navigate(['/watch', item._id]);
   }

@@ -113,7 +113,6 @@ export class LoginComponent implements OnInit {
     if (isFormValid) {
      this.usersService.signIn(this.email, this.password).subscribe(
         (data) => {
-          debugger;
           this.hideShowSignInModal(false);
           this.usersService.changeloggedInUser(data['email']);
           this.hideShowSignInModal(false);
