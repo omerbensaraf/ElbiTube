@@ -9,8 +9,12 @@ router.get('/getAllComments', (req, res) =>{
     })
 });
 
-router.post('/postComment', (req, res) => {
-    console.log("popopopopo");
+router.post('/postComment', (req, res, next) => {
+    Comment.create(req.body.comment).then((result)=> {          
+        res.status(201).json({
+            message: 'Comment Added'
+        });
+    });
 });
 
 module.exports = router;

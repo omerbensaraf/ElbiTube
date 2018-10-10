@@ -4,6 +4,7 @@ import {CommentComponent} from '../comment/comment.component';
 import {UsersService} from '../../services/users.service';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment.model';
+import swal from 'sweetalert2';
 @Component({
   selector: 'ngc-comments',
   styleUrls: ['./comments.component.scss'],
@@ -46,7 +47,6 @@ export class CommentsComponent implements OnInit{
         changes.comments.currentValue === undefined) {
       this.comments = [];
     }
-    
   }
 
   // Adding a new comment from the newCommentContent field that is 
@@ -62,7 +62,9 @@ export class CommentsComponent implements OnInit{
       disLikeUsers:[],
       likeUsers:[]
     };
-    this.commentService.postComment(comment);
+    this.commentService.postComment(comment).subscribe(data=>{
+      swal('Thank for your comment','success');
+    });
     // Emit event so the updated comment list can be persisted 
     // outside the component
     //this.commentsUpdated.next(comments);
@@ -81,6 +83,7 @@ export class CommentsComponent implements OnInit{
       // Otherwise we're replacing the existing comment
       comments.splice(comments.indexOf(comment), 1, {
         videoId : "123",
+        parent : null,
         user: this.userService.getUserEmail(),
         time: +new Date(),
         content: this.newCommentEditor.getEditableContent(),

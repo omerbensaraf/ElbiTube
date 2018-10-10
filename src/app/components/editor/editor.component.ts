@@ -1,5 +1,5 @@
 
-import {Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, HostBinding, HostListener} from '@angular/core';
+import { Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, HostBinding, HostListener } from '@angular/core';
 //import template from './editor.html!text';
 
 @Component({
@@ -8,7 +8,8 @@ import {Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, Ho
     class: 'editor'
   },
   templateUrl: './editor.component.html',
- // template,
+  // template,
+  styleUrls: ['./editor.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent {
@@ -42,7 +43,7 @@ export class EditorComponent {
 
   // This sets the content of our content editable
   setEditableContent(content) {
-    this.editableContentElement.nativeElement.textContent = 
+    this.editableContentElement.nativeElement.textContent =
       content;
   }
 

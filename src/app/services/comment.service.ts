@@ -15,7 +15,10 @@ export class CommentService {
   }
 
   postComment(comment : any){
-    return this.http.post(this.baseUrl + '/postComment',comment);
+    const request = {
+      comment: comment
+    };
+    return this.http.post(this.baseUrl + '/postComment',request);
   }
 
 }
