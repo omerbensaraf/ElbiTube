@@ -17,8 +17,8 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   getUserEmail(){
-     return this.userSource.getValue();
-    //return "omerBenSaraf@gmail.com";
+     //return this.userSource.getValue();
+    return "lavidnet@gmail.com";
   }
 
   signIn(email: string, password: string) {

@@ -8,18 +8,13 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'ngc-comments',
   styleUrls: ['./comments.component.scss'],
-  // host: {
-  //   class: 'comments'
-  // },
-  templateUrl: './comments.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './comments.component.html'
 })
 export class CommentsComponent implements OnInit{
   hasComments : boolean;
   // A list of comment objects
   comments :  Array<Comment>;
-  // Event when the list of comments have been updated
-  @Output() commentsUpdated = new EventEmitter();
+
   // We are using an editor for adding new comments and control it 
   // directly using a reference
   @ViewChild(EditorComponent) newCommentEditor;
@@ -28,12 +23,12 @@ export class CommentsComponent implements OnInit{
   // We're using the user service to obtain the currently logged 
   // in user
   constructor(private userService : UsersService, private commentService : CommentService) {
+    debugger;
     this.userService = userService;
   }
 
   ngOnInit() {
-    debugger;
-    this.commentService.getAllComments().subscribe((res)=>{
+    this.commentService.getAllRootComments(this.video).subscribe((res)=>{
       debugger;
       this.comments = res
     this.hasComments = this.comments.length > 0;
@@ -65,37 +60,8 @@ export class CommentsComponent implements OnInit{
     this.commentService.postComment(comment).subscribe(data=>{
       swal('Thank for your comment','success');
     });
-    // Emit event so the updated comment list can be persisted 
-    // outside the component
-    //this.commentsUpdated.next(comments);
+
     // We reset the content of the editor
     this.newCommentEditor.setEditableContent('');
-  }
-
-  // This method deals with edited comments
-  onCommentEdited(comment, content) {
-    const comments = this.comments.slice();
-    // If the comment was edited with e zero length content, we 
-    // will delete the comment from the list
-    if (content.length === 0) {
-      comments.splice(comments.indexOf(comment), 1);
-    } else {
-      // Otherwise we're replacing the existing comment
-      comments.splice(comments.indexOf(comment), 1, {
-        videoId : "123",
-        parent : null,
-        user: this.userService.getUserEmail(),
-        time: +new Date(),
-        content: this.newCommentEditor.getEditableContent(),
-        disLikeUsers:[],
-        likeUsers:[]
-        /*user: comment.user,
-        time: comment.time,
-        content*/
-      });
-    }
-    // Emit event so the updated comment list can be persisted 
-    // outside the component
-    this.commentsUpdated.next(comments);
   }
 }

@@ -1,29 +1,22 @@
 
 import { Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, HostBinding, HostListener } from '@angular/core';
-//import template from './editor.html!text';
 
 @Component({
   selector: 'ngc-editor',
-  host: {
-    class: 'editor'
-  },
   templateUrl: './editor.component.html',
-  // template,
-  styleUrls: ['./editor.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent {
   // Using view child reference with local view variable name
   @ViewChild('editableContentElement') editableContentElement;
   // Content that will be edited and displayed
   @Input() content;
-  // Creating a host element class attribute binding from the 
-  // editMode property
-  @Input() @HostBinding('class.editor--edit-mode') editMode;
-  @Input() showControls;
+  @Input() video;
+  @Input() btnText;
   @Output() editSaved = new EventEmitter();
   @Output() editableInput = new EventEmitter();
-
+  showEditor : boolean = false;
+  input : boolean = true;
   // We need to make sure to reflect to our editable element if 
   // content gets updated from outside
   ngOnChanges() {
@@ -31,6 +24,11 @@ export class EditorComponent {
       this.setEditableContent(this.content);
     }
   }
+
+  toggleEditor(){
+    this.showEditor = !this.showEditor;
+  }
+
 
   ngAfterViewInit() {
     this.setEditableContent(this.content);
@@ -49,18 +47,26 @@ export class EditorComponent {
 
   // This annotation will create a click event listener on the 
   // host element that will invoke the underlying method
-  @HostListener('click')
+  /*@HostListener('click')
   focusEditableContent() {
     if (this.editMode) {
       this.editableContentElement.nativeElement.focus();
     }
-  }
+  }*/
 
   // Method that will be invoked if our editable element is 
   // changed
   onInput() {
     // Emit a editableInput event with the edited content
-    this.editableInput.next(this.getEditableContent());
+    let content = this.getEditableContent();
+    if(content != ""){
+      this.input = true;
+    }
+    else{
+      this.input = false;
+    }
+    
+    this.editableInput.next(content);
   }
 
   // On save we reflect the content of the editable element into 
@@ -70,20 +76,20 @@ export class EditorComponent {
     this.setEditableContent(this.content);
     // Setting editMode to false to switch the editor back to 
     // viewing mode
-    this.editMode = false;
+    //this.editMode = false;
   }
 
   // Canceling the edit will not reflect the edited content and 
   // switch back to viewing mode
   cancel() {
+    debugger;
+    this.showEditor = ! this.showEditor;
     this.setEditableContent(this.content);
     this.editableInput.next(this.getEditableContent());
-    this.editMode = false;
+    //this.editMode = false;
   }
 
-  // The edit method will initialize the editable element and set 
-  // the component into edit mode
-  edit() {
-    this.editMode = true;
-  }
+  
+
+
 }

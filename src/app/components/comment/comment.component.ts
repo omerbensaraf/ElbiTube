@@ -6,11 +6,7 @@ import {FromNowPipe} from '../../pipes/from-now.pipe';
 
 @Component({
   selector: 'ngc-comment',
-  host: {
-    class: 'comment'
-  },
-  templateUrl: './comment.component.html',
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './comment.component.html'
 })
 export class CommentComponent implements OnInit{
   // The time of the comment as a timestamp
@@ -19,8 +15,6 @@ export class CommentComponent implements OnInit{
   @Input() user;
   // The comment content
   @Input() content;
-  // If a comment was edited this event will be emitted
-  @Output() commentEdited = new EventEmitter();
 
   ngOnInit() {debugger;}
 
@@ -28,7 +22,4 @@ export class CommentComponent implements OnInit{
     debugger;
   }
 
-  onContentSaved(content) {
-    this.commentEdited.next(content);
-  }
 }
