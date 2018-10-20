@@ -15,6 +15,12 @@ export class CommentService {
     return this.http.get<Array<Comment>>(this.baseUrl + '/getAllRootComments',{params});
   }
 
+  getReplies(commentId : string) : Observable<Array<Comment>> {
+    debugger;
+    const params = new HttpParams().set('commentId',commentId);
+    return this.http.get<Array<Comment>>(this.baseUrl + '/getReplies',{params});
+  }
+
   postComment(comment : any){
     const request = {
       comment: comment

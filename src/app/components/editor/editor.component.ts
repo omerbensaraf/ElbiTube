@@ -1,5 +1,5 @@
 
-import { Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, HostBinding, HostListener } from '@angular/core';
+import { Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, HostBinding, HostListener, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'ngc-editor',
@@ -8,88 +8,48 @@ import { Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, H
 })
 export class EditorComponent {
   // Using view child reference with local view variable name
-  @ViewChild('editableContentElement') editableContentElement;
+  @ViewChild('editableContentElement') editableContentElement: ElementRef;
   // Content that will be edited and displayed
   @Input() content;
   @Input() video;
   @Input() btnText;
+  @Output() newComment = new EventEmitter();
   @Output() editSaved = new EventEmitter();
   @Output() editableInput = new EventEmitter();
-  showEditor : boolean = false;
-  input : boolean = true;
-  // We need to make sure to reflect to our editable element if 
-  // content gets updated from outside
-  ngOnChanges() {
-    if (this.editableContentElement && this.content) {
-      this.setEditableContent(this.content);
-    }
-  }
+  showEditor: boolean = false;
+  enableNewComment: boolean = true;
 
-  toggleEditor(){
+  toggleEditor() {
     this.showEditor = !this.showEditor;
   }
 
-
-  ngAfterViewInit() {
-    this.setEditableContent(this.content);
+  addNewComment() {
+    this.newComment.emit(this.editableContentElement.nativeElement.value);
   }
 
   // This returns the content of our content editable
   getEditableContent() {
-    return this.editableContentElement.nativeElement.textContent;
+    return this.editableContentElement.nativeElement.value;
   }
 
   // This sets the content of our content editable
   setEditableContent(content) {
-    this.editableContentElement.nativeElement.textContent =
+    this.editableContentElement.nativeElement.value =
       content;
   }
 
-  // This annotation will create a click event listener on the 
-  // host element that will invoke the underlying method
-  /*@HostListener('click')
-  focusEditableContent() {
-    if (this.editMode) {
-      this.editableContentElement.nativeElement.focus();
-    }
-  }*/
-
-  // Method that will be invoked if our editable element is 
-  // changed
   onInput() {
-    // Emit a editableInput event with the edited content
     let content = this.getEditableContent();
-    if(content != ""){
-      this.input = true;
+    if (content != "") {
+      this.enableNewComment = false;
     }
-    else{
-      this.input = false;
+    else {
+      this.enableNewComment = true;
     }
-    
-    this.editableInput.next(content);
   }
 
-  // On save we reflect the content of the editable element into 
-  // the content field and emit an event
-  save() {
-    this.editSaved.next(this.getEditableContent());
-    this.setEditableContent(this.content);
-    // Setting editMode to false to switch the editor back to 
-    // viewing mode
-    //this.editMode = false;
-  }
-
-  // Canceling the edit will not reflect the edited content and 
-  // switch back to viewing mode
   cancel() {
-    debugger;
-    this.showEditor = ! this.showEditor;
-    this.setEditableContent(this.content);
-    this.editableInput.next(this.getEditableContent());
-    //this.editMode = false;
+    this.showEditor = !this.showEditor;
+    this.setEditableContent("");
   }
-
-  
-
-
 }

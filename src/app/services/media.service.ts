@@ -16,7 +16,7 @@ export class MediaService {
           'Content-Type':  'text/plain'
         })
       };
-    private url = 'http://11.0.73.2:3000';
+    private url = 'http://localhost:3000';
     private socket;
     playList: Array<IMedia> = [];
     
@@ -80,6 +80,15 @@ export class MediaService {
     public getLikeUpdates = () => {
         return Observable.create((observer) => {
             this.socket.on('update-like-counter', (item) => {
+                observer.next(item);
+            });
+        })
+    };
+
+
+    public updateComment = () => {
+        return Observable.create((observer) => {
+            this.socket.on('update-comment', (item) => {
                 observer.next(item);
             });
         })

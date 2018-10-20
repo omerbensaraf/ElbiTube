@@ -7,3 +7,9 @@ export interface Comment {
     likeUsers : String[];
     disLikeUsers : String[];
   }
+
+
+export enum ReplayStatus{
+  VR = "View replies",
+  HR = "Hide replies"
+}

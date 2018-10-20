@@ -1,9 +1,24 @@
 <div>
   <span style="font-weight: bold">{{user}}</span>
   <span style="color:gray;margin-left: 5px;text-overflow: clip">{{time | fromNow}}</span>
-  <ngc-editor [content]="content"  btnText="Replay">
-</ngc-editor>
+
+
+  <div style="font-weight: bold">{{content}}</div>
   <span class="fa fa-thumbs-o-up"> 2 </span>
   <span class="fa fa-thumbs-o-down"> 1 </span>
-</div> 
+</div>
+<ngc-editor [video]="video" (newComment)="addNewComment($event)" btnText="Replay">
+</ngc-editor>
+
+<button (click)="viewReplies()" class="btn btn-danger btn-sm">{{replayText}}</button>
+<div *ngIf="showReplies">
+  <div>
+    <ul class="comments__list">
+      <li *ngFor="let replay of replies">
+        <ngc-comment [parent]="replay._id" [video]="replay.videoId" [content]="replay.content" [time]="replay.time" [user]="replay.user">
+        </ngc-comment>
+      </li>
+    </ul>
+  </div>
+</div>
 <br/>

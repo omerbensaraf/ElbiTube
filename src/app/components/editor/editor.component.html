@@ -3,6 +3,6 @@
   <textarea [placeholder]="btnText" rows="3" (input)="onInput($event)" class="editor" #editableContentElement></textarea>
   <div style="float: right">
     <button (click)="cancel()" class="btn btn-danger btn-sm">Cancel</button>
-    <button (click)="addNewComment()" [disabled]="input" class="btn btn-primary btn-sm">Add comment</button>
+    <button (click)="addNewComment()" [disabled]="enableNewComment" class="btn btn-primary btn-sm">{{btnText}}</button>
   </div>
 </div>

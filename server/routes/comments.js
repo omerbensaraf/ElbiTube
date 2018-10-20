@@ -14,6 +14,18 @@ router.get('/getAllRootComments', (req, res) =>{
     })
 });
 
+
+router.get('/getReplies', (req, res) =>{
+    console.log(req.query.commentId);
+    let replies = {
+        parent : req.query.commentId
+    }
+    mongoose.model('Comment').find(replies, function (err,comments) {
+        res.send(comments);
+    })
+});
+
+
 router.post('/postComment', (req, res, next) => {
     Comment.create(req.body.comment).then((result)=> {          
         res.status(201).json({
