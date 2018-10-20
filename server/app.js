@@ -54,6 +54,9 @@ let io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('user connected');
 
+    socket.on('newComment',function(comment){
+        addComment(comment);
+    });
 
     socket.on('AddLike', function(id,userEmail) {
         addLike(id,userEmail);
@@ -130,6 +133,18 @@ app.get('/videos', function (req,res) {
         res.send(videos);
     })
 });
+
+function addComment (comment) {
+    Comment.create(comment).then((result)=> {  
+        let comments = {
+            parent : comment.parent
+        }
+        mongoose.model('Comment').find(comments, function (err,comments) {
+            io.emit("update-comment",comments);
+        })        
+        
+    });
+}
 
 function addLike (id,userEmail) {
     var query = {_id: id};

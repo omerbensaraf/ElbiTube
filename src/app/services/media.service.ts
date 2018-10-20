@@ -86,14 +86,6 @@ export class MediaService {
     };
 
 
-    public updateComment = () => {
-        return Observable.create((observer) => {
-            this.socket.on('update-comment', (item) => {
-                observer.next(item);
-            });
-        })
-    };
-
     postFile(fileToUpload: File , fileName : string ,selectedCategory : string) {
         const endpoint =  'http://11.0.73.2:3000/upload';
         const formData: FormData = new FormData();

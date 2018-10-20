@@ -29,9 +29,19 @@ export class CommentsComponent implements OnInit{
     this.commentService.getAllRootComments(this.video).subscribe((res)=>{
     this.comments = res;
     this.hasComments = this.comments.length > 0;
+    });
+    this.commentService.updateComment().subscribe((comments: any) => {
+      debugger;
+    if(comments.length > 0 && comments[0].parent == null){
+      this.comments = comments;
+      /*if(comments[0].user == this.userService.getUserEmail()){
+        swal('Thank for your comment','success');
+      }*/
+      
+    }
   });
-  }
-  
+}
+
   addNewComment($event) {
     debugger;
     const comment =  {
@@ -43,9 +53,9 @@ export class CommentsComponent implements OnInit{
       disLikeUsers:[],
       likeUsers:[]
     };
-    this.commentService.postComment(comment).subscribe(data=>{
+    this.commentService.commentSocket(comment);/*.subscribe(data=>{
       swal('Thank for your comment','success');
-    });
+    });*/
 
     // We reset the content of the editor
     this.newCommentEditor.setEditableContent('');

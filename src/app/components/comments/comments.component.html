@@ -14,7 +14,7 @@
  
   <ul class="comments__list">
     <li *ngFor="let comment of comments">
-      <ngc-comment [parent]="comment._id" [video]="comment.videoId" [content]="comment.content" [time]="comment.time" [user]="comment.user">
+      <ngc-comment [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content" [time]="comment.time" [user]="comment.user">
       </ngc-comment>
     </li>
   </ul>

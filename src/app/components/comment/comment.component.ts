@@ -21,9 +21,20 @@ export class CommentComponent implements OnInit {
 
   @Input() video;
 
-  @Input() parent;
+  @Input() commentId;
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.commentService.updateComment().subscribe((replies: any) => {
+      debugger;
+      if (replies.length > 0 && this.commentId == replies[0].parent) {
+        this.replies = replies;
+        /*if(replies[0].user == this.user){
+          swal('Thank for your comment', 'success');
+        }*/
+        
+      }
+    });
+  }
 
   replies: Array<any> = [];
 
@@ -37,7 +48,7 @@ export class CommentComponent implements OnInit {
   viewReplies() {
     if (this.replayStatus == ReplayStatus.HR) {
       if (this.replies.length == 0) {
-        this.commentService.getReplies(this.parent).subscribe((res) => {
+        this.commentService.getReplies(this.commentId).subscribe((res) => {
           debugger;
           this.replies = res;
           this.replayStatus = ReplayStatus.VR;
@@ -65,7 +76,7 @@ export class CommentComponent implements OnInit {
   addNewComment($event) {
     debugger;
     const comment = {
-      parent: this.parent,
+      parent: this.commentId,
       videoId: this.video,
       user: this.user,
       time: +new Date(),
@@ -73,9 +84,10 @@ export class CommentComponent implements OnInit {
       disLikeUsers: [],
       likeUsers: []
     };
-    this.commentService.postComment(comment).subscribe(data => {
+    /*this.commentService.postComment(comment).subscribe(data => {
       swal('Thank for your comment', 'success');
-    });
+    });*/
+    this.commentService.commentSocket(comment);
 
     // We reset the content of the editor
     this.newCommentEditor.setEditableContent('');

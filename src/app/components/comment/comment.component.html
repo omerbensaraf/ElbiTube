@@ -15,7 +15,7 @@
   <div>
     <ul class="comments__list">
       <li *ngFor="let replay of replies">
-        <ngc-comment [parent]="replay._id" [video]="replay.videoId" [content]="replay.content" [time]="replay.time" [user]="replay.user">
+        <ngc-comment [commentId]="replay._id" [video]="replay.videoId" [content]="replay.content" [time]="replay.time" [user]="replay.user">
         </ngc-comment>
       </li>
     </ul>
