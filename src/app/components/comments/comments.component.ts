@@ -31,9 +31,9 @@ export class CommentsComponent implements OnInit{
     this.hasComments = this.comments.length > 0;
     });
     this.commentService.updateComment().subscribe((comments: any) => {
-      debugger;
     if(comments.length > 0 && comments[0].parent == null){
       this.comments = comments;
+      this.hasComments = true;
       /*if(comments[0].user == this.userService.getUserEmail()){
         swal('Thank for your comment','success');
       }*/
