@@ -9,7 +9,8 @@ var commentSchema = new Schema({
   time : Number,
   content : String,
   likeUsers : [String],
-  disLikeUsers : [String]
+  disLikeUsers : [String],
+  counter : Number
 });
 
 // Create a model to compile the schema

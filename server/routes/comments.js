@@ -27,11 +27,33 @@ router.get('/getReplies', (req, res) =>{
 
 
 router.post('/postComment', (req, res, next) => {
-    Comment.create(req.body.comment).then((result)=> {          
+    console.log("ppppppppppppppp");
+    Comment.create(req.body.comment).then((result)=> {
+        console.log("ppppppppppppppp"); 
+        updateParentsCounter(req.body.comment.parent);
         res.status(201).json({
             message: 'Comment Added'
         });
     });
 });
+
+
+function updateParentsCounter(parent){
+    console.log(parent);
+    let currParent = parent;
+    while(parent !== null){
+        let query = { _id : parent };
+        let options = { new: true }; 
+        mongoose.model('Video').findOneAndUpdate(query, {$inc: {counter: 1}} ,options,
+            function(err, doc) {
+            if (err)
+                return res.status(500).json(err);
+            else {
+                currParent = doc.parent;
+                console.log(currParent);
+            }
+        })
+    }
+}
 
 module.exports = router;

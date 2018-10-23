@@ -135,16 +135,40 @@ app.get('/videos', function (req,res) {
 });
 
 function addComment (comment) {
-    Comment.create(comment).then((result)=> {  
+    Comment.create(comment) .then((result)=> {
+        console.log("ppppppppppppppp"); 
+        console.log(comment.parent); 
+        updateParentsCounter(comment.parent);
         let comments = {
             parent : comment.parent
         }
         mongoose.model('Comment').find(comments, function (err,comments) {
             io.emit("update-comment",comments);
-        })        
-        
-    });
+        })
+    });  
 }
+
+function updateParentsCounter(parent){
+    console.log(parent);
+    let currParent = parent;
+    while(currParent !== null){
+        console.log("kkkkkkk");
+        let query = { _id : currParent };
+        //let options = { new: true }; 
+        console.log("ggggggggg");
+        mongoose.model('Video').findOneAndUpdate(query, {$inc: {counter: 1}},
+            function(err, doc) {
+                console.log(doc);
+            if (err)
+                return res.status(500).json(err);
+            else {
+                currParent = doc.parent;
+                console.log(currParent);
+            }
+        })
+    }
+}
+
 
 function addLike (id,userEmail) {
     var query = {_id: id};

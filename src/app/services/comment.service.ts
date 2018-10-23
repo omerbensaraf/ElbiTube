@@ -34,6 +34,7 @@ export class CommentService {
     const request = {
       comment: comment
     };
+    debugger;
     return this.http.post(this.baseUrl + '/postComment', request);
   }
 

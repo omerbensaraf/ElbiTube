@@ -6,6 +6,7 @@ export interface Comment {
     videoId : String,
     likeUsers : String[];
     disLikeUsers : String[];
+    counter : number;
   }
 
 

@@ -51,7 +51,8 @@ export class CommentsComponent implements OnInit{
       time: +new Date(),
       content: $event,
       disLikeUsers:[],
-      likeUsers:[]
+      likeUsers:[],
+      counter : 1
     };
     this.commentService.commentSocket(comment);/*.subscribe(data=>{
       swal('Thank for your comment','success');
