@@ -1,4 +1,4 @@
-import { Component, Input, Output, ViewChild, ViewEncapsulation, EventEmitter, OnInit } from '@angular/core';
+import { Component,SimpleChanges, Input, Output, ViewChild, ViewEncapsulation, EventEmitter, OnInit,OnChanges } from '@angular/core';
 import { EditorComponent } from '../editor/editor.component';
 // We use our fromNow pipe that converts timestamps to relative 
 // times
@@ -11,7 +11,7 @@ import { ReplayStatus } from '../../models/comment.model';
   selector: 'ngc-comment',
   templateUrl: './comment.component.html'
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit,OnChanges {
   // The time of the comment as a timestamp
   @Input() time;
   // The user object of the user who created the comment
@@ -23,36 +23,48 @@ export class CommentComponent implements OnInit {
 
   @Input() commentId;
 
+  @Input() repliesCounter;
+  repliesCount : number;
   ngOnInit() {
+  this.repliesCount = this.repliesCounter;
+  this.replayText = "View " + this.replies.length + " replies"; 
     this.commentService.updateComment().subscribe((replies: any) => {
       debugger;
       if (replies.length > 0 && this.commentId == replies[0].parent) {
         this.replies = replies;
+        this.repliesCount++;
         /*if(replies[0].user == this.user){
           swal('Thank for your comment', 'success');
         }*/
-        
       }
     });
   }
 
+  ngOnChanges(changes : SimpleChanges) {
+    debugger;
+  }
+
+
   replies: Array<any> = [];
 
   showReplies: Boolean;
-  replayText = ReplayStatus.VR;
+  replayText;// = ReplayStatus.VR;
   replayStatus: ReplayStatus = ReplayStatus.HR;
   constructor(private commentService: CommentService) { }
 
   @ViewChild(EditorComponent) newCommentEditor;
 
   viewReplies() {
+    debugger;
+    //TODO change to this.replies.length == 0
     if (this.replayStatus == ReplayStatus.HR) {
-      if (this.replies.length == 0) {
+      if (this.replies.length >= 0) {
         this.commentService.getReplies(this.commentId).subscribe((res) => {
           debugger;
           this.replies = res;
           this.replayStatus = ReplayStatus.VR;
-          this.replayText = ReplayStatus.HR;
+          //this.replayText = ReplayStatus.HR;
+          this.replayText = "Hide " + this.replies.length + " replies"; 
           if (this.replies.length > 0) {
             this.showReplies = true;
           }
@@ -60,14 +72,16 @@ export class CommentComponent implements OnInit {
       }
       else {
         this.replayStatus = ReplayStatus.VR;
-        this.replayText = ReplayStatus.HR;
+        //this.replayText = ReplayStatus.HR;
+        this.replayText = "Hide " + this.replies.length + " replies";
         this.showReplies = true;
 
       }
     }
     else {
       this.replayStatus = ReplayStatus.HR;
-      this.replayText = ReplayStatus.VR;
+      //this.replayText = ReplayStatus.VR;
+      this.replayText = "View " + this.replies.length + " replies";
       this.showReplies = false;
     }
   }
