@@ -18,7 +18,7 @@ export class CommentComponent implements OnInit,OnChanges {
   @Input() user;
   // The comment content
   @Input() content;
-
+  @Input() comment;
   @Input() video;
 
   @Input() commentId;
@@ -105,6 +105,7 @@ export class CommentComponent implements OnInit,OnChanges {
   addNewComment($event) {
     debugger;
     const comment = {
+      sname : "Comment",
       parent: this.commentId,
       videoId: this.video,
       user: this.user,

@@ -54,8 +54,8 @@ export class MediaService {
         this.http.put(requestUrl,video).subscribe(data => console.log(data));
     }
 
-    likeSocket(update : Updates, id :String, userEmail :String ){
-        this.socket.emit(update, id, userEmail);
+    likeSocket(update : Updates, id :String, userEmail :String, model : String ){
+        this.socket.emit(update, id, userEmail,model);
     }
     
     changeVideoProperties(item: IMedia) {
@@ -78,6 +78,7 @@ export class MediaService {
     }
 
     public getLikeUpdates = () => {
+        debugger;
         return Observable.create((observer) => {
             this.socket.on('update-like-counter', (item) => {
                 observer.next(item);

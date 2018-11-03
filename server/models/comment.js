@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 // Create a schema
 var commentSchema = new Schema({
+  sname : String,
   parent : {type: Schema.Types.ObjectId, ref: 'Comment', required: false},
   videoId: {type: Schema.Types.ObjectId, ref: 'Video', required: true},
   user :  String,

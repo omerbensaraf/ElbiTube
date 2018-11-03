@@ -10,12 +10,12 @@
 
 <div *ngIf="hasComments">
   <div>
-    <div class="comments__title">All comments</div>
+    <!-- <div class="comments__title">All comments</div> -->
 
     <ul class="comments__list">
       <li *ngFor="let comment of comments">
         <ngc-comment (updateParent)="updateChild($event)" [repliesCounter]="comment.counter - 1"
-         [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content"
+        [comment] = "comment" [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content"
           [time]="comment.time" [user]="comment.user">
         </ngc-comment>
       </li>

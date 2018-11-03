@@ -1,4 +1,5 @@
 export interface Comment {
+    sname : String,
     _id : String,
     parent : String,
     user : String,

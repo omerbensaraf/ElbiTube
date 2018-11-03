@@ -54,6 +54,7 @@ updateChild($event){
   addNewComment($event) {
     debugger;
     const comment =  {
+      sname : "Comment",
       parent : null,
       videoId :this.video,
       user: this.userService.getUserEmail(),
