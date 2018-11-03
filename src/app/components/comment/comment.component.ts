@@ -24,20 +24,32 @@ export class CommentComponent implements OnInit,OnChanges {
   @Input() commentId;
 
   @Input() repliesCounter;
+
+  @Output() updateParent = new EventEmitter();
   repliesCount : number;
+  
   ngOnInit() {
   this.repliesCount = this.repliesCounter;
-  this.replayText = "View " + this.replies.length + " replies"; 
+  //this.replayText = "View " + this.repliesCount + " replies"; 
+  this.replayText = "View replies"; 
     this.commentService.updateComment().subscribe((replies: any) => {
       debugger;
       if (replies.length > 0 && this.commentId == replies[0].parent) {
         this.replies = replies;
-        this.repliesCount++;
-        /*if(replies[0].user == this.user){
-          swal('Thank for your comment', 'success');
-        }*/
+        this.repliesCount = replies.length;
+
+        this.updateParent.emit({commentId : this.commentId,repliesCounter: this.replies.length});
       }
     });
+  }
+
+  updateChild($event){
+    this.replies.forEach(replay=>{
+      if(replay._id === $event.commentId){
+        replay.counter = $event.repliesCounter;
+      }
+    })
+    debugger;
   }
 
   ngOnChanges(changes : SimpleChanges) {
@@ -64,7 +76,8 @@ export class CommentComponent implements OnInit,OnChanges {
           this.replies = res;
           this.replayStatus = ReplayStatus.VR;
           //this.replayText = ReplayStatus.HR;
-          this.replayText = "Hide " + this.replies.length + " replies"; 
+          //this.replayText = "Hide " + this.replies.length + " replies"; 
+          this.replayText = "Hide replies"; 
           if (this.replies.length > 0) {
             this.showReplies = true;
           }
@@ -73,7 +86,8 @@ export class CommentComponent implements OnInit,OnChanges {
       else {
         this.replayStatus = ReplayStatus.VR;
         //this.replayText = ReplayStatus.HR;
-        this.replayText = "Hide " + this.replies.length + " replies";
+        //this.replayText = "Hide " + this.replies.length + " replies";
+        this.replayText = "Hide replies";
         this.showReplies = true;
 
       }
@@ -81,7 +95,8 @@ export class CommentComponent implements OnInit,OnChanges {
     else {
       this.replayStatus = ReplayStatus.HR;
       //this.replayText = ReplayStatus.VR;
-      this.replayText = "View " + this.replies.length + " replies";
+      //this.replayText = "View " + this.replies.length + " replies";
+      this.replayText = "View replies";
       this.showReplies = false;
     }
   }

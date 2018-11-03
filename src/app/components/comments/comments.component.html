@@ -1,21 +1,23 @@
 <!-- <div class="comments__title">Add new comment</div>
 <div class="comments__add-comment-section">
   <div class="comments__add-comment-box"> -->
-    <ngc-editor [video] ="video" btnText="Add Comment" (newComment) = "addNewComment($event)"></ngc-editor>
-  <!-- </div> -->
-  <!-- <button (click)="addNewComment()" class="btn-primary" style="margin-left: 500px;">Add comment</button> -->
+<ngc-editor (newComment)="addNewComment($event)" btnText="Add Comment"></ngc-editor>
+<!-- </div> -->
+<!-- <button (click)="addNewComment()" class="btn-primary" style="margin-left: 500px;">Add comment</button> -->
 <!-- </div> -->
 
 
 
 <div *ngIf="hasComments">
-<div>
-  <div class="comments__title">All comments</div>
- 
-  <ul class="comments__list">
-    <li *ngFor="let comment of comments">
-      <ngc-comment [repliesCounter] = "comment.counter" [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content" [time]="comment.time" [user]="comment.user">
-      </ngc-comment>
-    </li>
-  </ul>
-</div>
+  <div>
+    <div class="comments__title">All comments</div>
+
+    <ul class="comments__list">
+      <li *ngFor="let comment of comments">
+        <ngc-comment (updateParent)="updateChild($event)" [repliesCounter]="comment.counter - 1"
+         [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content"
+          [time]="comment.time" [user]="comment.user">
+        </ngc-comment>
+      </li>
+    </ul>
+  </div>

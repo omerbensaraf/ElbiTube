@@ -4,18 +4,19 @@
 
 
   <div style="font-weight: bold">{{content}}</div>
-  <span class="fa fa-thumbs-o-up"> 2 </span>
-  <span class="fa fa-thumbs-o-down"> 1 </span>
+  <span class="fa fa-thumbs-o-up"> 0 </span>
+  <span class="fa fa-thumbs-o-down"> 0 </span>
 </div>
-<ngc-editor [video]="video" (newComment)="addNewComment($event)" btnText="Replay">
+<ngc-editor  (newComment)="addNewComment($event)" btnText="Replay">
 </ngc-editor>
 
-<button *ngIf= "repliesCount > 1" (click)="viewReplies()" class="btn btn-danger btn-sm">{{replayText}}</button>
+<button *ngIf= "repliesCount > 0" (click)="viewReplies()" class="btn btn-danger btn-sm">{{replayText}}</button>
 <div *ngIf="showReplies">
   <div>
     <ul class="comments__list">
       <li *ngFor="let replay of replies">
-        <ngc-comment [repliesCounter] = "replay.counter" [commentId]="replay._id" [video]="replay.videoId" [content]="replay.content" [time]="replay.time" [user]="replay.user">
+        <ngc-comment (updateParent)="updateChild($event)" [repliesCounter] = "replay.counter -1" [commentId]="replay._id" [video]="replay.videoId" 
+        [content]="replay.content" [time]="replay.time" [user]="replay.user">
         </ngc-comment>
       </li>
     </ul>

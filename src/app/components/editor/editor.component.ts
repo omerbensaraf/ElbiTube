@@ -11,7 +11,7 @@ export class EditorComponent {
   @ViewChild('editableContentElement') editableContentElement: ElementRef;
   // Content that will be edited and displayed
   @Input() content;
-  @Input() video;
+ // @Input() video;
   @Input() btnText;
   @Output() newComment = new EventEmitter();
   @Output() editSaved = new EventEmitter();
@@ -39,6 +39,7 @@ export class EditorComponent {
   }
 
   onInput() {
+    //debugger;
     let content = this.getEditableContent();
     if (content != "") {
       this.enableNewComment = false;

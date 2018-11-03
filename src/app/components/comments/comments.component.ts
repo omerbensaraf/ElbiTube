@@ -42,6 +42,15 @@ export class CommentsComponent implements OnInit{
   });
 }
 
+updateChild($event){
+  this.comments.forEach(comment=>{
+    if(comment._id === $event.commentId){
+      comment.counter = $event.repliesCounter;
+    }
+  })
+  debugger;
+}
+
   addNewComment($event) {
     debugger;
     const comment =  {
