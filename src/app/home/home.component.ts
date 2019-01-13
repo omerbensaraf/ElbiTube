@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
     this.userEmail = this.userService.getUserEmail();
 
     this.mediaService.httpGetMedia().subscribe(data => { 
+      debugger;
       this.sortVideos = this.sort(data);
       this.mostPopularVideo = this.sortVideos[0];
       this.mediaService.setVideoList(data);

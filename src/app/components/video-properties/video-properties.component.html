@@ -1,6 +1,6 @@
 <div class="video-properties">
     <div class="video-title">
-        <span class="video-icons"><i class="fa fa-info-circle"></i></span>
+        <!-- <span class="video-icons"><i class="fa fa-info-circle"></i></span> -->
         <div class="video-info">
             <h4>
                 <a style="padding-right: 2rem;" href="{{videoTitle}}" title="Title">{{ currentItem.title }}</a>
@@ -8,7 +8,9 @@
                         <i class="fa fa-folder-o"></i>
                         <a style="font-weight: 400; padding: 0;" href="/categories/">{{currentItem.category}}</a>
                 </span>
+                <span style="display: inline" *ngFor="let label of labels" class="badge badge-primary" style="margin-right: 10px" >{{ label }} <i style="cursor: pointer;" #input (click)="removeLabel(input)" class="fa fa-window-close"></i></span>    
             </h4>
+            <!-- <span style="display: inline" *ngFor="let label of labels" class="badge badge-primary" style="margin-right: 10px" >{{ label }}</span>     -->
             <div class="video-date">
                 <span class="video-author" title="Author">
                         <i class="fa fa-user-circle-o"></i>
@@ -24,7 +26,26 @@
                         <a href="#" (click)="downloadVideo($event)"><i class="fa fa-download"></i></a>
                     </span>
                 </div>
+                <div style="display: inline; margin-left: 5px">
+                    <span style="font-size: 15px" >
+                        <a (click)="displayTagInput()"><i class="fa fa-tag" aria-hidden="true"></i></a>
+                        <div *ngIf="isOpen" class="form-group" style="display: inline-block;">
+                            <form>
+                                <input 
+                                type="text" 
+                                class="form-control" 
+                                name="label" 
+                                [(ngModel)]="newLabel" 
+                                #input
+                                placeholder="Label..."
+                                style="width:100px; height: 25px; margin-left: 10px" 
+                                (keyup.enter)="addLabel(input)"/>                                                      
+                            </form>
+                        </div>
+                    </span> 
+                </div>                
             </div>
+            
         </div>
     </div>
     <div class="video-counter">

@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IMedia, Updates } from '../../models/imadia.model';
-import { MediaService } from '../../services/media.service';
+import { MediaService } from './../../services/media.service';
+import { Component, Input, AfterViewInit, HostListener, ElementRef, SimpleChanges } from '@angular/core';
+import { IMedia } from '../../models/imadia.model';
 import { HttpClient } from '@angular/common/http';
-import { UsersService } from '../../services/users.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-video-properties',
@@ -17,13 +17,18 @@ import { UsersService } from '../../services/users.service';
               '../../css/style.mincbed.css'
             ]
 })
-export class VideoPropertiesComponent implements OnInit {
+export class VideoPropertiesComponent implements AfterViewInit {
   @Input() currentItem : IMedia;
   downloadMessage = '';
-  
-  constructor(private http: HttpClient){}
+  isOpen = false;
+  labels: string[] = [];
+  newLabel: string = "";
+  constructor(private http: HttpClient, private mediaService:MediaService, private eRef: ElementRef){}
 
-  ngOnInit() {}
+  ngAfterViewInit() {
+    this.labels = this.currentItem.tags;
+  }
+  
   
   getUrl() {
     const url = `${window.location.origin}/watch/${this.currentItem._id}`;
@@ -62,4 +67,41 @@ export class VideoPropertiesComponent implements OnInit {
     }
     return myStyles;
   }    
+
+  displayTagInput() {
+    this.isOpen = !this.isOpen;
+  }
+  
+  // @HostListener('document:click', ['$event'])
+  // clickout(event) {
+  //   if (event.target && (!event.target.name || event.target.name !== 'label') && !event.target.className.includes('fa-tag')) {
+  //     if (this.isOpen) {
+  //       this.isOpen = !this.isOpen;
+  //     }
+  //   }
+  // }
+
+  addLabel(input: HTMLInputElement) {
+    if (this.labels.length < 4) {
+      if (!this.labels.includes(input.value)) {
+        this.labels.push(input.value);
+        this.currentItem.tags = this.labels;
+        this.mediaService.updateTags(this.currentItem);
+      }      
+    } 
+    else {
+      // raise alert that video can have only 4 tags
+      swal('Yaiksss!', 'Video can have up to 4 tags!','warning');
+    }
+    
+    this.newLabel = "";    
+    
+  }
+
+  removeLabel(event: HTMLInputElement){
+    let index = this.labels.indexOf(event.parentElement.innerText.trim());
+    this.labels.splice(index,1)
+    this.currentItem.tags = this.labels;
+    this.mediaService.updateTags(this.currentItem);
+  }
 }
