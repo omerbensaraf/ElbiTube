@@ -19,6 +19,7 @@ const fuzzysort = require('./fuzzysort');
 var fs = require('fs');
 var dateTime = require('node-datetime');
 const userRoutes = require('./routes/users'); 
+const  cookieParser = require('cookie-parser');
 
 
 // Define Storage Engine as Disk Storage
@@ -96,7 +97,7 @@ app.set('view engine', 'html');
 // Define parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 // Expose Videos Public Folder
 app.use(express.static('./videos'));
 app.use(express.static('./views'));
@@ -108,6 +109,7 @@ app.use(express.static('./videos/frames'));
 var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}
 
 app.use(cors());
+
 app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
 
 // Define MongoDB
@@ -118,8 +120,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("We're connected to db!");
 });
-
-
 
 // Get videos page - display videos json from db
 app.get('/videos', function (req,res) {
@@ -210,6 +210,30 @@ app.put('/updateNumberOfViews', (req,res) => {
     }
 });
 
+// Update Tags
+app.put('/updateTags', (req,res) => {
+    if (!req.body) {
+        return res.status(500).json({
+            message: 'Error While Update Tags'
+        });
+    }
+    else {
+        let query = { _id : req.body._id };
+        let newTags = req.body.tags;
+        let tagsString = newTags.toString();
+        mongoose.model('Video').findOneAndUpdate(query, {tags: req.body.tags, tagsAsString: tagsString} ,(err) => {
+            if (err)
+                return res.status(500).json(err);
+            else {
+                return res.status(200).json({
+                    message: 'Update tags succeeded',
+                    tags: req.body.tags
+                });
+            }
+        })
+    }
+});
+
 // Get Specific Video - Play selected video
 app.get('/videos/:videoId',  function (req,res) {    
     var url = '';
@@ -247,7 +271,7 @@ app.get('/searchVideos/:searchedValue', function (req,res) {
     const searchedVideoArr = [];
     if (req.params && req.params.searchedValue && req.params.searchedValue.length > 0) {
         mongoose.model('Video').find(function (err,videos) {
-            const results = fuzzysort.go(req.params.searchedValue, videos, {key:'title'});            
+            const results = fuzzysort.go(req.params.searchedValue, videos, {keys:['title','tagsAsString']});            
             results.map((vid) => {
                 searchedVideoArr.push(vid.obj);
             });
@@ -259,14 +283,13 @@ app.get('/searchVideos/:searchedValue', function (req,res) {
 
 // Upload file
 app.post('/upload', (req, res) => {
+    console.log(req.body);
 
     upload(req, res, (err) => {
         if(req.body === undefined){
             console.log(">>> undefined! in upload function");
         } else {
-
             console.log(">>> start upload the file! ");
-            
             // define the destination folder which the frame will be saved
             var frameDestinationPath = __dirname + "\\" + 'videos\\frames\\';
             var videoName = path.parse(req.file.originalname).name;
