@@ -23,6 +23,11 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { HttpClientModule } from '@angular/common/http';
 import { WatchComponent } from './components/watch/watch.component';
 import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
+import { AppHeaderComponent } from './app-header/app-header.component';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import {AuthGuardService} from './services/auth-guard.service';
+import { CategoryComponent } from './components/category/category.component';
+import { NoHyphenPipe } from './common/noHyphen.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,10 @@ import { VideoPropertiesMinComponent } from './components/video-properties/video
     AutoCompleteSearchComponent,
     SearchResultsComponent,
     WatchComponent,
-    VideoPropertiesMinComponent
+    VideoPropertiesMinComponent,
+    AppHeaderComponent,
+    CategoryComponent,
+    NoHyphenPipe
   ],
   imports: [
     BrowserModule,
@@ -50,12 +58,20 @@ import { VideoPropertiesMinComponent } from './components/video-properties/video
     VgOverlayPlayModule,
     VgBufferingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SweetAlert2Module.forRoot({
+          buttonsStyling: false,
+          customClass: 'modal-content',
+          confirmButtonClass: 'btn btn-primary',
+          cancelButtonClass: 'btn'
+    })
   ],
   providers: [    
     MediaService,
     UsersService,
-    HttpClientModule
+    AuthGuardService,
+    HttpClientModule,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

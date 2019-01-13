@@ -1,3 +1,40 @@
+<div class="boxshadow pt-40 pb-40">
+        <div class="container" style="padding-left: 0">
+            <div class="row">
+                <div class="col-md-12" style="display: -webkit-box;">
+                    <div class="col-md-9 main-video" >
+                        <div class="single-video">
+                            <div class="video-img" style="max-height: 100%; display: grid">
+                                <app-player [videoUrl]="currentItem.src"></app-player>
+                            </div>
+                        </div>                    
+                        <span class="video-content">
+                            <app-video-properties [currentItem] = "currentItem"></app-video-properties> 
+                        </span>
+                    </div>
+                    <div class="right-col">
+                        <div class="col-md-3" style="display:block; max-width: 100%;" *ngFor="let item of playList; let $index = index">
+                            <div class="single-video">
+                                <div class="video-img">
+                                    <a (click)="imgClick(item)"> 
+                                        <img [src]="item.imageSrc" alt=""
+                                        (click)="imgClick(item)"
+                                        [class.selected]="item === currentItem">
+                                    </a>
+                                    <span class="video-duration">{{item.duration}}</span>
+                                </div>
+                            </div>
+                            <span class="video-content">
+                                <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 
 <div class="slider-area pt-40">
     <div class="container" style="background-color: white; padding-bottom: 20px; padding-top: 40px; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
         <div class="row">
@@ -26,10 +63,8 @@
                 </div>
             </div>
         </div>
-        <!-- Start Video Properties Area -->
         <div class="col-md-9">
             <app-video-properties [currentItem] = "currentItem"></app-video-properties> 
         </div>
-        <!-- End Video Properties Area -->
     </div>
-  </div>
+  </div> -->

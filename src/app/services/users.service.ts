@@ -12,13 +12,14 @@ export class UsersService {
 
   private userSource = new BehaviorSubject<string>('');
   loggedInUser = this.userSource.asObservable();
-  baseUrl = 'http://11.0.73.2:3000';
+  baseUrl = 'http://11.0.73.2:3000/user';
 
 
   constructor(private http: HttpClient) { }
 
   getUserEmail(){
-     return this.userSource.getValue();
+     // return this.userSource.getValue();
+     return localStorage.getItem('email');
     //return "omerBenSaraf@gmail.com";
   }
 
@@ -43,6 +44,7 @@ export class UsersService {
   }
 
   changeloggedInUser(email: string) {
+    localStorage.setItem("email", email);
     this.userSource.next(email);
   }
 }

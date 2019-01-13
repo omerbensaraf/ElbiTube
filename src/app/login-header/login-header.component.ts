@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-header',
@@ -8,22 +9,14 @@ import { UsersService } from '../services/users.service';
 })
 export class LoginHeaderComponent implements OnInit {
 
-  email: string = 'omerBenSaraf@gmail.com';
-  
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService,private router: Router) { }
 
   ngOnInit() {
-     this.usersService.loggedInUser.subscribe(email => this.email = email);
-  }
-
-  logout(): void {
-    this.usersService.logout().subscribe(
-      (data) => {
-        this.usersService.changeloggedInUser('');
-      },
-      (error) => {
-      }
-    )   
+    const storedEmail = this.usersService.getUserEmail();
+    if (storedEmail && storedEmail.length > 0) {
+      this.usersService.changeloggedInUser(storedEmail);
+      this.router.navigate(['home']);
+    }
   }
 }
 
