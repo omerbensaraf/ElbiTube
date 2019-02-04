@@ -16,7 +16,7 @@ export class MediaService {
           'Content-Type':  'text/plain'
         })
       };
-    private url = 'http://localhost:3000';
+    private url = 'http://11.0.73.2:3000';
     private socket;
     playList: Array<IMedia> = [];
     
@@ -33,7 +33,7 @@ export class MediaService {
 
 
     httpGetMedia(): Observable<Array<IMedia>>{
-        const requestUrl = 'http://localhost:3000/videos';
+        const requestUrl = 'http://11.0.73.2:3000/videos';
         return this.http.get<Array<IMedia>>(requestUrl);
     }
 

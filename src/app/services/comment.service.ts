@@ -7,9 +7,9 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class CommentService {
-  baseUrl = 'http://localhost:3000/comment';
+  baseUrl = 'http://11.0.73.2:3000/comment';
   private socket;
-  private socketUrl = 'http://localhost:3000';
+  private socketUrl = 'http://11.0.73.2:3000';
   constructor(private http: HttpClient) {
     this.socket = io(this.socketUrl);
    }

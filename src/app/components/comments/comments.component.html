@@ -1,17 +1,7 @@
-<!-- <div class="comments__title">Add new comment</div>
-<div class="comments__add-comment-section">
-  <div class="comments__add-comment-box"> -->
 <ngc-editor (newComment)="addNewComment($event)" btnText="Add Comment"></ngc-editor>
-<!-- </div> -->
-<!-- <button (click)="addNewComment()" class="btn-primary" style="margin-left: 500px;">Add comment</button> -->
-<!-- </div> -->
-
-
 
 <div *ngIf="hasComments">
   <div>
-    <!-- <div class="comments__title">All comments</div> -->
-
     <ul class="comments__list">
       <li *ngFor="let comment of comments">
         <ngc-comment (updateParent)="updateChild($event)" [repliesCounter]="comment.counter - 1"

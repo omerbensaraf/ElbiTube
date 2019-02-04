@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
       //this.new_list = this.getNewList(data);
       this.new_list = this.getNewListByDate(data);
       this.homeLoading=true;
+      debugger;
     });    
   }
 
