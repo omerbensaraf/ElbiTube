@@ -33,7 +33,6 @@
     "core-js": "^2.4.1",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
-    "ngx-onsenui": "^7.0.0",
     "ngx-toastr": "^9.1.1",
     "pusher-js": "^4.2.2",
     "rxjs": "^6.0.0",
