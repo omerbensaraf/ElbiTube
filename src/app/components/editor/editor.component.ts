@@ -1,4 +1,3 @@
-
 import { Component, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, HostBinding, HostListener, ElementRef } from '@angular/core';
 
 @Component({
