@@ -9,7 +9,7 @@
                   <div class="featured-area">
                       <div *ngFor="let video of searchResults; let i=index" class="single-review">
                           <div class="review-img">
-                              <a href="#" (click)="selectVideo($event, video)"><img src={{video.imageSrc}} alt={{video.title}} style="height: 150px; width: 270px"></a> <span class="video-duration">Duration</span></div>
+                              <a href="#" (click)="selectVideo($event, video)"><img src={{video.imageSrc}} alt={{video.title}} style="height: 150px; width: 270px"></a> <span class="video-duration">{{video.duration}}</span></div>
                           <div class="review-content" style="width: unset">
                               <h4><a (click)="selectVideo($event, video)" href="#" class="video-title" style="font-weight: 600;font-size: 18px; width: 100%">{{video.title}}</a></h4>
                               <div class="reviwe-text pull-left">Uploaded By: {{video.uploadedBy}}</div>

@@ -10,7 +10,9 @@ export interface IMedia {
   views: number,
   uploadedBy: String,
   category: String,
-  uploadedDate: Date
+  uploadedDate: Date,
+  tags: string[],
+  tagsAsString: string
 }
 
 export enum Updates{

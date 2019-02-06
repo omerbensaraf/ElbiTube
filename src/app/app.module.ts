@@ -31,6 +31,10 @@ import { FromNowPipe } from './pipes/from-now.pipe';
 import { CommentComponent } from './components/comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { CommentsComponent } from './components/comments/comments.component';
+import {AuthGuardService} from './services/auth-guard.service';
+import { CategoryComponent } from './components/category/category.component';
+import { NoHyphenPipe } from './common/noHyphen.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +56,9 @@ import { CommentsComponent } from './components/comments/comments.component';
     EditorComponent,
     FromNowPipe,
     CommentComponent,
-    CommentsComponent
+    CommentsComponent,
+    CategoryComponent,
+    NoHyphenPipe
   ],
   imports: [
     BrowserModule,
@@ -75,7 +81,10 @@ import { CommentsComponent } from './components/comments/comments.component';
     MediaService,
     UsersService,
     HttpClientModule,
-    CommentService
+    CommentService,
+    AuthGuardService,
+    HttpClientModule,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

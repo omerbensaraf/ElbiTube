@@ -17,8 +17,9 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   getUserEmail(){
-     //return this.userSource.getValue();
-    return "lavidnet@gmail.com";
+     // return this.userSource.getValue();
+     return localStorage.getItem('email');
+    //return "omerBenSaraf@gmail.com";
   }
 
   signIn(email: string, password: string) {
@@ -42,6 +43,7 @@ export class UsersService {
   }
 
   changeloggedInUser(email: string) {
+    localStorage.setItem("email", email);
     this.userSource.next(email);
   }
 }

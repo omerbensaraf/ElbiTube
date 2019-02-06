@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import {Router} from "@angular/router";
 import { MediaService } from '../services/media.service';
+import { IMedia } from '../models/imadia.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-auto-complete-search',
@@ -21,7 +23,7 @@ import { MediaService } from '../services/media.service';
 })
 export class AutoCompleteSearchComponent implements OnInit {
 
-  videoList: any[];
+  videoList: IMedia[];
   searchTerm: string = '';
   filteredResult: any[] = [];
   public _el;
@@ -47,8 +49,28 @@ export class AutoCompleteSearchComponent implements OnInit {
   filterVideoList() {
     if (this.searchTerm && this.searchTerm !== '') {
         let term = this.searchTerm.toLowerCase();
+        
         this.filteredResult = this.videoList.filter(function (el: any) {
             return el.title.toLowerCase().indexOf(term) > -1;
+        });
+        
+        this.videoList.forEach(vid => {
+          if (vid.tags.length > 0) {
+            vid.tags.forEach(tag => {
+
+              if (tag.toLowerCase().indexOf(term) > -1) {
+                let isExist = false;
+                this.filteredResult.forEach( res => {
+                  if (res.title.toLowerCase() === tag.toLowerCase()) {
+                    isExist = true;
+                  }
+                });
+                if (!isExist) {
+                  this.filteredResult = this.filteredResult.concat({title: tag.substring(0,1).toUpperCase() + tag.substring(1), isTag: true, videoTitle: vid.title});
+                }                
+              }
+            });
+          }
         });
     } else {
         this.filteredResult = [];
@@ -59,7 +81,7 @@ export class AutoCompleteSearchComponent implements OnInit {
   }
 
   selectVideo(video) {
-    this.searchTerm = video.title;
+    this.searchTerm =  video.title;
     this.navigateToSearchResultScreen();    
   }
   

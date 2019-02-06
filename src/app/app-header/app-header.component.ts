@@ -11,10 +11,13 @@ export class AppHeaderComponent implements OnInit {
 
   email: string = '';
   
-  constructor(private usersService: UsersService,  private router: Router) { }
+  constructor(private usersService: UsersService,  private router: Router) { 
+    this.usersService.loggedInUser.subscribe(email => this.email = email);
+  }
 
   ngOnInit() {
-     this.usersService.loggedInUser.subscribe(email => this.email = email);     
+     this.email = this.usersService.getUserEmail();
+     //this.usersService.loggedInUser.subscribe(email => this.email = email);          
   }
 
   logout(): void {

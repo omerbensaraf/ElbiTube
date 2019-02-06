@@ -1,4 +1,3 @@
-import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { MediaService } from '../services/media.service';
 import { Observable } from 'rxjs';
@@ -16,14 +15,13 @@ export class UploadVideoComponent implements OnInit {
   videoDescription: string='';
   buttonClicked : Boolean;
   fileToUpload: File = null;
-  categories: String[] = ['Land','Air','Radio','More'];
+  categories: String[] = ['Air','Land','Sea','TED','Technology','Entertaiment'];
   selectedCategory: string;
   isUploadSucceeded: boolean = false;
   timer: Observable<any>;
   constructor(private mediaService : MediaService) { }
 
   ngOnInit() {
-    debugger;
     this.buttonClicked = false;
   }
 
@@ -37,12 +35,10 @@ export class UploadVideoComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    debugger;
     this.fileToUpload = files.item(0);
   }
 
   uploadFileToActivity() {
-    debugger;
     if(this.fileToUpload){
       this.buttonClicked = true;
       var fileType;

@@ -12,7 +12,7 @@ export class LoginHeaderComponent implements OnInit {
   constructor(private usersService: UsersService,private router: Router) { }
 
   ngOnInit() {
-    const storedEmail = localStorage.getItem('email');
+    const storedEmail = this.usersService.getUserEmail();
     if (storedEmail && storedEmail.length > 0) {
       this.usersService.changeloggedInUser(storedEmail);
       this.router.navigate(['home']);

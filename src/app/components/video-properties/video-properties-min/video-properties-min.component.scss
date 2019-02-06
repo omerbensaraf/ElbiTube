@@ -10,25 +10,34 @@
 }
 
 .video-date-min {
-    display: block;
+    display: flex;
+    justify-content: space-between;
 }
 
 .video-author-min {
     max-width: 50%;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
 }
 
 .video-upload-date-min {
     display: -webkit-box;
     max-width: 50%;
     float: right;
+    font-size: 12px;
 }
 
 span.video-title-min {
-    width: 60%;
-    word-break: break-word;
+    width: 75%;
+    // word-break: break-word;
     float: left;
     font-weight: 1000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 span.video-viewers-min {
@@ -37,4 +46,20 @@ span.video-viewers-min {
 
 span.video-upload-date {
     display: -webkit-inline-box;
+}
+.download-video-message {
+    position: fixed;
+    left: 45%;
+    top: 12%;
+    opacity: 0.8;
+    color: #10100f;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    font-size: 15px;
+    display: none
 }

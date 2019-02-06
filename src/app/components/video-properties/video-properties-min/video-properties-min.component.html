@@ -1,10 +1,10 @@
 <div class="video-properties-min">
     <div class="video-info-min">
-      <span class="video-title-min"><a href="{{videoTitle}}" title="Title">{{ currentItem.title }}</a></span>
+      <span class="video-title-min"><a href="#" (click)="navigateToWatchComp($event)"[title]="currentItem.title">{{ currentItem.title }}</a></span>
       <span class="video-viewers-min" title="Number of Views"> {{ currentItem.views }}  views </span>
     </div>
     <div class="video-date-min">
-        <span class="video-author-min" title="Author">
+        <span class="video-author-min" title="{{ currentItem.uploadedBy }}">
             <i class="fa fa-user-circle-o"></i>
             <a href="/uploadedBy/">{{ currentItem.uploadedBy }}</a>
         </span>
@@ -12,5 +12,14 @@
             <i class="fa fa-calendar" style="padding-right: 5px;"></i>
             <p>{{currentItem.uploadedDate}}</p>
         </span>
+        <span title="Share">
+            <a href="mailto:?subject=Recommended video for you!&body={{getVideoUrl()}}"><i class="fa fa-share-alt"></i></a>
+        </span>
+        <span title="Download">
+            <a href="#" (click)="downloadVideo($event)"><i class="fa fa-download"></i></a>
+        </span>
+        <div class="download-video-message" [ngStyle]="isShowDownloadMessage()">
+            {{downloadMessage}}
+        </div>        
     </div>
 </div> 
