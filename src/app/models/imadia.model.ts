@@ -1,11 +1,12 @@
 export interface IMedia {
-  _id: String,
-  title: string,
-  src: string,
-  type: string,
-  imageSrc : String,
-  likeUsers : String[],
-  disLikeUsers : String[],
+  sname : String,
+  _id: String;
+  title: string;
+  src: string;
+  type: string;
+  imageSrc : String;
+  likeUsers : String[];
+  disLikeUsers : String[];
   views: number,
   uploadedBy: String,
   category: String,

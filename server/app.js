@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 // const User = require('./models/users');
 const Video = require('./models/videos');
+const Comment = require('./models/comment');
 const cors = require('cors');
 const config = require('./config');
 const getDuration = require('get-video-duration');
@@ -20,7 +21,8 @@ var fs = require('fs');
 var dateTime = require('node-datetime');
 const userRoutes = require('./routes/users'); 
 const  cookieParser = require('cookie-parser');
-
+console.log("*****************");
+const commentsRoutes = require('./routes/comments');
 
 // Define Storage Engine as Disk Storage
 const storage = multer.diskStorage({
@@ -53,41 +55,38 @@ let io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('user connected');
 
+    socket.on('newComment', function (comment) {
+        addComment(comment);
+    });
 
-    socket.on('AddLike', function(id,userEmail) {
-        addLike(id,userEmail);
-      });
+    socket.on('AddLike', function (id, userEmail,model) {
+        addLike(id, userEmail,model);
+    });
 
-    socket.on('AddLikeRemoveDisLike', function(id,userEmail) {
-        addLikeRemoveDisLike(id,userEmail);
+    socket.on('AddLikeRemoveDisLike', function (id, userEmail,model) {
+
+        addLikeRemoveDisLike(id, userEmail,model);
+    });
+
+    socket.on('RemoveLike', function(id,userEmail,model) {
+        removeLike(id,userEmail,model);
         });
 
-    socket.on('RemoveLike', function(id,userEmail) {
-        removeLike(id,userEmail);
-        });
-
-    socket.on('AddDisLike', function(id,userEmail) {
-        addDisLike(id,userEmail);
-        });
-    socket.on('RemoveDisLike', function(id,userEmail) {
-        removeDisLike(id,userEmail);
-        });
-    socket.on('AddDisLikeRemoveLike', function(id,userEmail) {
-        addDisLikeRemoveLike(id,userEmail);
-        });
+    socket.on('AddDisLike', function (id, userEmail,model) {
+      
+        addDisLike(id, userEmail,model);
+    });
+    socket.on('RemoveDisLike', function (id, userEmail,model) {
+        removeDisLike(id, userEmail,model);
+    });
+    socket.on('AddDisLikeRemoveLike', function (id, userEmail,model) {
+        addDisLikeRemoveLike(id, userEmail,model);
+    });
 
 
 
 });
-/*const connections = [];
-io.sockets.on('connection',(socket) => {
-    connections.push(socket);
-    console.log(' %s sockets is connected', connections.length);
- 
-    socket.on('disconnect', () => {
-       connections.splice(connections.indexOf(socket), 1);
-    });
- });*/
+
 
 
 // Define View Engine
@@ -109,8 +108,8 @@ app.use(express.static('./videos/frames'));
 var corsOptions = { origin: 'http://10.173.3.13:4200' };//optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204}
 
 app.use(cors());
-
-app.use("/user",userRoutes); //all the will rest call's start with user prefix will get to here
+app.use("/user", userRoutes); //all the will rest call's start with user prefix will get to here
+app.use("/comment", commentsRoutes);
 
 // Define MongoDB
 mongoose.connect('mongodb://localhost/db');
@@ -128,77 +127,104 @@ app.get('/videos', function (req,res) {
     })
 });
 
-function addLike (id,userEmail) {
-    var query = {_id: id};
-    var options = { new: true }; 
-    mongoose.model('Video').findOneAndUpdate(query, {$push: {likeUsers: userEmail}},
-        options, function(err, doc){
-        io.emit("update-like-counter",doc);
-    })
+function addComment(comment) {
+    Comment.create(comment).then((result) => {
+        updateParentsCounter(comment.parent).then((res)=>{
+            let comments = {
+                parent: comment.parent,
+                videoId : comment.videoId
+            }
+            mongoose.model('Comment').find(comments, function (err, comments) {
+                io.emit("update-comment", comments);
+            })
+        });
+    });
 }
 
-function addLikeRemoveDisLike (id,userEmail) {
-    var query = {_id: id};
-    var options = { new: true }; 
-    mongoose.model('Video').findOneAndUpdate(query,{
-        $push: {likeUsers: userEmail},
-        $pull: {disLikeUsers: userEmail}
-        },
-        options, function(err, doc){
-        io.emit("update-like-counter",doc);
-    })
+async function updateParentsCounter(parent) {
+    var currParent = parent;
+    while (currParent !== null) {
+        let query = { _id: currParent};
+        let options = { new: true }; 
+         await mongoose.model('Comment').findOneAndUpdate(query,  { $inc: { counter: 1 } },options,  
+         (err, doc)=> {
+             currParent = doc.parent;
+         });            
+    }
 }
 
 
-function removeLike (id,userEmail) {
-    var query = {_id: id};
-    var options = { new: true }; 
-    mongoose.model('Video').findOneAndUpdate(query, {$pull: {likeUsers: userEmail}},
-        options, function(err, doc){
-        io.emit("update-like-counter",doc);
-    })
+function addLike(id, userEmail,model) {
+    var query = { _id: id };
+    var options = { new: true };
+    mongoose.model(model).findOneAndUpdate(query, { $push: { likeUsers: userEmail } },
+        options, function (err, doc) {
+            io.emit("update-like-counter", doc);
+        })
 }
 
-function addDisLike (id,userEmail) {
-    var query = {_id: id};
-    var options = { new: true }; 
-    mongoose.model('Video').findOneAndUpdate(query, {$push: {disLikeUsers: userEmail}},
-        options, function(err, doc){
-        io.emit("update-like-counter",doc);
-    })
+function addLikeRemoveDisLike(id, userEmail,model) {
+    var query = { _id: id };
+    var options = { new: true };
+    mongoose.model(model).findOneAndUpdate(query, {
+        $push: { likeUsers: userEmail },
+        $pull: { disLikeUsers: userEmail }
+    },
+        options, function (err, doc) {
+            io.emit("update-like-counter", doc);
+        })
 }
 
-function removeDisLike (id,userEmail) {
-    var query = {_id: id};
-    var options = { new: true }; 
-    mongoose.model('Video').findOneAndUpdate(query, {$pull: {disLikeUsers: userEmail}},
-        options, function(err, doc){
-        io.emit("update-like-counter",doc);
-    })
+
+function removeLike(id, userEmail,model) {
+    var query = { _id: id };
+    var options = { new: true };
+    mongoose.model(model).findOneAndUpdate(query, { $pull: { likeUsers: userEmail } },
+        options, function (err, doc) {
+            io.emit("update-like-counter", doc);
+        })
 }
 
-function addDisLikeRemoveLike (id,userEmail) {
-    var query = {_id: id};
-    var options = { new: true }; 
-    mongoose.model('Video').findOneAndUpdate(query,{
-        $push: {disLikeUsers: userEmail},
-        $pull: {likeUsers: userEmail}
-        },
-        options, function(err, doc){
-        io.emit("update-like-counter",doc);
-    })
+function addDisLike(id, userEmail,model) {
+    var query = { _id: id };
+    var options = { new: true };
+    mongoose.model(model).findOneAndUpdate(query, { $push: { disLikeUsers: userEmail } },
+        options, function (err, doc) {
+            io.emit("update-like-counter", doc);
+        })
+}
+
+function removeDisLike(id, userEmail,model) {
+    var query = { _id: id };
+    var options = { new: true };
+    mongoose.model(model).findOneAndUpdate(query, { $pull: { disLikeUsers: userEmail } },
+        options, function (err, doc) {
+            io.emit("update-like-counter", doc);
+        })
+}
+
+function addDisLikeRemoveLike(id, userEmail,model) {
+    var query = { _id: id };
+    var options = { new: true };
+    mongoose.model(model).findOneAndUpdate(query, {
+        $push: { disLikeUsers: userEmail },
+        $pull: { likeUsers: userEmail }
+    },
+        options, function (err, doc) {
+            io.emit("update-like-counter", doc);
+        })
 }
 
 // Update Number of views
-app.put('/updateNumberOfViews', (req,res) => {
+app.put('/updateNumberOfViews', (req, res) => {
     if (!req.body) {
         return res.status(500).json({
             message: 'Error While Update Views'
         });
     }
     else {
-        let query = { _id : req.body._id };
-        mongoose.model('Video').findOneAndUpdate(query, {$inc: {views: 1}} ,(err) => {
+        let query = { _id: req.body._id };
+        mongoose.model('Video').findOneAndUpdate(query, { $inc: { views: 1 } }, (err) => {
             if (err)
                 return res.status(500).json(err);
             else {
@@ -235,12 +261,12 @@ app.put('/updateTags', (req,res) => {
 });
 
 // Get Specific Video - Play selected video
-app.get('/videos/:videoId',  function (req,res) {    
+app.get('/videos/:videoId', function (req, res) {
     var url = '';
     var videoSrc = '';
-    mongoose.model('Video').findOne({_id : req.params.videoId } ,function (err,selectedVideo) {        
+    mongoose.model('Video').findOne({ _id: req.params.videoId }, function (err, selectedVideo) {
         url = config.url;
-        if(selectedVideo && selectedVideo.src){
+        if (selectedVideo && selectedVideo.src) {
             videoSrc = selectedVideo.src;
             var position = videoSrc.indexOf("\\videos");
             if(position !== -1) {
@@ -326,6 +352,7 @@ app.post('/upload', (req, res) => {
             var category;
             if(req.body.category) category = req.body.category;
             var video = new Video({ 
+		        sname : "Video",
                 _id : id,
                 title: path.parse(req.file.originalname).name, 
                 //src: req.file.path,

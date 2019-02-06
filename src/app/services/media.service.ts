@@ -52,8 +52,8 @@ export class MediaService {
         this.http.put(requestUrl,video).subscribe(data => console.log(data));
     }
 
-    likeSocket(update : Updates, id :String, userEmail :String ){
-        this.socket.emit(update, id, userEmail);
+    likeSocket(update : Updates, id :String, userEmail :String, model : String ){
+        this.socket.emit(update, id, userEmail,model);
     }
     
 
@@ -73,12 +73,14 @@ export class MediaService {
     }
 
     public getLikeUpdates = () => {
+        debugger;
         return Observable.create((observer) => {
             this.socket.on('update-like-counter', (item) => {
                 observer.next(item);
             });
         })
     };
+
 
     postFile(fileToUpload: File , fileName : string ,selectedCategory : string) {
         const endpoint =  'http://11.0.73.2:3000/upload';
