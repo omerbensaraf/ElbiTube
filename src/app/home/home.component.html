@@ -1,293 +1,252 @@
-<!-- <div class="slider-area pt-40">
-    <div class="container" style="padding: 0">
-        <div class="row" style="background-color: white; padding: 20px; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);">
-            <div class="col-md-12">
-                <div class="slider-wrapper">
-                    <div class="pgwSlider wide">
-                        <div class="ps-current" style="height: 478px;">
-                            <ul>
-                                <li class="elt_1" style="display: list-item; opacity: 1; z-index: 2;">
-                                    <img [src]="mostPopularVideo.imageSrc"
-                                        (click)="imgClick(mostPopularVideo)">
-                                </li>
-                               
-                            </ul>
-                            <span class="ps-caption">duration</span>
-                        </div>
-                        <ul class="slider ps-list">
-                            <li *ngFor="let item of top3_list; let $index = index"
-                                class="elt_1" style="cursor: pointer; opacity: 1; height: 160px;">
-                                <div class="single-video" (click)="imgClick(item)">
-                                    <div class="video-img">
-                                        <a> 
-                                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                                        </a>
-                                        <span class="video-duration">duration</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<div class="boxshadow pt-40 pb-40">
-    <div class="container" style="padding-left: 0">
-        <div class="row">
-            <div class="col-md-12" style="display: -webkit-box;">
-                <div class="col-md-9 main-video" >
-                    <!-- <div class="themeix-section-h section-heading-four" style="padding: 10px 0;">
-                        <span class="heading-title">
-                            <img src="./assets/images/lit.png" alt="Fire" style="width: 8%;padding-bottom: 1rem;">
-                            <h3>Hot Video</h3>
-                        </span>                        
-                    </div> -->
-                    <div class="single-video" (click)="imgClick(mostPopularVideo)">
-                        <div class="video-img" style="max-height: 100%; display: grid">
-                            <a>
-                                <img [src]="mostPopularVideo.imageSrc" style="width: 100%; height: 486px"> 
-                            </a> 
-                        </div>
-                        <span class="caption">{{mostPopularVideo.duration}}</span> 
-                    </div>                    
-                    <span class="video-content">
-                        <app-video-properties [currentItem] = "mostPopularVideo"></app-video-properties>
-                    </span>
-                </div>
-                <div class="right-col">
-                    <!-- <div class="themeix-section-h section-heading-four" style="padding-bottom:5px; padding-left: 15px; padding-right: 15px;">
-                        <span class="heading-title">
-                        </span>
-                    </div> -->
-                    <div class="col-md-3" style="display:block; max-width: 100%;" *ngFor="let item of top3_list; let $index = index">
-                        <div class="single-video">
-                            <div class="video-img">
-                                <a (click)="imgClick(item)"> 
-                                    <img [src]="item.imageSrc" alt=""
-                                    (click)="imgClick(item)"
-                                    [class.selected]="item === currentItem">
-                                </a>
-                                <span class="video-duration">{{item.duration}}</span>
-                            </div>
-                        </div>
-                        <span class="video-content">
-                            <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="categories">   
-    <div class="container themeix-ptu" *ngIf="new_list !== undefined && new_list.length > 0" >
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/category','new-uploads']">New Uploads [{{new_list.length}}]</a></h3> -->
-                    <h3 ><a (click)="goToCategory('new-uploads',new_list)">  New Uploads [{{new_list.length}}]</a> </h3> 
+<ng-container *ngIf="showErrorMsg; else elseTemplate">
+    Error
+</ng-container>
+<ng-template #elseTemplate>
+    <div *ngIf="showLoader" class="spinner"></div>
+    <div style="margin:2% 0 0 20%; display: flex">
+        <mat-card style="background: white; width:53%;">
+            <div class="single-video" (click)="imgClick(mostPopularVideo)">
+                <div class="video-img" style="max-height: 100%; display: grid">
+                    <a>
+                        <img [src]="mostPopularVideo.imageSrc" style="width: 100%; height: 486px">
+                    </a>
                 </div>
+                <span class="caption">{{mostPopularVideo.duration}}</span>
             </div>
-        </div>
-        <div class="row news-posts-wrapper">
-            <div class="col-md-3 themeix-half" *ngFor="let item of new_list; let $index = index">
+            <span class="video-content">
+                <app-video-properties [currentItem]="mostPopularVideo"></app-video-properties>
+            </span>
+        </mat-card>
+
+        <mat-card style="background: white; width:20%; margin-left:2em">
+            <div class="col-md-3" style="display:block; max-width: 100%;" *ngFor="let item of top3_list; let $index = index">
                 <div class="single-video">
                     <div class="video-img">
-                        <a (click)="imgClick(item)"> 
-                            <img [src]="item.imageSrc" alt=""
-                            (click)="imgClick(item)"
-                            [class.selected]="item === currentItem">
+                        <a (click)="imgClick(item)">
+                            <img [src]="item.imageSrc" alt="" (click)="imgClick(item)" [class.selected]="item === currentItem">
                         </a>
                         <span class="video-duration">{{item.duration}}</span>
                     </div>
                 </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
+                <span class="video-content">
+                    <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+                </span>
             </div>
-        </div>
-    </div>
-    <div class="container themeix-ptu" *ngIf="popularVideos_list !== undefined && popularVideos_list.length > 0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-fire" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/categories','most-popular-videos']">  Most Popular Videos [{{popularVideos_list.length}}]</a> </h3> -->
-                    <h3><a (click)="goToCategory('most-popular-videos',popularVideos_list)">  Most Popular Videos [{{popularVideos_list.length}}]</a> </h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of popularVideos_list.slice(0,4); let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">{{item.duration}}</span>
-                    </div>
-                </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
-            </div>
-        </div>
+        </mat-card>
+
     </div>
 
-    <div class="container themeix-ptu" *ngIf="air_list !== undefined && air_list.length > 0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/categories','air']">Air [{{air_list.length}}]</a></h3> -->
-                    <h3><a (click)="goToCategory('air',air_list)">  Air [{{air_list.length}}]</a> </h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of air_list.slice(0,4); let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">{{item.duration}}</span>
+    <mat-card class="pt-40 pb-40" style="background: white; width:73%;" *ngIf="new_list !== undefined && new_list.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('new-uploads',new_list)"> New Uploads [{{new_list.length}}]</a>
+                        </h3>
                     </div>
                 </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
             </div>
-        </div>
-    </div>
-        
-    <div class="container themeix-ptu" *ngIf="land_list !== undefined && land_list.length > 0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-area-chart" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/categories','land']">Land [{{land_list.length}}]</a></h3> -->
-                    <h3><a (click)="goToCategory('land',land_list)">  Land [{{land_list.length}}]</a> </h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of land_list.slice(0,4); let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">{{item.duration}}</span>
+            <div class="row news-posts-wrapper">
+                <div class="col-md-3 themeix-half" *ngFor="let item of new_list; let $index = index">
+                    <div class="single-video">
+                        <div class="video-img">
+                            <a (click)="imgClick(item)">
+                                <img [src]="item.imageSrc" alt="" (click)="imgClick(item)" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
                     </div>
                 </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
             </div>
         </div>
-    </div>
-        
-        
-    <div class="container themeix-ptu" *ngIf="sea_list !== undefined && sea_list.length > 0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-ship" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/categories','radio']">Radio [{{radio_list.length}}]</a></h3> -->
-                    <h3><a (click)="goToCategory('sea',sea_list)">  Sea [{{sea_list.length}}]</a> </h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of sea_list.slice(0,4); let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">{{item.duration}}</span>
-                    </div>
-                </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-        
-    <div class="container themeix-ptu" *ngIf="ted_list !== undefined && ted_list.length > 0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/category/more']">More [{{more_list.length}}]</a></h3> -->
-                    <h3><a (click)="goToCategory('ted',ted_list)">  TED [{{ted_list.length}}]</a> </h3>
+    </mat-card>
 
-                    
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of ted_list.slice(0,4); let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">{{item.duration}}</span>
+    <mat-card style="background: white; width:60%; margin: 2em auto" *ngIf="popularVideos_list !== undefined && popularVideos_list.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-fire" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('most-popular-videos',popularVideos_list)"> Most Popular Videos
+                                [{{popularVideos_list.length}}]</a> </h3>
                     </div>
                 </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="container themeix-ptu" *ngIf="tech_list !== undefined && tech_list.length > 0">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/category/more']">More [{{more_list.length}}]</a></h3> -->
-                    <h3><a (click)="goToCategory('technology',tech_list)">  Technology [{{tech_list.length}}]</a> </h3>
-
-                    
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 themeix-half" *ngFor="let item of tech_list.slice(0,4); let $index = index">
-                <div class="single-video" (click)="imgClick(item)">
-                    <div class="video-img">
-                        <a> 
-                            <img [src]="item.imageSrc" [class.selected]="item === currentItem">
-                        </a>
-                        <span class="video-duration">{{item.duration}}</span>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of popularVideos_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a>
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
                     </div>
                 </div>
-                <div class="video-content">
-                    <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card style="background: white; width:60%; margin: 2em auto" *ngIf="air_list !== undefined && air_list.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('air',air_list)"> Air [{{air_list.length}}]</a> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of air_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a>
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </mat-card>
 
-    <div class="container themeix-ptu" style="border-bottom: none" *ngIf="entertaiment_list !== undefined && entertaiment_list.length > 0">
+    <mat-card style="background: white; width:60%; margin: 2em auto" *ngIf="land_list !== undefined && land_list.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-area-chart" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('land',land_list)"> Land [{{land_list.length}}]</a> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of land_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a>
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card style="background: white; width:60%; margin: 2em auto" *ngIf="sea_list !== undefined && sea_list.length > 0">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-ship" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('sea',sea_list)"> Sea [{{sea_list.length}}]</a> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of sea_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a>
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card style="background: white; width:60%; margin: 2em auto" *ngIf="ted_list !== undefined && ted_list.length > 0">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('ted',ted_list)"> TED [{{ted_list.length}}]</a> </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of ted_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a>
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card style="background: white; width:60%; margin: 2em auto" *ngIf="tech_list !== undefined && tech_list.length > 0">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="themeix-section-h section-heading-four">
                         <span class="heading-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
-                        <!-- <h3><a [routerLink]="['/category/more']">More [{{more_list.length}}]</a></h3> -->
-                        <h3><a (click)="goToCategory('entertaiment',entertaiment_list)">  Entertaiment [{{entertaiment_list.length}}]</a> </h3>
-    
-                        
+                        <h3><a (click)="goToCategory('technology',tech_list)"> Technology [{{tech_list.length}}]</a>
+                        </h3>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 themeix-half" *ngFor="let item of tech_list.slice(0,4); let $index = index">
+                    <div class="single-video" (click)="imgClick(item)">
+                        <div class="video-img">
+                            <a>
+                                <img [src]="item.imageSrc" [class.selected]="item === currentItem">
+                            </a>
+                            <span class="video-duration">{{item.duration}}</span>
+                        </div>
+                    </div>
+                    <div class="video-content">
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card class="pt-40 pb-40" style="background: white; width:60%; margin: 2em auto" *ngIf="entertaiment_list !== undefined && entertaiment_list.length > 0">
+        <div class="container" style="border-bottom: none">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="themeix-section-h section-heading-four">
+                        <span class="heading-icon"><i class="fa fa-star" aria-hidden="true"></i></span>
+                        <h3><a (click)="goToCategory('entertaiment',entertaiment_list)"> Entertaiment
+                                [{{entertaiment_list.length}}]</a> </h3>
                     </div>
                 </div>
             </div>
@@ -295,16 +254,17 @@
                 <div class="col-md-3 themeix-half" *ngFor="let item of entertaiment_list.slice(0,4); let $index = index">
                     <div class="single-video" (click)="imgClick(item)">
                         <div class="video-img">
-                            <a> 
+                            <a>
                                 <img [src]="item.imageSrc" [class.selected]="item === currentItem">
                             </a>
                             <span class="video-duration">{{item.duration}}</span>
                         </div>
                     </div>
                     <div class="video-content">
-                        <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
+                        <app-video-properties-min [currentItem]="item"></app-video-properties-min>
                     </div>
                 </div>
             </div>
         </div>
-</div>
+    </mat-card>
+</ng-template>

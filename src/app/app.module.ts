@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +29,9 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
+import { MaterialModule } from './modules/material.module';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -48,10 +52,12 @@ import { NoHyphenPipe } from './common/noHyphen.pipe';
     VideoPropertiesMinComponent,
     AppHeaderComponent,
     CategoryComponent,
+    PersonalInfoComponent,
     NoHyphenPipe
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     VgCoreModule,
     VgControlsModule,
@@ -59,6 +65,8 @@ import { NoHyphenPipe } from './common/noHyphen.pipe';
     VgBufferingModule,
     HttpClientModule,
     FormsModule,
+    MaterialModule,
+    ToastrModule.forRoot(),
     SweetAlert2Module.forRoot({
           buttonsStyling: false,
           customClass: 'modal-content',

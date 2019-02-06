@@ -20,6 +20,9 @@
                                     <span class="fa fa-thumbs-o-up like-icon fa-lg" style="padding-right: 5px; color: gray;"></span> <span>{{video.likeUsers.length}}</span>
                                     <span class="fa fa-thumbs-o-down dislike-icon fa-lg" style="padding-left: 10px; padding-right: 5px; color: gray;"></span> <span>{{video.disLikeUsers.length}}</span>
                                 </div>
+                                <div>
+                                    <span style="display: inline" *ngFor="let tag of video.tags" class="badge badge-primary" style="margin-right: 10px" >{{ tag | titlecase }}</span>
+                                </div>
                           </div>
                       </div>
                   </div>

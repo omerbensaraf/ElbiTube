@@ -4,6 +4,7 @@ import { IMedia } from '../../models/imadia.model';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { MediaService } from '../../services/media.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-watch',

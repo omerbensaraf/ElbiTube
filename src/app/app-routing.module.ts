@@ -9,6 +9,7 @@ import { WatchComponent } from './components/watch/watch.component';
 import {VideosResolver} from './VideoResolver';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,9 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    data: {
+      animation: 'HomePage'
+    },
     canActivate: [AuthGuardService]
   },
   {
@@ -34,6 +38,9 @@ const routes: Routes = [
   {
     path:'watch/:_id',
     component: WatchComponent,
+    data: {
+      animation: 'WatchPage'
+    },
     canActivate: [AuthGuardService],
     resolve: {
       videos: VideosResolver
@@ -47,6 +54,11 @@ const routes: Routes = [
   {
     path:'categories',
     component: CategoryComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path:'personal-info',
+    component: PersonalInfoComponent,
     canActivate: [AuthGuardService]
   },
   { 
