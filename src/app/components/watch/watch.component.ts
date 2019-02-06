@@ -4,6 +4,7 @@ import { IMedia } from '../../models/imadia.model';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { MediaService } from '../../services/media.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-watch',
@@ -17,7 +18,15 @@ import { MediaService } from '../../services/media.service';
     '../../css/owl.carouselcbed.css',
     '../../css/pgwslider.mincbed.css',
     '../../css/style.mincbed.css'
-  ]
+  ],
+  // animations: [
+  //   trigger('slide', [
+  //     transition(':enter',[
+  //       style({transform: 'translateX(-50%)'}),
+  //       animate(400)
+  //     ])
+  //   ])
+  // ]
 })
 export class WatchComponent implements OnInit {
 

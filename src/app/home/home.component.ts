@@ -5,6 +5,7 @@ import { IMedia } from '../models/imadia.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
 import { Router } from '@angular/router';
+import { trigger, state, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,23 @@ import { Router } from '@angular/router';
     '../css/owl.carouselcbed.css',
     '../css/pgwslider.mincbed.css',
     '../css/style.mincbed.css'
-  ]
+  ],
+  // animations: [
+  //   trigger('slide', [
+  //     // transition(':enter',[
+  //     //   style({transform: 'translateX(100%)'}),
+  //     //   animate(700)
+  //     // ])
+  //     transition('void => *', [
+  //       style({ transform: 'translateX(-100%)' }),
+  //       animate(1000)
+  //     ]),
+  //     transition('* => void', [
+  //       style({ transform: 'translateX(100%)' }),
+  //       animate(1000)
+  //     ])
+  //   ])
+  // ]
 })
 export class HomeComponent implements OnInit {
   sortVideos :  Array<IMedia>;
