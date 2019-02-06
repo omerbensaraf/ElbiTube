@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
   playList: Array<IMedia>;
   userEmail : String;
   homeLoading:boolean=false;
+  showErrorMsg = false;
+  showLoader: boolean = false;
 
   // All Home Page Categories Lists
   popularVideos_list: Array<IMedia>;
@@ -46,25 +48,31 @@ export class HomeComponent implements OnInit {
   
     this.userEmail = this.userService.getUserEmail();
 
-    this.mediaService.httpGetMedia().subscribe(data => { 
-      debugger;
-      this.sortVideos = this.sort(data);
-      this.mostPopularVideo = this.sortVideos[0];
-      this.mediaService.setVideoList(data);
-      //Init categories lists
-      this.top3_list = this.getTop3List(data);      
+    this.mediaService.httpGetMedia().subscribe(
+      data => { 
+        this.showLoader = true;
+        this.sortVideos = this.sort(data);
+        this.mostPopularVideo = this.sortVideos[0];
+        this.mediaService.setVideoList(data);
+        //Init categories lists
+        this.top3_list = this.getTop3List(data);      
 
-      this.popularVideos_list = this.mediaService.getPopularVideosList(data);
-      this.air_list = this.mediaService.getAirList(data);
-      this.land_list = this.mediaService.getLandList(data);
-      this.sea_list = this.mediaService.getSeaList(data);
-      this.ted_list = this.mediaService.getTedList(data);
-      this.tech_list = this.mediaService.getTechnologyList(data);
-      this.entertaiment_list = this.mediaService.getEntertaimentList(data);
-      //this.new_list = this.getNewList(data);
-      this.new_list = this.mediaService.getNewListByDate(data);
-      this.homeLoading=true;
-    });    
+        this.popularVideos_list = this.mediaService.getPopularVideosList(data);
+        this.air_list = this.mediaService.getAirList(data);
+        this.land_list = this.mediaService.getLandList(data);
+        this.sea_list = this.mediaService.getSeaList(data);
+        this.ted_list = this.mediaService.getTedList(data);
+        this.tech_list = this.mediaService.getTechnologyList(data);
+        this.entertaiment_list = this.mediaService.getEntertaimentList(data);
+        //this.new_list = this.getNewList(data);
+        this.new_list = this.mediaService.getNewListByDate(data);
+        this.homeLoading=true;
+        this.showLoader = false;
+        this.showErrorMsg = false;
+      },
+      error => {
+        this.showErrorMsg = true;
+      });    
   }
   
   imgClick(item:IMedia){

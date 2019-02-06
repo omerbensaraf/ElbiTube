@@ -45,7 +45,6 @@ export class AppComponent {
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    debugger;
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }
