@@ -17,7 +17,7 @@ export class EditorComponent {
   @Output() editSaved = new EventEmitter();
   @Output() editableInput = new EventEmitter();
   showEditor: boolean = false;
-  enableNewComment: boolean = true;
+  disabledNewComment: boolean = true;
 
   toggleEditor() {
     this.showEditor = !this.showEditor;
@@ -42,10 +42,10 @@ export class EditorComponent {
     //debugger;
     let content = this.getEditableContent();
     if (content != "") {
-      this.enableNewComment = false;
+      this.disabledNewComment = false;
     }
     else {
-      this.enableNewComment = true;
+      this.disabledNewComment = true;
     }
   }
 

@@ -142,13 +142,15 @@ function addComment(comment) {
 }
 
 async function updateParentsCounter(parent) {
-    /*var currParent = parent;
+    var currParent = parent;
     while (currParent !== null) {
         let query = { _id: currParent};
         let options = { new: true }; 
          await mongoose.model('Comment').findOneAndUpdate(query,  { $inc: { counter: 1 } },options,  
-         (err, doc)=> {});            
-    }*/
+         (err, doc)=> {
+             currParent = doc.parent;
+         });            
+    }
 }
 
 

@@ -26,10 +26,12 @@ export class CommentsComponent implements OnInit{
   }
 
   ngOnInit() {
+    debugger;
     this.commentService.getAllRootComments(this.video).subscribe((res)=>{
     this.comments = res;
     this.hasComments = this.comments.length > 0;
     });
+    debugger;
     this.commentService.updateComment().subscribe((comments: any) => {
     if(comments.length > 0 && comments[0].parent == null){
       this.comments = comments;

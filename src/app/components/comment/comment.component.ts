@@ -29,6 +29,7 @@ export class CommentComponent implements OnInit,OnChanges {
   repliesCount : number;
   
   ngOnInit() {
+    debugger;
   this.repliesCount = this.repliesCounter;
   //this.replayText = "View " + this.repliesCount + " replies"; 
   this.replayText = "View replies"; 
