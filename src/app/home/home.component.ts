@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
   userEmail : String;
   homeLoading:boolean=false;
   showErrorMsg = false;
-  showLoader: boolean = false;
 
   // All Home Page Categories Lists
   popularVideos_list: Array<IMedia>;
@@ -50,7 +49,6 @@ export class HomeComponent implements OnInit {
 
     this.mediaService.httpGetMedia().subscribe(
       data => { 
-        this.showLoader = true;
         this.sortVideos = this.sort(data);
         this.mostPopularVideo = this.sortVideos[0];
         this.mediaService.setVideoList(data);
@@ -67,7 +65,6 @@ export class HomeComponent implements OnInit {
         //this.new_list = this.getNewList(data);
         this.new_list = this.mediaService.getNewListByDate(data);
         this.homeLoading=true;
-        this.showLoader = false;
         this.showErrorMsg = false;
       },
       error => {
