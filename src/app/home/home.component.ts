@@ -19,23 +19,7 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
     '../css/owl.carouselcbed.css',
     '../css/pgwslider.mincbed.css',
     '../css/style.mincbed.css'
-  ],
-  // animations: [
-  //   trigger('slide', [
-  //     // transition(':enter',[
-  //     //   style({transform: 'translateX(100%)'}),
-  //     //   animate(700)
-  //     // ])
-  //     transition('void => *', [
-  //       style({ transform: 'translateX(-100%)' }),
-  //       animate(1000)
-  //     ]),
-  //     transition('* => void', [
-  //       style({ transform: 'translateX(100%)' }),
-  //       animate(1000)
-  //     ])
-  //   ])
-  // ]
+  ]
 })
 export class HomeComponent implements OnInit {
   sortVideos :  Array<IMedia>;

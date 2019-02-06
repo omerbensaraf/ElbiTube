@@ -30,8 +30,9 @@ import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
 import { MaterialModule } from './modules/material.module';
-import { OnsenModule } from 'ngx-onsenui';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,7 @@ import { PersonalInfoComponent } from './components/personal-info/personal-info.
     HttpClientModule,
     FormsModule,
     MaterialModule,
-    OnsenModule,
+    ToastrModule.forRoot(),
     SweetAlert2Module.forRoot({
           buttonsStyling: false,
           customClass: 'modal-content',

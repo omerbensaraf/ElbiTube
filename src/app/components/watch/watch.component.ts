@@ -18,15 +18,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     '../../css/owl.carouselcbed.css',
     '../../css/pgwslider.mincbed.css',
     '../../css/style.mincbed.css'
-  ],
-  // animations: [
-  //   trigger('slide', [
-  //     transition(':enter',[
-  //       style({transform: 'translateX(-50%)'}),
-  //       animate(400)
-  //     ])
-  //   ])
-  // ]
+  ]
 })
 export class WatchComponent implements OnInit {
 

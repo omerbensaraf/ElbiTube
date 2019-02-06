@@ -35,7 +35,6 @@
     "font-awesome": "^4.7.0",
     "ngx-onsenui": "^7.0.0",
     "ngx-toastr": "^9.1.1",
-    "onsenui": "^2.10.6",
     "pusher-js": "^4.2.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.1",
