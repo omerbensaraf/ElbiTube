@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -17,19 +16,7 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor() { }
   ngOnInit() {
-  }
-
-  goToUpload() {
-    this.router.navigate(['/upload']);
-  }
-
-  goToHome() {
-    this.router.navigate(['/home']);
-  }
-
-  goToCategories() {
-    this.router.navigate(['/categories']);
   }
 }
