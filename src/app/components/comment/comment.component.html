@@ -1,0 +1,26 @@
+<div>
+  <span style="font-weight: bold">{{user}}</span>
+  <span style="color:gray;margin-left: 5px;text-overflow: clip">{{time | fromNow}}</span>
+  <app-like style="margin-left: 5px;" [item] = "comment"></app-like>
+
+  <div style="font-weight: bold">{{content}}</div>
+  <!-- <span class="fa fa-thumbs-o-up"> 0 </span>
+  <span class="fa fa-thumbs-o-down"> 0 </span> -->
+  
+</div>
+<ngc-editor  (newComment)="addNewComment($event)" btnText="Replay">
+</ngc-editor>
+
+<button *ngIf= "repliesCount > 0" (click)="viewReplies()" class="btn btn-outline-warning btn-sm">{{replayText}}</button>
+<div *ngIf="showReplies">
+  <div>
+    <ul class="comments__list">
+      <li *ngFor="let replay of replies">
+        <ngc-comment [comment] = "replay" (updateParent)="updateChild($event)" [repliesCounter] = "replay.counter -1" [commentId]="replay._id" [video]="replay.videoId" 
+        [content]="replay.content" [time]="replay.time" [user]="replay.user">
+        </ngc-comment>
+      </li>
+    </ul>
+  </div>
+</div>
+<br/>

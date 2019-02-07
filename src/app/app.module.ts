@@ -18,6 +18,7 @@ import {MediaService} from './services/media.service';
 import { LikeComponent } from './components/like/like.component';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from './services/users.service';
+import { CommentService } from './services/comment.service';
 import { VideoPropertiesComponent } from './components/video-properties/video-properties.component';
 import { AutoCompleteSearchComponent } from './auto-complete-search/auto-complete-search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
@@ -26,6 +27,11 @@ import { WatchComponent } from './components/watch/watch.component';
 import { VideoPropertiesMinComponent } from './components/video-properties/video-properties-min/video-properties-min.component';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { EditorComponent } from './components/editor/editor.component';
+import { FromNowPipe } from './pipes/from-now.pipe';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommonModule } from '@angular/common';
+import { CommentsComponent } from './components/comments/comments.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
@@ -51,6 +57,10 @@ import { ToastrModule } from 'ngx-toastr';
     WatchComponent,
     VideoPropertiesMinComponent,
     AppHeaderComponent,
+    EditorComponent,
+    FromNowPipe,
+    CommentComponent,
+    CommentsComponent,
     CategoryComponent,
     PersonalInfoComponent,
     NoHyphenPipe
@@ -58,6 +68,7 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     AppRoutingModule,
     VgCoreModule,
     VgControlsModule,
@@ -77,6 +88,8 @@ import { ToastrModule } from 'ngx-toastr';
   providers: [    
     MediaService,
     UsersService,
+    HttpClientModule,
+    CommentService,
     AuthGuardService,
     HttpClientModule,
     AuthGuardService

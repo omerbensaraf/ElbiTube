@@ -1,0 +1,14 @@
+<br>
+<ngc-editor (newComment)="addNewComment($event)" btnText="Add Comment"></ngc-editor>
+
+<div *ngIf="hasComments">
+  <div>
+    <ul class="comments__list">
+      <li *ngFor="let comment of comments">
+        <ngc-comment (updateParent)="updateChild($event)" [repliesCounter]="comment.counter - 1"
+        [comment] = "comment" [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content"
+          [time]="comment.time" [user]="comment.user">
+        </ngc-comment>
+      </li>
+    </ul>
+  </div>

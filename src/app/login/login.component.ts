@@ -114,9 +114,9 @@ export class LoginComponent implements OnInit {
      this.usersService.signIn(this.email, this.password).subscribe(
         (data) => {
           this.hideShowSignInModal(false);
-          this.usersService.changeloggedInUser(data['email']);
+          this.usersService.changeloggedInUser("kkkk");
           this.hideShowSignInModal(false);
-          localStorage.setItem("email", data['email']);
+          localStorage.setItem("email","kkkk");
           this.router.navigate(['home']);
         },
         (error) => {
