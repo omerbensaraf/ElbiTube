@@ -34,6 +34,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
+import {AvatarModule} from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { NoHyphenPipe } from './common/noHyphen.pipe';
     VgBufferingModule,
     HttpClientModule,
     FormsModule,
+    AvatarModule,
     SweetAlert2Module.forRoot({
           buttonsStyling: false,
           customClass: 'modal-content',

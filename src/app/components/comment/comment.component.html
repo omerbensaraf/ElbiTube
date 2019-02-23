@@ -1,26 +1,27 @@
 <div>
+  <!-- <span class="fa fa-user" style="margin-right: 10px"></span> -->
+  <ngx-avatar style="margin-top:10px; display:inline-block;" name="{{user}}" value="5%" bgColor="#ffdc2d" fgColor="blue"
+   textSizeRatio="2.5" size="30" round="true"></ngx-avatar>
   <span style="font-weight: bold;font-size: 12px">{{user}}</span>
   <span style="color:gray;margin-left: 5px;text-overflow: clip;font-size: 13px">{{time | fromNow}}</span>
 </div>
-<div style="font-size: 14px">{{content}}</div>
-<div>
+<div style="font-size: 14px;margin-left:40px">{{content}}</div>
+<div style="margin-left:40px">
   <app-like [item]="comment"></app-like>
   <ngc-editor (newComment)="addNewComment($event)" btnText="Reply">
   </ngc-editor>
 </div>
-<div style="margin-bottom: 10px">
+<div style="margin-bottom: 10px;margin-left:40px">
   <button *ngIf="repliesCount > 0" (click)="viewReplies()" 
     style="padding:0; color:black; font-weight:bold;font-size: 14px"
      class="btn btn-link btn-xs">{{replyText}} 
       <span [class]="arrowClass"></span>
   </button>
   <div *ngIf="showReplies">
-    <ul class="comments__list">
-      <li *ngFor="let reply of replies">
+      <div *ngFor="let reply of replies" style="margin-left: 30px">
         <ngc-comment [comment]="reply" (updateParent)="updateChild($event)" [repliesCounter]="reply.counter -1" [commentId]="reply._id"
           [video]="reply.videoId" [content]="reply.content" [time]="reply.time" [user]="reply.user">
         </ngc-comment>
-      </li>
-    </ul>
+      </div>
   </div>
 </div>

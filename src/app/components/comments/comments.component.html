@@ -1,13 +1,10 @@
-<div style="margin-left: 20px; margin-top: 10px">
+<div style="margin-left: 30px; margin-top: 10px">
   <ngc-editor (newComment)="addNewComment($event)" btnText="Add Comment"></ngc-editor>
 </div>
 <div *ngIf="hasComments">
-    <ul class="comments__list">
-      <li *ngFor="let comment of comments">
-        <ngc-comment (updateParent)="updateChild($event)" [repliesCounter]="comment.counter - 1"
-        [comment] = "comment" [commentId]="comment._id" [video]="comment.videoId" [content]="comment.content"
-          [time]="comment.time" [user]="comment.user">
-        </ngc-comment>
-      </li>
-    </ul>
+  <div *ngFor="let comment of comments" style="margin-left: 30px">
+    <ngc-comment (updateParent)="updateChild($event)" [repliesCounter]="comment.counter - 1" [comment]="comment" [commentId]="comment._id"
+      [video]="comment.videoId" [content]="comment.content" [time]="comment.time" [user]="comment.user">
+    </ngc-comment>
   </div>
+</div>

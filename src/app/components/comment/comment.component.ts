@@ -6,6 +6,7 @@ import { FromNowPipe } from '../../pipes/from-now.pipe';
 import { CommentService } from '../../services/comment.service';
 import swal from 'sweetalert2';
 import { ReplyStatus } from '../../models/comment.model';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'ngc-comment',
@@ -71,7 +72,7 @@ export class CommentComponent implements OnInit,OnChanges {
   replyText;// = ReplyStatus.VR;
   arrowClass;
   replyStatus: ReplyStatus = ReplyStatus.HR;
-  constructor(private commentService: CommentService) { }
+  constructor(private commentService: CommentService,private userService : UsersService) { }
 
   @ViewChild(EditorComponent) newCommentEditor;
 
@@ -118,7 +119,7 @@ export class CommentComponent implements OnInit,OnChanges {
       sname : "Comment",
       parent: this.commentId,
       videoId: this.video,
-      user: this.user,
+      user: this.userService.getUserEmail(),
       time: +new Date(),
       content: $event,
       disLikeUsers: [],
