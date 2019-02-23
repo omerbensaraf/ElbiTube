@@ -111,12 +111,13 @@ export class LoginComponent implements OnInit {
       isFormValid = false;
     }
     if (isFormValid) {
+      debugger;
      this.usersService.signIn(this.email, this.password).subscribe(
         (data) => {
           this.hideShowSignInModal(false);
-          this.usersService.changeloggedInUser("kkkk");
+          this.usersService.changeloggedInUser(data['email']);
           this.hideShowSignInModal(false);
-          localStorage.setItem("email","kkkk");
+          localStorage.setItem("email",this.email);
           this.router.navigate(['home']);
         },
         (error) => {
