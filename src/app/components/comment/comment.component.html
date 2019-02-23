@@ -1,26 +1,26 @@
 <div>
-  <span style="font-weight: bold">{{user}}</span>
-  <span style="color:gray;margin-left: 5px;text-overflow: clip">{{time | fromNow}}</span>
-  <app-like style="margin-left: 5px;" [item] = "comment"></app-like>
-
-  <div style="font-weight: bold">{{content}}</div>
-  <!-- <span class="fa fa-thumbs-o-up"> 0 </span>
-  <span class="fa fa-thumbs-o-down"> 0 </span> -->
-  
+  <span style="font-weight: bold;font-size: 12px">{{user}}</span>
+  <span style="color:gray;margin-left: 5px;text-overflow: clip;font-size: 13px">{{time | fromNow}}</span>
 </div>
-<ngc-editor  (newComment)="addNewComment($event)" btnText="Replay">
-</ngc-editor>
-
-<button *ngIf= "repliesCount > 0" (click)="viewReplies()" class="btn btn-outline-warning btn-sm">{{replayText}}</button>
-<div *ngIf="showReplies">
-  <div>
+<div style="font-size: 14px">{{content}}</div>
+<div>
+  <app-like [item]="comment"></app-like>
+  <ngc-editor (newComment)="addNewComment($event)" btnText="Reply">
+  </ngc-editor>
+</div>
+<div style="margin-bottom: 10px">
+  <button *ngIf="repliesCount > 0" (click)="viewReplies()" 
+    style="padding:0; color:black; font-weight:bold;font-size: 14px"
+     class="btn btn-link btn-xs">{{replyText}} 
+      <span [class]="arrowClass"></span>
+  </button>
+  <div *ngIf="showReplies">
     <ul class="comments__list">
-      <li *ngFor="let replay of replies">
-        <ngc-comment [comment] = "replay" (updateParent)="updateChild($event)" [repliesCounter] = "replay.counter -1" [commentId]="replay._id" [video]="replay.videoId" 
-        [content]="replay.content" [time]="replay.time" [user]="replay.user">
+      <li *ngFor="let reply of replies">
+        <ngc-comment [comment]="reply" (updateParent)="updateChild($event)" [repliesCounter]="reply.counter -1" [commentId]="reply._id"
+          [video]="reply.videoId" [content]="reply.content" [time]="reply.time" [user]="reply.user">
         </ngc-comment>
       </li>
     </ul>
   </div>
 </div>
-<br/>
