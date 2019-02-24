@@ -12,7 +12,7 @@ export interface Comment {
   }
 
 
-export enum ReplayStatus{
+export enum ReplyStatus{
   VR = "View replies",
   HR = "Hide replies"
 }
