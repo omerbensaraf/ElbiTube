@@ -36,7 +36,9 @@ import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
 import {AvatarModule} from 'ngx-avatar';
-
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { MaterialModule } from './modules/material.module';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +62,8 @@ import {AvatarModule} from 'ngx-avatar';
     CommentComponent,
     CommentsComponent,
     CategoryComponent,
-    NoHyphenPipe
+    NoHyphenPipe,
+    PersonalInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,8 @@ import {AvatarModule} from 'ngx-avatar';
     HttpClientModule,
     FormsModule,
     AvatarModule,
+    MaterialModule,
+    ToastrModule.forRoot(),
     SweetAlert2Module.forRoot({
           buttonsStyling: false,
           customClass: 'modal-content',
