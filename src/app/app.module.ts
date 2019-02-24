@@ -35,13 +35,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
-<<<<<<< HEAD
 import {AvatarModule} from 'ngx-avatar';
-=======
-import { MaterialModule } from './modules/material.module';
-import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
-import { ToastrModule } from 'ngx-toastr';
->>>>>>> b5018d76bf67e1aa10faf1ddcd781fb846a4b694
 
 @NgModule({
   declarations: [
@@ -66,7 +60,6 @@ import { ToastrModule } from 'ngx-toastr';
     CommentComponent,
     CommentsComponent,
     CategoryComponent,
-    PersonalInfoComponent,
     NoHyphenPipe
   ],
   imports: [
@@ -80,12 +73,7 @@ import { ToastrModule } from 'ngx-toastr';
     VgBufferingModule,
     HttpClientModule,
     FormsModule,
-<<<<<<< HEAD
     AvatarModule,
-=======
-    MaterialModule,
-    ToastrModule.forRoot(),
->>>>>>> b5018d76bf67e1aa10faf1ddcd781fb846a4b694
     SweetAlert2Module.forRoot({
           buttonsStyling: false,
           customClass: 'modal-content',
