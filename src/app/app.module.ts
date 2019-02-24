@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +35,13 @@ import { CommentsComponent } from './components/comments/comments.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
+<<<<<<< HEAD
 import {AvatarModule} from 'ngx-avatar';
+=======
+import { MaterialModule } from './modules/material.module';
+import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { ToastrModule } from 'ngx-toastr';
+>>>>>>> b5018d76bf67e1aa10faf1ddcd781fb846a4b694
 
 @NgModule({
   declarations: [
@@ -59,10 +66,12 @@ import {AvatarModule} from 'ngx-avatar';
     CommentComponent,
     CommentsComponent,
     CategoryComponent,
+    PersonalInfoComponent,
     NoHyphenPipe
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     AppRoutingModule,
     VgCoreModule,
@@ -71,7 +80,12 @@ import {AvatarModule} from 'ngx-avatar';
     VgBufferingModule,
     HttpClientModule,
     FormsModule,
+<<<<<<< HEAD
     AvatarModule,
+=======
+    MaterialModule,
+    ToastrModule.forRoot(),
+>>>>>>> b5018d76bf67e1aa10faf1ddcd781fb846a4b694
     SweetAlert2Module.forRoot({
           buttonsStyling: false,
           customClass: 'modal-content',

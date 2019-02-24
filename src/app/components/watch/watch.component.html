@@ -1,42 +1,43 @@
-<div class="boxshadow pt-40 pb-40">
-        <div class="container" style="padding-left: 0">
-            <div class="row">
-                <div class="col-md-12" style="display: -webkit-box;">
-                    <div class="col-md-9 main-video" >
-                        <div class="single-video">
-                            <div class="video-img" style="max-height: 100%; display: grid">
-                                <app-player [videoUrl]="currentItem.src"></app-player>
-                            </div>
-                        </div>                    
-                        <span class="video-content">
-                            <app-video-properties [currentItem] = "currentItem"></app-video-properties> 
-                        </span>
-                    </div>
-                    <div class="right-col">
-                        <div class="col-md-3" style="display:block; max-width: 100%;" *ngFor="let item of playList; let $index = index">
-                            <div class="single-video">
-                                <div class="video-img">
-                                    <a (click)="imgClick(item)"> 
-                                        <img [src]="item.imageSrc" alt=""
-                                        (click)="imgClick(item)"
-                                        [class.selected]="item === currentItem">
-                                    </a>
-                                    <span class="video-duration">{{item.duration}}</span>
-                                </div>
-                            </div>
-                            <span class="video-content">
-                                <app-video-properties-min [currentItem] = "item"></app-video-properties-min>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+<div style="margin:2% 0 0 20%; display: flex">
+    <mat-card style="background: white; width:53%;">
+        <div class="single-video" (click)="imgClick(currentItem)">
+            <div class="video-img" style="max-height: 100%; display: grid">
+                <app-player [videoUrl]="currentItem.src"></app-player>
             </div>
+            <span class="caption">{{currentItem.duration}}</span>
         </div>
+<<<<<<< HEAD
         <ngc-comments [video] = "videoId"></ngc-comments>
     </div>
 
     
      
     
+=======
+        <span class="video-content">
+            <app-video-properties [currentItem]="currentItem"></app-video-properties>
+        </span>
+    </mat-card>
+
+    <mat-card style="background: white; width:20%; margin-left:2em">
+        <div class="col-md-3" style="display:block; max-width: 100%;" *ngFor="let item of playList; let $index = index">
+            <div class="single-video">
+                <div class="video-img">
+                    <a (click)="imgClick(item)">
+                        <img [src]="item.imageSrc" alt="" (click)="imgClick(item)" [class.selected]="item === currentItem">
+                    </a>
+                    <span class="video-duration">{{item.duration}}</span>
+                </div>
+            </div>
+            <span class="video-content">
+                <app-video-properties-min [currentItem]="item"></app-video-properties-min>
+            </span>
+        </div>
+    </mat-card>
+</div>
+    <div style="background-color: white;height: 550px; overflow-y: scroll; width: 1300px;margin-left: 300px; overflow-x: scroll;">
+            <ngc-comments [video] = "videoId"></ngc-comments>
+    </div>
+>>>>>>> b5018d76bf67e1aa10faf1ddcd781fb846a4b694
     
     

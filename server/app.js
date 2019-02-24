@@ -7,7 +7,7 @@ const Video = require('./models/videos');
 const Comment = require('./models/comment');
 const cors = require('cors');
 const config = require('./config');
-const getDuration = require('get-video-duration');
+const {getVideoDurationInSeconds} = require('get-video-duration');
 const socketIO = require('socket.io');
 // Get and Set ffmpeg library for frame generation
 const path = require('path');
@@ -326,7 +326,7 @@ app.post('/upload', (req, res) => {
             
             console.log(">>> create a frame! ");
             // From a local path...
-            getDuration(req.file.path).then((duration) => {
+            getVideoDurationInSeconds(req.file.path).then((duration) => {
                 console.log(">>> duration: " +duration);
             });
 

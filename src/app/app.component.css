@@ -1,0 +1,18 @@
+.spinner {
+    border: 16px solid yellow;
+    border-top: 16px solid #337ab7;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    animation: spin 700ms linear infinite;
+    position: fixed;
+    z-index: 1000;
+    left: 43%;
+    top: 38%;
+}
+
+@keyframes spin {
+    0% {transform: rotate(0deg)}
+    100% {transform: rotate(-360deg)}
+}
