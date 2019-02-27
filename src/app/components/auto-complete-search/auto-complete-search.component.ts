@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import {Router} from "@angular/router";
-import { MediaService } from '../services/media.service';
-import { IMedia } from '../models/imadia.model';
+import { MediaService } from '../../services/media.service';
+import { IMedia } from '../../models/imadia.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
@@ -9,13 +9,13 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   templateUrl: './auto-complete-search.component.html',
   styleUrls: [
     './auto-complete-search.component.scss',
-    '../css/bootstrap.mincbed.css',
-    '../css/font-awesome.mincbed.css',
-    '../css/googleCss.css',
-    '../css/megamenucbed.css',
-    '../css/owl.carouselcbed.css',
-    '../css/pgwslider.mincbed.css',
-    '../css/style.mincbed.css'
+    '../../css/bootstrap.mincbed.css',
+    '../../css/font-awesome.mincbed.css',
+    '../../css/googleCss.css',
+    '../../css/megamenucbed.css',
+    '../../css/owl.carouselcbed.css',
+    '../../css/pgwslider.mincbed.css',
+    '../../css/style.mincbed.css'
   ],
   host: {
     '(document:click)': 'closeAutocompleteDiv($event)',

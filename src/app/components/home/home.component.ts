@@ -1,9 +1,9 @@
 import { Component, OnInit, OnChanges, DoCheck, Output, EventEmitter } from '@angular/core';
-import { MediaService } from '../services/media.service';
-import { UsersService } from '../services/users.service';
-import { IMedia } from '../models/imadia.model';
+import { MediaService } from '../../services/media.service';
+import { UsersService } from '../../services/users.service';
+import { IMedia } from '../../models/imadia.model';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { VideoPropertiesComponent } from '../components/video-properties/video-properties.component';
+import { VideoPropertiesComponent } from '../video-properties/video-properties.component';
 import { Router } from '@angular/router';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 
@@ -12,13 +12,13 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
   templateUrl: './home.component.html',
   styleUrls: [
     './home.component.scss',
-    '../css/bootstrap.mincbed.css',
-    '../css/font-awesome.mincbed.css',
-    '../css/googleCss.css',
-    '../css/megamenucbed.css',
-    '../css/owl.carouselcbed.css',
-    '../css/pgwslider.mincbed.css',
-    '../css/style.mincbed.css'
+    '../../css/bootstrap.mincbed.css',
+    '../../css/font-awesome.mincbed.css',
+    '../../css/googleCss.css',
+    '../../css/megamenucbed.css',
+    '../../css/owl.carouselcbed.css',
+    '../../css/pgwslider.mincbed.css',
+    '../../css/style.mincbed.css'
   ]
 })
 export class HomeComponent implements OnInit {

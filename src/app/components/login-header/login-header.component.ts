@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../../services/users.service';
 import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-header',
   templateUrl: './login-header.component.html',
-  styleUrls: ['./login-header.component.scss', '../css/bootstrap.mincbed.css', '../css/style.mincbed.css', '../css/font-awesome.mincbed.css']
+  styleUrls: ['./login-header.component.scss', '../../css/bootstrap.mincbed.css', '../../css/style.mincbed.css', '../../css/font-awesome.mincbed.css']
 })
 export class LoginHeaderComponent implements OnInit {
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaService } from '../services/media.service';
+import { MediaService } from '../../services/media.service';
 import { Observable } from 'rxjs';
 import swal from 'sweetalert2';
 

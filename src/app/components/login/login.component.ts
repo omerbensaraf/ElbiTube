@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {UsersService} from '../services/users.service';
+import {UsersService} from '../../services/users.service';
 import {Router} from "@angular/router";
 import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss', '../css/bootstrap.mincbed.css']
+  styleUrls: ['./login.component.scss', '../../css/bootstrap.mincbed.css']
 })
 export class LoginComponent implements OnInit {
 
