@@ -11,7 +11,8 @@ export interface IMedia {
   category: String,
   uploadedDate: Date,
   tags: string[],
-  tagsAsString: string
+  tagsAsString: string,
+  duration: string
 }
 
 export enum Updates{
