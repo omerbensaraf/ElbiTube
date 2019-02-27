@@ -1554,7 +1554,7 @@ ul.comments-list li.children {
 .comment-pic,
 .comment-text {
     display: inline-block;
-    float: left
+    float: left;
 }
 
 .comment:after,

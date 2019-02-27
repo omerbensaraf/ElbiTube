@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 // Create a schema
 var videoSchema = new Schema({
+    sname : String,
     title: String,
     src: String,
     imageSrc: String,

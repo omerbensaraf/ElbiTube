@@ -14,7 +14,6 @@ export class UsersService {
   loggedInUser = this.userSource.asObservable();
   baseUrl = 'http://11.0.73.2:3000/user';
 
-
   constructor(private http: HttpClient) { }
 
   getUserEmail(){

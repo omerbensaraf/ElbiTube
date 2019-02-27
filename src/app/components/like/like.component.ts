@@ -14,7 +14,7 @@ export class LikeComponent implements OnInit {
   likeImg : String;
   disLikeSelected : boolean;
   disLikeImg : String;
-  @Input() item : IMedia;
+  @Input() item : any;
   //@Input() userEmail : String;
   private  userEmail : String;
   updates : Updates;
@@ -30,7 +30,8 @@ export class LikeComponent implements OnInit {
     this.initLikeStatus();
     this.likeExists=true; 
       
-    this.mediaService.getLikeUpdates().subscribe((item: IMedia) => {
+    this.mediaService.getLikeUpdates().subscribe((item: any) => {
+      debugger;
         if(this.item._id === item._id){
           this.item.likeUsers = item.likeUsers;
           this.item.disLikeUsers = item.disLikeUsers;
@@ -51,7 +52,7 @@ export class LikeComponent implements OnInit {
           this.updates = Updates.ALRDL;      
         }
       }
-      this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
+      this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail,this.item.sname);
   }
 
   
@@ -65,7 +66,8 @@ export class LikeComponent implements OnInit {
       this.updates = Updates.ADLRL;
       }
     }
-    this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail);
+
+    this.mediaService.likeSocket(this.updates,this.item._id,this.userEmail,this.item.sname);
   }
 
   initLikeStatus(){

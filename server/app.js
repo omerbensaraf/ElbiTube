@@ -86,6 +86,17 @@ io.on('connection', (socket) => {
         addDisLikeRemoveLike(id, userEmail, model);
     });
 
+    socket.on('AddDisLike', function (id, userEmail,model) {
+      
+        addDisLike(id, userEmail,model);
+    });
+    socket.on('RemoveDisLike', function (id, userEmail,model) {
+        removeDisLike(id, userEmail,model);
+    });
+    socket.on('AddDisLikeRemoveLike', function (id, userEmail,model) {
+        addDisLikeRemoveLike(id, userEmail,model);
+    });
+
 
 
 });
@@ -132,10 +143,10 @@ app.get('/videos', function (req, res) {
 
 function addComment(comment) {
     Comment.create(comment).then((result) => {
-        updateParentsCounter(comment.parent).then((res) => {
+        updateParentsCounter(comment.parent).then((res)=>{
             let comments = {
                 parent: comment.parent,
-                videoId: comment.videoId
+                videoId : comment.videoId
             }
             mongoose.model('Comment').find(comments, function (err, comments) {
                 io.emit("update-comment", comments);
@@ -397,16 +408,6 @@ function getFileExtensionAndValidation(filename) {
     else return -1;
 }
 
-/*app.get('/removeAllVideos', (req, res, next) => {    
-    Video.remove({})
-    .exec()
-    .then(() => {        
-        return res.status(200).json({});
-    })
-    .catch((err) => {
-        return res.status(500).json(err);
-    });
-});*/
 // Get home page
 app.get("*", function (req, res) {
     res.sendFile(__dirname + "/views/index.html");
