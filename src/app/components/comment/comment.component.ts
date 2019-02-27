@@ -5,7 +5,8 @@ import { EditorComponent } from '../editor/editor.component';
 import { FromNowPipe } from '../../pipes/from-now.pipe';
 import { CommentService } from '../../services/comment.service';
 import swal from 'sweetalert2';
-import { ReplayStatus } from '../../models/comment.model';
+import { ReplyStatus } from '../../models/comment.model';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'ngc-comment',
@@ -31,23 +32,30 @@ export class CommentComponent implements OnInit,OnChanges {
   ngOnInit() {
     debugger;
   this.repliesCount = this.repliesCounter;
-  //this.replayText = "View " + this.repliesCount + " replies"; 
-  this.replayText = "View replies"; 
+  //this.replyText = "View " + this.repliesCount + " replies"; 
+  this.replyText = "View replies"; 
+  this.arrowClass="fa fa-angle-down";
     this.commentService.updateComment().subscribe((replies: any) => {
       debugger;
       if (replies.length > 0 && this.commentId == replies[0].parent) {
         this.replies = replies;
         this.repliesCount = replies.length;
-
+        this.replyStatus = ReplyStatus.VR;
+       
+        this.replyText = "Hide replies";
+        this.arrowClass="fa fa-angle-up"; 
+        if (this.replies.length > 0) {
+          this.showReplies = true;
+        }
         this.updateParent.emit({commentId : this.commentId,repliesCounter: this.replies.length});
       }
     });
   }
 
   updateChild($event){
-    this.replies.forEach(replay=>{
-      if(replay._id === $event.commentId){
-        replay.counter = $event.repliesCounter;
+    this.replies.forEach(reply=>{
+      if(reply._id === $event.commentId){
+        reply.counter = $event.repliesCounter;
       }
     })
     debugger;
@@ -61,43 +69,45 @@ export class CommentComponent implements OnInit,OnChanges {
   replies: Array<any> = [];
 
   showReplies: Boolean;
-  replayText;// = ReplayStatus.VR;
-  replayStatus: ReplayStatus = ReplayStatus.HR;
-  constructor(private commentService: CommentService) { }
+  replyText;// = ReplyStatus.VR;
+  arrowClass;
+  replyStatus: ReplyStatus = ReplyStatus.HR;
+  constructor(private commentService: CommentService,private userService : UsersService) { }
 
   @ViewChild(EditorComponent) newCommentEditor;
 
   viewReplies() {
     debugger;
     //TODO change to this.replies.length == 0
-    if (this.replayStatus == ReplayStatus.HR) {
+    if (this.replyStatus == ReplyStatus.HR) {
       if (this.replies.length >= 0) {
         this.commentService.getReplies(this.commentId).subscribe((res) => {
           debugger;
           this.replies = res;
-          this.replayStatus = ReplayStatus.VR;
-          //this.replayText = ReplayStatus.HR;
-          //this.replayText = "Hide " + this.replies.length + " replies"; 
-          this.replayText = "Hide replies"; 
+          this.replyStatus = ReplyStatus.VR;
+          //this.replyText = ReplyStatus.HR;
+          //this.replyText = "Hide " + this.replies.length + " replies"; 
+          this.replyText = "Hide replies";
+          this.arrowClass="fa fa-angle-up"; 
           if (this.replies.length > 0) {
             this.showReplies = true;
           }
         });
       }
       else {
-        this.replayStatus = ReplayStatus.VR;
-        //this.replayText = ReplayStatus.HR;
-        //this.replayText = "Hide " + this.replies.length + " replies";
-        this.replayText = "Hide replies";
+        this.replyStatus = ReplyStatus.VR;
+        this.replyText = "Hide replies";
+        this.arrowClass="fa fa-angle-up";
         this.showReplies = true;
 
       }
     }
     else {
-      this.replayStatus = ReplayStatus.HR;
-      //this.replayText = ReplayStatus.VR;
-      //this.replayText = "View " + this.replies.length + " replies";
-      this.replayText = "View replies";
+      this.replyStatus = ReplyStatus.HR;
+      //this.replyText = ReplyStatus.VR;
+      //this.replyText = "View " + this.replies.length + " replies";
+      this.replyText = "View replies";
+      this.arrowClass="fa fa-angle-down";
       this.showReplies = false;
     }
   }
@@ -109,7 +119,7 @@ export class CommentComponent implements OnInit,OnChanges {
       sname : "Comment",
       parent: this.commentId,
       videoId: this.video,
-      user: this.user,
+      user: this.userService.getUserEmail(),
       time: +new Date(),
       content: $event,
       disLikeUsers: [],

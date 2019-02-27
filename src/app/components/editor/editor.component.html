@@ -1,10 +1,13 @@
-<button *ngIf="!showEditor" (click)="toggleEditor()" class="btn btn-outline-primary btn-sm">{{btnText}}</button>
-<div *ngIf="showEditor" style="width: 600px">
+<button *ngIf="!showEditor" (click)="toggleEditor()" style="font-size: 14px;color:gray"
+ class="btn btn-link btn-xs">{{btnText}}</button>
+<div *ngIf="showEditor" style="width: 500px">
   <div>
    <textarea [placeholder]="btnText" rows="3" (input)="onInput($event)" class="editor" #editableContentElement></textarea>
   </div>
    <div style="float: right">
-    <button (click)="cancel()" class="btn btn-outline-danger btn-sm">Cancel</button>
-    <button (click)="addNewComment()" [disabled]="disabledNewComment" class="btn btn-outline-primary btn-sm">{{btnText}}</button>
+    <button (click)="cancel()" class="btn btn-link btn-xs" style="color:red;font-size: 14px">Cancel</button>
+    <button (click)="addNewComment()" [disabled]="disabledNewComment" 
+    style="font-size: 14px"
+    class="btn btn-link btn-xs">{{btnText}}</button>
   </div>
 </div>

@@ -19,8 +19,8 @@ export class LikeComponent implements OnInit {
   private  userEmail : String;
   updates : Updates;
   likeExists:boolean=false;
-  likeClass:string="fa fa-thumbs-o-up";
-  disLikeClass:string="fa fa-thumbs-o-down";
+  likeClass:string="fa fa-thumbs-up like-unselected";
+  disLikeClass:string="fa fa-thumbs-down dislike-unselected";
 
   constructor(private mediaService : MediaService, private usersService: UsersService) { }
   
@@ -73,20 +73,20 @@ export class LikeComponent implements OnInit {
   initLikeStatus(){
     if(this.item.likeUsers.includes(this.userEmail)){
       this.likeSelected = true;
-      this.likeClass="fa fa-thumbs-up";
+      this.likeClass="fa fa-thumbs-up like-selected";
     }
     else{
       this.likeSelected = false;
-      this.likeClass="fa fa-thumbs-o-up";
+      this.likeClass="fa fa-thumbs-up like-unselected";
     }
 
     if(this.item.disLikeUsers.includes(this.userEmail)){
       this.disLikeSelected = true;
-      this.disLikeClass="fa fa-thumbs-down";
+      this.disLikeClass="fa fa-thumbs-down dislike-selected";
     }
     else{
       this.disLikeSelected = false;
-      this.disLikeClass="fa fa-thumbs-o-down";
+      this.disLikeClass="fa fa-thumbs-down dislike-unselected";
     }
   } 
 

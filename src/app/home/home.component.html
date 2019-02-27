@@ -11,15 +11,6 @@
                     <a>
                         <img [src]="mostPopularVideo.imageSrc" style="width: 100%; height: 486px">
                     </a>
-
-<div class="categories">   
-    <div class="container themeix-ptu" *ngIf="new_list !== undefined && new_list.length > 0" >
-        <div class="row">
-            <div class="col-md-12">
-                <div class="themeix-section-h section-heading-four">
-                    <span class="heading-icon"><i class="fa fa-space-shuttle" aria-hidden="true"></i></span>
-                    <!-- <h3><a [routerLink]="['/category','new-uploads']">New Uploads [{{new_list.length}}]</a></h3> -->
-                    <h3 ><a (click)="goToCategory('new-uploads',new_list)">  New Uploads [{{new_list.length}}]</a> </h3> 
                 </div>
                 <span class="caption">{{mostPopularVideo.duration}}</span>
             </div>

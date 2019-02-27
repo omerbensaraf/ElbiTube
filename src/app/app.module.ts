@@ -35,10 +35,10 @@ import { CommentsComponent } from './components/comments/comments.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import { CategoryComponent } from './components/category/category.component';
 import { NoHyphenPipe } from './common/noHyphen.pipe';
-import { MaterialModule } from './modules/material.module';
+import {AvatarModule} from 'ngx-avatar';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
+import { MaterialModule } from './modules/material.module';
 import { ToastrModule } from 'ngx-toastr';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,8 +62,8 @@ import { ToastrModule } from 'ngx-toastr';
     CommentComponent,
     CommentsComponent,
     CategoryComponent,
-    PersonalInfoComponent,
-    NoHyphenPipe
+    NoHyphenPipe,
+    PersonalInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +76,7 @@ import { ToastrModule } from 'ngx-toastr';
     VgBufferingModule,
     HttpClientModule,
     FormsModule,
+    AvatarModule,
     MaterialModule,
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot({
