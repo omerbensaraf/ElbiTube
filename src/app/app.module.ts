@@ -39,6 +39,11 @@ import {AvatarModule} from 'ngx-avatar';
 import { PersonalInfoComponent } from './components/personal-info/personal-info.component';
 import { MaterialModule } from './modules/material.module';
 import { ToastrModule } from 'ngx-toastr';
+
+import { QuillModule } from 'ngx-quill';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +83,18 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     AvatarModule,
     MaterialModule,
+    QuillModule.forRoot({
+      modules: {
+        syntax: true,
+        toolbar: [
+          ['bold', 'italic', 'underline'],        // toggled buttons
+          [{ 'direction': 'rtl' }],                         // text direction
+          [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+          [{ 'color': [] }],          // dropdown with defaults from theme
+          ['link']                         // link and image, video
+        ]
+      }
+    }),
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot({
           buttonsStyling: false,

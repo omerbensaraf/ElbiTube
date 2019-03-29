@@ -1,8 +1,9 @@
 <button *ngIf="!showEditor" (click)="toggleEditor()" style="font-size: 14px;color:gray"
- class="btn btn-link btn-xs">{{btnText}}</button>
+ class="btn btn-link btn-xs">{{btnText}} </button>
 <div *ngIf="showEditor" style="width: 500px">
   <div>
-   <textarea [placeholder]="btnText" rows="3" (input)="onInput($event)" class="editor" #editableContentElement></textarea>
+   <quill-editor class="ql-editor" [style]="{height: '50px'}"  [modules]="modules"
+    (onContentChanged)="setContent($event)" format="html" [(ngModel)]="htmlFormat"></quill-editor>
   </div>
    <div style="float: right">
     <button (click)="cancel()" class="btn btn-link btn-xs" style="color:red;font-size: 14px">Cancel</button>
