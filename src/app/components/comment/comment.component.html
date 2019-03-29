@@ -5,7 +5,7 @@
   <span style="font-weight: bold;font-size: 12px">{{user}}</span>
   <span style="color:gray;margin-left: 5px;text-overflow: clip;font-size: 13px">{{time | fromNow}}</span>
 </div>
-<div style="font-size: 14px;margin-left:40px">{{content}}</div>
+<div style="font-size: 14px;margin-left:40px" class="ql-editor" [innerHtml]="content"></div>
 <div style="margin-left:40px">
   <app-like [item]="comment"></app-like>
   <ngc-editor (newComment)="addNewComment($event)" btnText="Reply">
@@ -19,7 +19,7 @@
   </button>
   <div *ngIf="showReplies">
       <div *ngFor="let reply of replies" style="margin-left: 30px">
-        <ngc-comment [comment]="reply" (updateParent)="updateChild($event)" [repliesCounter]="reply.counter -1" [commentId]="reply._id"
+        <ngc-comment  [comment]="reply" (updateParent)="updateChild($event)" [repliesCounter]="reply.counter -1" [commentId]="reply._id"
           [video]="reply.videoId" [content]="reply.content" [time]="reply.time" [user]="reply.user">
         </ngc-comment>
       </div>

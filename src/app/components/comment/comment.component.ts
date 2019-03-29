@@ -7,6 +7,7 @@ import { CommentService } from '../../services/comment.service';
 import swal from 'sweetalert2';
 import { ReplyStatus } from '../../models/comment.model';
 import { UsersService } from '../../services/users.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ngc-comment',
@@ -30,6 +31,7 @@ export class CommentComponent implements OnInit,OnChanges {
   repliesCount : number;
   
   ngOnInit() {
+    this.content = this.sanitizer.bypassSecurityTrustHtml(this.content);
     debugger;
   this.repliesCount = this.repliesCounter;
   //this.replyText = "View " + this.repliesCount + " replies"; 
@@ -72,7 +74,7 @@ export class CommentComponent implements OnInit,OnChanges {
   replyText;// = ReplyStatus.VR;
   arrowClass;
   replyStatus: ReplyStatus = ReplyStatus.HR;
-  constructor(private commentService: CommentService,private userService : UsersService) { }
+  constructor(private sanitizer: DomSanitizer, private commentService: CommentService,private userService : UsersService) { }
 
   @ViewChild(EditorComponent) newCommentEditor;
 
@@ -126,9 +128,7 @@ export class CommentComponent implements OnInit,OnChanges {
       likeUsers: [],
       counter : 1
     };
-    /*this.commentService.postComment(comment).subscribe(data => {
-      swal('Thank for your comment', 'success');
-    });*/
+
     this.commentService.commentSocket(comment);
 
     // We reset the content of the editor

@@ -36,10 +36,6 @@ export class CommentsComponent implements OnInit{
     if(comments.length > 0 && comments[0].parent == null){
       this.comments = comments;
       this.hasComments = true;
-      /*if(comments[0].user == this.userService.getUserEmail()){
-        swal('Thank for your comment','success');
-      }*/
-      
     }
   });
 }
@@ -66,9 +62,7 @@ updateChild($event){
       likeUsers:[],
       counter : 1
     };
-    this.commentService.commentSocket(comment);/*.subscribe(data=>{
-      swal('Thank for your comment','success');
-    });*/
+    this.commentService.commentSocket(comment);
 
     // We reset the content of the editor
     this.newCommentEditor.setEditableContent('');
